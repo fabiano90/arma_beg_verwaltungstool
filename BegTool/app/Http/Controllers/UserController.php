@@ -41,10 +41,10 @@ class UserController extends BaseController {
         	$user = new User;
 		    $user->firstname = Request::input('firstname');
 		    $user->lastname = Request::input('lastname');
-		 /*   $user->username = Request::input('username');
-		    $user->email = Request::input('email');
+		   // $user->username = Request::input('username');
+		    //$user->email = Request::input('email');
 		    $user->birthdate = Request::input('birthdate');
-		    $user->password = Hash::make(Request::input('password'));*/
+		   /* $user->password = Hash::make(Request::input('password'));*/
 		    $user->save();
 		 
 		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
@@ -63,10 +63,10 @@ class UserController extends BaseController {
     {
         $user = User::find($id);
         $rules = User::$rules;
-        $rules['username'] = '';
-        $rules['password'] = '';
-        $rules['password_confirmation'] = '';
-        $rules['email'] = 'required|email|unique:users,email,'.$user->id;
+        //$rules['username'] = '';
+        //$rules['password'] = '';
+        //$rules['password_confirmation'] = '';
+        //$rules['email'] = 'required|email|unique:users,email,'.$user->id;
         $validator = Validator::make(Request::all(), $rules);
  
         if ($validator->passes()) 
@@ -75,7 +75,7 @@ class UserController extends BaseController {
             
             $user->firstname = Request::input('firstname');
             $user->lastname = Request::input('lastname');
-            $user->email = Request::input('email');
+            //$user->email = Request::input('email');
             $user->birthdate = Request::input('birthdate');
            // $user->password = Hash::make(Request::input('password'));
             $user->save();

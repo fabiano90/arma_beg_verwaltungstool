@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <h2>Studenten</h2>
+    <h2>Nutzer mit Geburtsdaten</h2>
     <div class="table-responsive">
 	    <table class="table table-striped table-hover">
 	    	<thead>
