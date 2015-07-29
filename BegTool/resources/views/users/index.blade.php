@@ -6,7 +6,7 @@
 	    <table class="table table-striped table-hover">
 	    	<thead>
 	    		<tr>
-		    		<th>Name</th>
+		    		<th>Cooler Name</th>
 		    		<th>Vorname</th>
 		    		<th>Geburtsdatum</th>
 		    		<th width="40%">Bearbeiten</th>
