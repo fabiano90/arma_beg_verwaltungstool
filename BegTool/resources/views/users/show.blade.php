@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <h2 class="heading">Student {{ $user->lastname}}, {{ $user->firstname }}</h2>
+    <h2 class="heading">Coole Studenten {{ $user->lastname}}, {{ $user->firstname }}</h2>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <tbody>
