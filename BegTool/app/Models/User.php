@@ -50,9 +50,9 @@ class User extends Model {
 	public static $rules = array(
 	    'firstname'=>'required|alpha|min:2',
 	    'lastname'=>'required|alpha|min:2',
-	    'email'=>'required|email|unique:users',
-	    'password'=>'required|alpha_num|between:6,12|confirmed',
-	    'password_confirmation'=>'required|alpha_num|between:6,12',
+	    //'email'=>'required|email|unique:users',
+	    //'password'=>'required|alpha_num|between:6,12|confirmed',
+	    //'password_confirmation'=>'required|alpha_num|between:6,12',
 	    'birthdate' => 'date_format:Y-m-d|required'
     );
 }
