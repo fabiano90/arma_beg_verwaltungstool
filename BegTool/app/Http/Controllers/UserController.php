@@ -41,10 +41,10 @@ class UserController extends BaseController {
         	$user = new User;
 		    $user->firstname = Request::input('firstname');
 		    $user->lastname = Request::input('lastname');
-		    $user->username = Request::input('username');
+		 /*   $user->username = Request::input('username');
 		    $user->email = Request::input('email');
 		    $user->birthdate = Request::input('birthdate');
-		    $user->password = Hash::make(Request::input('password'));
+		    $user->password = Hash::make(Request::input('password'));*/
 		    $user->save();
 		 
 		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
