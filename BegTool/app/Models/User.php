@@ -14,6 +14,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 {
     use Authenticatable, CanResetPassword;
 
+
+	public function person()
+	{
+	    return $this->hasOne('App\Models\Person');
+	}
+	
 	public function posts()
 	{
 	    return $this->hasMany('App\Models\Post');

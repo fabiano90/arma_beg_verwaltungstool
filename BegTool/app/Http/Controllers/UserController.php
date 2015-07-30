@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Person;
 use App\Models\Message;
 use Validator;
 use View;
@@ -50,13 +51,19 @@ class UserController extends Controller
     	if ($validator->passes()) 
     	{*/
         	// validation has passed, save user in DB
-        	$user = new User;
-		    $user->firstname = Request::input('firstname');
-		    $user->lastname = Request::input('lastname');
-		    $user->username = Request::input('username');
-		    $user->email = Request::input('email');
+    
+    		$person = new Person;
+		    $person->firstname = Request::input('firstname');
+		    $person->lastname = Request::input('lastname');
+		    //if birthdate angegeggben
 		    //$user->birthdate = Request::input('birthdate');
+		    $person->save();
+
+	    	$user = new User;
+		    $user->username = Request::input('username');
+		    $user->email = Request::input('email');		   	
 		    $user->password = Hash::make(Request::input('password'));
+		    $user->permission = 0;//Request::input('permission');
 		    $user->save();
 		 
 		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
