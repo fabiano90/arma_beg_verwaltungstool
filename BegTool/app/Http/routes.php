@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function()
-{
-	return Redirect::to('users/index');
+Route::get('/', function () {
+    return view('welcome');
 });
 
 Route::controller('users', 'UserController');
-Route::controller('grades', 'GradeController');
+Route::controller('posts', 'PostController');
+Route::controller('messages', 'MessageController');
+Route::controller('login', 'LoginController');
+Route::resource('rest/users', 'UserRESTController');
+Route::resource('rest/posts', 'PostRESTController');
+

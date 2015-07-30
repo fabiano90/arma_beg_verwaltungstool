@@ -1,169 +1,117 @@
-<?php namespace Laravel5App\Http\Controllers;
+<?php
 
-use Laravel5App\Models\User;
-use Laravel5App\Models\Course;
-use Laravel5App\Models\Semester;
-use Laravel5App\Models\Grade;
+namespace App\Http\Controllers;
+use App\Models\User;
+use App\Models\Message;
 use Validator;
 use View;
 use Request;
 use Hash;
+use Auth;
+class UserController extends Controller
+{
 
-class UserController extends BaseController {
-    /**
-     * index-Action
-     */
-    public function getIndex()
-    {
-    	$users = User::paginate(15);
-        return view('users.index')->with('users', $users);
-    }
+	public function getIndex()
+	{
+		$users = User::paginate(15);
+		return view('users.index')->with('users', $users);
+	}
 
-    /**
-     * new-Action
-     */
-    public function getNew()
-    {
-    	$user = new User();
-        return view('users.new')->with('user', $user);
-    }
+	public function getShow()
+	{
+		$users = User::all();
+		return view('users.newfriend')->with('users', $users);
+	}
 
-    /**
-     * new-Action (Formularauswertung)
-     */
-    public function postNew()
-    {
-		$validator = Validator::make(Request::all(), User::$rules);
+	public function getTimeline($user_id = 0)
+	{
+
+		//$user = User::find($user_id);
+		if($user_id == 0){
+			$user = User::find(Auth::user()->id);
+		}
+		else{
+			$user = User::find($user_id);
+		}
+		//return redirect('users/timeline/'. $user->id);
+		$posts = $user->posts()->orderBy('updated_at', 'DESC')->get();
+		//$posts = Post::where('user_id', '=', $user_id)->get();//ganz alt
+		return view('users.timeline')->with('posts', $posts)->with('user', $user);
+	}
+
+	public function getRegister(){
+		$user = new User();
+		return view('users.register')->with('user', $user);
+	}
+
+	public function postRegister(){
+		/*$validator = Validator::make(Request::all(), User::$rules);
  
     	if ($validator->passes()) 
-    	{
+    	{*/
         	// validation has passed, save user in DB
-        	$user = new User;
-		    $user->firstname = Request::input('firstname');
-		    $user->lastname = Request::input('lastname');
-		   // $user->username = Request::input('username');
-		    //$user->email = Request::input('email');
-		    $user->birthdate = Request::input('birthdate');
-		   /* $user->password = Hash::make(Request::input('password'));*/
-		    $user->save();
-		 
-		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
-    	} 
+    		$user = new User;
+    		$user->firstname = Request::input('firstname');
+    		$user->lastname = Request::input('lastname');
+    		$user->username = Request::input('username');
+    		$user->email = Request::input('email');
+		    //$user->birthdate = Request::input('birthdate');
+    		$user->password = Hash::make(Request::input('password'));
+    		$user->save();
+
+    		return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
+    	/*} 
     	else 
     	{
         	// validation has failed, display error messages   
         	return redirect('users/new')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+        }*/
+    }
+    public function getFriends(){
+
+
+    
+    	$user = Auth::user();
+    	$friends=$user->friends;
+    	return view('users.friends')->with('friends',$friends);
+
+    }
+    public function getAddfriend($friend_id =0){
+    	$user = Auth::user();
+    	if($user->id==$friend_id||$user->friends->contains($friend_id)){
+    		return redirect('users/friends')->with('message', 'danger|Fehler!');
     	}
+    	else{
+    	$user->friends()->attach($friend_id);
+    	 return redirect('users/friends');
+    	}
+
+
+
+
+    }
+    public function getRemovefriend($friend_id =0){
+
+
+    	
+    	$user = Auth::user();
+    	$user->friends()->detach($friend_id);
+    	return redirect('users/friends');
+// Hiermit wird in die Tabelle friend_user für den aktuellen User eine Zeile mit friend_id = 4 erzeugt
+
+
     }
 
-    /**
-     * edit-Action (Formularauswertung)
-     */
-    public function postEdit($id)
-    {
-        $user = User::find($id);
-        $rules = User::$rules;
-        //$rules['username'] = '';
-        //$rules['password'] = '';
-        //$rules['password_confirmation'] = '';
-        //$rules['email'] = 'required|email|unique:users,email,'.$user->id;
-        $validator = Validator::make(Request::all(), $rules);
- 
-        if ($validator->passes()) 
-        {
-            // validation has passed, save user in DB
-            
-            $user->firstname = Request::input('firstname');
-            $user->lastname = Request::input('lastname');
-            //$user->email = Request::input('email');
-            $user->birthdate = Request::input('birthdate');
-           // $user->password = Hash::make(Request::input('password'));
-            $user->save();
-         
-            return redirect('users/index')->with('message', 'success|Student wurde erfolgreich gespeichert!');
-        } 
-        else 
-        {
-            // validation has failed, display error messages   
-            return redirect('users/edit/'.$user->id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-        }
-    }
+	/*public function postIndex(){
 
-    /**
-     * edit-Action
-     */
-    public function getEdit($id = 0)
-    {
-        $user = User::find($id);
-        return view('users.edit')->with('user', $user);
-    }
+			$message = new Message();
+			$message->sender_id = 1;// Request::input('firstname');
+			$message->receiver_id = 1;
+			$message->content = Request::input('content');
+			$message->save();
 
-    /**
-     * addgrade-Action
-     */
-    public function getAddgrade($id = 0)
-    {
-        $user = User::find($id);
-        $courseArray = Course::orderBy('title', 'asc')->get();
-        $courses = array('0' => '--- bitte wählen ---');
-        $gradesArray = $user->grades;
-        foreach($courseArray as $course)
-        {
-            $courses[$course->id] = $course->title.' ('.$course->semester->title.')';
-        }
-        return view('users.addgrade')->with('user', $user)->with('courses', $courses)->with('grades', Grade::allGradesAsArray(true));
-    }
-
-    /**
-     * addgrade-Action (Formularauswertung)
-     */
-    public function postAddgrade()
-    {
-        $user = User::find(Request::input('user_id'));
-        $rules = Grade::$rules;
-        $validator = Validator::make(Request::all(), $rules);
- 
-        $grades = Grade::where('user_id', '=', Request::input('user_id'))->where('course_id', '=', Request::input('course_id'))->get();
-        if(count($grades) > 0)
-        {
-            return redirect('users/addgrade/'.$user->id)->with('message', 'danger|Für diesen Kurs lieg bereits eine Note vor.')->withInput();
-        }
-        else if ($validator->passes()) 
-        {
-            // validation has passed, save user in DB
-            $grade = new Grade;
-            $grade->user_id = Request::input('user_id');
-            $grade->course_id = Request::input('course_id');
-            $grade->grade = Request::input('grade');
-            $grade->save();
-         
-            return redirect('users/index')->with('message', 'success|Note wurde erfolgreich gespeichert!');
-        } 
-        else 
-        {
-            // validation has failed, display error messages   
-            return redirect('users/addgrade/'.$user->id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-        }
-    }
-
-
-    /**
-     * show-Action
-     */
-    public function getShow($id = 0)
-    {
-        $user = User::find($id);
-        return view('users.show')->with('user', $user);
-    }
-
-    /**
-     * delete-Action
-     */
-    public function getDelete($id)
-    {
-        $user = User::find($id);
-        $user->deleteCascade();
-        return redirect('users/index')->with('message', 'success|Student wurde erfolgreich gelöscht!');
-    }
-
-}
+		//if succcess
+			return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
+		//else
+		}*/
+	}

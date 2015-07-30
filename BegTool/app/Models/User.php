@@ -1,58 +1,69 @@
-<?php namespace Laravel5App\Models;
+<?php
+
+namespace App\Models;
+
+
+
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-use Laravel5App\Models\Grade;
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+{
+    use Authenticatable, CanResetPassword;
 
-class User extends Model {
+	public function posts()
+	{
+	    return $this->hasMany('App\Models\Post');
+	}
 
-	/* Felder:
-    id: int(11)
-	email: varchar(255)
-	firstname: varchar(255)
-	lastname: varchar(255)
-	username: varchar(255)
-	password: varchar(255)
-	barcode: varchar(255)
-	street: varchar(255)
-	number: varchar(255)
-	postalcode: varchar(255)
-	city: varchar(255)
-	phone1: varchar(255)
-	phone2: varchar(255)
-	birthdate: date
-	role: varchar(255)
-	created_at: datetime
-	updated_at: datetime
-	deleted_at: datetime
-	remember_token: varchar(255)
-    */
+	public function messagesSent()
+	{
+	    return $this->hasMany('App\Models\Message', 'sender_id');
+	}
 
+	public function messagesReceived()
+	{
+	    return $this->hasMany('App\Models\Message', 'receiver_id');
+	}
 
-	public function grades()
-    {
-        return $this->hasMany('Laravel5App\Models\Grade');
-    }
+	public function messages()
+	{
+	    return Message::where('sender_id', '=', $this->id)
+	    			->orWhere('receiver_id', '=', $this->id)
+	    			->orderBy('updated_at', 'DESC')
+	    			->get();
+	}
+	public function friends()
+	{
+		return $this->belongsToMany('App\Models\User', 'friend_user', 'user_id', 'friend_id');
+	}
 
-    public function deleteCascade()
-    {
-    	Grade::where('user_id', '=', $this->id)->delete();
-    	$this->delete();
-    }
+	public function chat($partner_id = 0)
+	{
+		 return Message::where('receiver_id', '=', $partner_id)
+	    			->where('sender_id', '=', $this->id)
+	    			->orWhere('sender_id', '=', $partner_id)
+	    			->where('receiver_id', '=', $this->id)
+	    			->orderBy('updated_at', 'DESC')
+	    			->get();
+	}
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
+	
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'email', 'password'];
 
-	public static $rules = array(
-	    'firstname'=>'required|alpha|min:2',
-	    'lastname'=>'required|alpha|min:2',
-	    //'email'=>'required|email|unique:users',
-	    //'password'=>'required|alpha_num|between:6,12|confirmed',
-	    //'password_confirmation'=>'required|alpha_num|between:6,12',
-	    'birthdate' => 'date_format:Y-m-d|required'
-    );
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['password', 'remember_token'];
 }

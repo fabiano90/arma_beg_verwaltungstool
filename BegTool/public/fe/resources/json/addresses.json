@@ -1,0 +1,50 @@
+[
+	{
+		"id": "1",
+		"name": "Björn",
+		"surname": "Plutka",
+		"room": "SR 0008",
+		"phone": "3204",
+		"img": "http://www.ecs.hs-osnabrueck.de/uploads/tx_mgstaffdb/plutka_b.jpg"
+	},
+	{
+		"id": "2",
+		"name": "Michaela",
+		"surname": "Ramm",
+		"room": "SI 0129",
+		"phone": "2130",
+		"img": "http://www.ecs.hs-osnabrueck.de/uploads/tx_mgstaffdb/ramm_m_01.jpg"
+	},
+	{
+		"id": "3",
+		"name": "Thomas",
+		"surname": "Hinz",
+		"room": "SI 0126",
+		"phone": "3882",
+		"img": "resources/images/no_image.jpg"
+	},
+	{
+		"id": "4",
+		"name": "Karsten",
+		"surname": "Morisse",
+		"room": "SI 0125",
+		"phone": "3615",
+		"img": "http://www.ecs.hs-osnabrueck.de/typo3temp/pics/927e76cd74.jpg"
+	},
+	{
+		"id": "5",
+		"name": "Jürgen",
+		"surname": "Wübbelmann",
+		"room": "SI 0125",
+		"phone": "3615",
+		"img": "http://www.ecs.hs-osnabrueck.de/uploads/tx_mgstaffdb/wuebbelmann_j.jpg"
+	},
+	{
+		"id": "6",
+		"name": "Max",
+		"surname": "Mustermann",
+		"room": "SI 0125",
+		"phone": "3615",
+		"img": "resources/images/no_image.jpg"
+	}
+]
