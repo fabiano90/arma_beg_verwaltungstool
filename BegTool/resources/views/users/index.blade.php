@@ -6,18 +6,19 @@
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Vorname</th>
+				<th>Id</th>
 				<th>Benutzername</th>
+				<th>Berechtigungen</th>
+				
 				<th width="40%">Bearbeiten</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($users as $user)
 			<tr>
-				<td>{!! $user->lastname !!}</td>
-				<td>{!! $user->firstname !!}</td>
+				<td>{!! $user->person_id !!}</td>
 				<td>{!! $user->username !!}</td>
+				<td>{!! $user->permission !!}</td>
 				<td>
 					<div class="btn-group">{!! HTML::link('/users/addfriend/'.$user->id, 'Freund hinzufÃ¼gen', array('class'=>'btn btn-default')) !!}
 					</div>
@@ -31,6 +32,6 @@
 <br/>
 
 
-{!! HTML::link('users/register', 'Hinzufügen', array('class' => 'btn btn-default'))!!}
-{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
+{!! HTML::link('users/register', 'HinzufÃ¼gen', array('class' => 'btn btn-default'))!!}
+{!! HTML::link('#', 'ZurÃ¼ck', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 @stop
