@@ -28,6 +28,6 @@
 	<br/>
 	
 
-	{!! HTML::link('users/new', 'HinzufÃ¼gen', array('class' => 'btn btn-default'))!!}
-	{!! HTML::link('#', 'ZurÃ¼ck', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
+	{!! HTML::link('users/new', 'Hinzufügen', array('class' => 'btn btn-default'))!!}
+	{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 @stop
