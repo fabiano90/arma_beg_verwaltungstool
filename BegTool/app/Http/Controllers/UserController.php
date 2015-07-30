@@ -20,7 +20,7 @@ class UserController extends Controller
 	public function getShow()
 	{
 		$users = User::all();
-		return view('users.newfriend')->with('users', $users);
+		echo count($users);
 	}
 
 	public function getTimeline($user_id = 0)
@@ -50,57 +50,80 @@ class UserController extends Controller
     	if ($validator->passes()) 
     	{*/
         	// validation has passed, save user in DB
-    		$user = new User;
-    		$user->firstname = Request::input('firstname');
-    		$user->lastname = Request::input('lastname');
-    		$user->username = Request::input('username');
-    		$user->email = Request::input('email');
+        	$user = new User;
+		    $user->firstname = Request::input('firstname');
+		    $user->lastname = Request::input('lastname');
+		    $user->username = Request::input('username');
+		    $user->email = Request::input('email');
 		    //$user->birthdate = Request::input('birthdate');
-    		$user->password = Hash::make(Request::input('password'));
-    		$user->save();
-
-    		return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
+		    $user->password = Hash::make(Request::input('password'));
+		    $user->save();
+		 
+		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
     	/*} 
-    	else 
-    	{
+    	else
+     	{
         	// validation has failed, display error messages   
         	return redirect('users/new')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-        }*/
-    }
-    public function getFriends(){
+    	}*/
+	}
+	public function getSearch(){
+		$user = Auth::user();
+	}
 
+	public function getFriends($friend_id = 0){
+		$user = Auth::user();
+		$friends = $user->friends;
+		//return view('users.friends')->with('friends', $friends);
 
-    
-    	$user = Auth::user();
-    	$friends=$user->friends;
-    	return view('users.friends')->with('friends',$friends);
+		$alreadyfriend = -1;
+		$error = -1;
 
-    }
-    public function getAddfriend($friend_id =0){
-    	$user = Auth::user();
-    	if($user->id==$friend_id||$user->friends->contains($friend_id)){
-    		return redirect('users/friends')->with('message', 'danger|Fehler!');
-    	}
-    	else{
-    	$user->friends()->attach($friend_id);
-    	 return redirect('users/friends');
-    	}
+		return view('users.friends')
+			->with('friends', $friends)
+			->with('error', $error)
+			->with('alreadyfriend', $alreadyfriend);
+	}
 
+	public function getAddfriend($friend_id = 0){
+		$user = Auth::user();
+		$alreadyfriend = -1;
+		$error = -1;
+		if($user->id == $friend_id){
+			//echo 'Du kannst nicht mit dir selbst befreundet sein!';
+			$error = 0;//freund mit sich selbst
+		}
+		else{
+			if($user->friends->contains($friend_id)){
+				//echo '<script>alert(\'swag\');</script>';
+				$error = 1;//bereits befreundet
+				$alreadyfriend = $user->friends->find($friend_id);
+			}
+			else{			
+				$user->friends()->attach($friend_id);					
+			}
+			
+			//return view('users.friends')->with('error', $error);
+		}		
+		return redirect('users/friends')->with('error', $error);
+			//$user = Auth::user();
+			//$friends = $user->friends;
+			//return view('users.friends')->with('friends', $friends)->with('error', $error)->with('alreadyfriend', $alreadyfriend);
+	}
 
+	public function getRemovefriend($friend_id = 0){
+		$user = Auth::user();			
+		$user->friends()->detach($friend_id);
+		$friends = $user->friends;		
+		//return redirect('users/friends');
+		$alreadyfriend = -1;
+		$error = -1;
 
-
-    }
-    public function getRemovefriend($friend_id =0){
-
-
-    	
-    	$user = Auth::user();
-    	$user->friends()->detach($friend_id);
-    	return redirect('users/friends');
-// Hiermit wird in die Tabelle friend_user für den aktuellen User eine Zeile mit friend_id = 4 erzeugt
-
-
-    }
+		return view('users.friends')
+			->with('friends', $friends)
+			->with('error', $error)
+			->with('alreadyfriend', $alreadyfriend);
+	}
 
 	/*public function postIndex(){
 
@@ -113,5 +136,5 @@ class UserController extends Controller
 		//if succcess
 			return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
 		//else
-		}*/
-	}
+	}*/
+}

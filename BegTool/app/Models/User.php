@@ -36,10 +36,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	    			->orderBy('updated_at', 'DESC')
 	    			->get();
 	}
-	public function friends()
-	{
-		return $this->belongsToMany('App\Models\User', 'friend_user', 'user_id', 'friend_id');
-	}
 
 	public function chat($partner_id = 0)
 	{
@@ -51,6 +47,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	    			->get();
 	}
 
+	public function friends()
+	{
+		return $this->belongsToMany('App\Models\User', 'friend_user', 'user_id', 'friend_id');
+		//tabelle, im this eigener key kennt er ja weil aktuelles objekt, also parameter bei attach( $bla) fuer friend_id
+		//normalerweise immer 2 eintträge , reicht aber eine Eintrag, nur gucken ob in user id friend id drin steht.
+	}
 	
 
     /**
