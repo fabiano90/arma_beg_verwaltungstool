@@ -63,12 +63,9 @@
 						data-toggle="offcanvas">Toggle nav</button>
 				</p>
 				<div class="jumbotron">
-					<h1>Hallo Welt!</h1>
-					<p>Dies ist ein Beispiel, um das Potential eines Layouts in
-						Bootstrap zu zeigen, bei dem auf kleinen Bildschirmen die
-						Navigation außerhalb des Anzeigefensters ist und eingeblendet
-						werden kann. Verändere die Größe deines Browserfensters oder lade
-						diese Seite auf anderen Geräten, um es auszuprobieren.</p>
+						<div class="container">
+		@yield('content')
+	</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-6 col-lg-4">
