@@ -1,13 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
+
+
 <h2>Geburtstage der Gemeindemitglieder</h2>
 <div class="table-responsive">
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Benutzername</th>
+				<th>Vorname</th>
+				<th>Nachname</th>
 				<th>Geburtsdatum</th>				
 				<th width="40%">Bearbeiten</th>
 			</tr>
@@ -33,4 +35,4 @@
 
 {!! HTML::link('members/register', 'Hinzufügen', array('class' => 'btn btn-default'))!!}
 {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
-@stop
+@stop			

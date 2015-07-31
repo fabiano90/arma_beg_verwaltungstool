@@ -77,15 +77,15 @@ class MemberController extends Controller
 			//if ($user->contains($member_id)) {
 
 		//if($containsUser){
-			
+
 			if($model != NULL){
 			//if(User::contains($member_id)){		
-				echo '<script>alert("zufügenButton nicht sichtbar, du aber üeber url...");</script>';		
-				echo "kannst duen nicht hinzufüegen, ist schon";
-				//return vie
+				echo '<script>alert("zufügenButton nicht sichtbar, du aber üeber url...");</script>';	
+				echo 'asdas';	
+				return redirect('members');
 			}
-			else{
-				$member = Member::find($member_id);
+			else{	
+				$member = Member::find($member_id);			
 				return view('users.register')->with('member', $member);//->with('user', $persons);	
 			}
 		}
