@@ -2,21 +2,100 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\Person;
+use App\Models\Member;
 use App\Models\Message;
 use Validator;
 use View;
 use Request;
 use Hash;
 use Auth;
-class PersonController extends Controller
+class MemberController extends Controller
 {
 
 	public function getIndex()
 	{
-		$persons = Person::paginate(15);
-		return view('persons.index');//->with('persons', $persons);//->with('user', $persons);
+		//$members = new Member();
+		//return view('members.index');
+		$users = User::all();
+		$members = Member::paginate(10);
+		return view('members.index')->with('members', $members)->with('users', $users);//->with('user', $persons);
 	}
+
+	public function getRegister(){
+		$members = new Member();
+		return view('members.register');//->with('member', $members);
+	}
+
+	public function postRegister(){
+		/*$validator = Validator::make(Request::all(), User::$rules);
+
+		if ($validator->passes()) 
+		{*/
+	    	// validation has passed, save user in DB
+
+			$person = new Member;
+		    $person->firstname = Request::input('firstname');
+		    $person->lastname = Request::input('lastname');
+		    //if birthdate angegeggben
+		    $person->birthdate = Request::input('birthdate');
+		    echo " ".$person->firstname.
+		    " ". $person->lastname.
+		    " " . $person->birthdate;
+		   // exit;
+				$person->save();
+
+		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
+		/*} 
+		else
+	 	{
+	    	// validation has failed, display error messages   
+	    	return redirect('users/new')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+		}*/
+	}
+
+	public function getAdduser($member_id){
+		$user = Auth::user();
+			//permission == 0 => admin
+		if($user->permission == 0){
+			/*$users = User::all();
+			$containsUser = false;
+			foreach ($users as $u) {
+				if($u->member_id == $member_id){
+					$containsUser = true;
+			    	echo $u->username;
+			    }
+			}*/
+
+			$model = User::where('member_id', $member_id)->first();
+		//	echo var_dump($model);
+			//$flights = User::where('active', 0)
+               //->orderBy('name', 'desc')
+               //->take(10)
+            //   ->get();exit;
+			//$user = User::contains();
+			//var_dump($user);exit;
+			//if ($user->contains($member_id)) {
+
+		//if($containsUser){
+			
+			if($model != NULL){
+			//if(User::contains($member_id)){		
+				echo '<script>alert("zufügenButton nicht sichtbar, du aber üeber url...");</script>';		
+				echo "kannst duen nicht hinzufüegen, ist schon";
+				//return vie
+			}
+			else{
+				$member = Member::find($member_id);
+				return view('users.register')->with('member', $member);//->with('user', $persons);	
+			}
+		}
+		else{
+			//alert('nope kein permission! gibts was schoeneres als alert??');
+		}
+	}
+
+
+
 
 	public function getShow()
 	{
@@ -40,33 +119,7 @@ class PersonController extends Controller
 		return view('users.timeline')->with('posts', $posts)->with('user', $user);
 	}
 
-	public function getRegister(){
-		$persons = new Person();
-		return view('persons.register')->with('person', $persons);
-	}
-
-	public function postRegister(){
-		/*$validator = Validator::make(Request::all(), User::$rules);
- 
-    	if ($validator->passes()) 
-    	{*/
-        	// validation has passed, save user in DB
-    
-    		$person = new Person;
-		    $person->firstname = Request::input('firstname');
-		    $person->lastname = Request::input('lastname');
-		    //if birthdate angegeggben
-		    $person->birthdate = Request::input('birthdate');
- 			$person->save();
-
-		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
-    	/*} 
-    	else
-     	{
-        	// validation has failed, display error messages   
-        	return redirect('users/new')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-    	}*/
-	}
+	
 	public function getSearch(){
 		$user = Auth::user();
 	}

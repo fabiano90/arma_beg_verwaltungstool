@@ -14,6 +14,8 @@ class UserController extends Controller
 
 	public function getIndex()
 	{
+		//$persons = new User();
+		//return view('users.index')->with('users', $persons);
 		$users = User::paginate(15);
 		return view('users.index')->with('users', $users);
 	}
@@ -51,37 +53,26 @@ class UserController extends Controller
     	if ($validator->passes()) 
     	{*/
         	// validation has passed, save user in DB
-    
-    		$person = new Person;
-		    $person->firstname = Request::input('firstname');
-		    $person->lastname = Request::input('lastname');
-		    //if birthdate angegeggben
-		    $person->birthdate = Request::input('birthdate');
-
-		   // $person->save();
-
 
 	    	$user = new User;
-	    	//$user->person_id = $person->id;
-	    	$user->person_id = 0;
+	    	$user->person_id = Request::input('person_id');
 		    $user->username = Request::input('username');
 		    $user->email = Request::input('email');		   	
 		    $user->password = Hash::make(Request::input('password'));
-		    $user->permission = 2;//intval(Request::input('permission'));
+		    $user->permission = intval(Request::input('permission'));
 
-		   /* echo " ".$person->firstname.
-		    " ". $person->lastname.
-		    " " . $user->person_id.
-		    " ". $user->username.
-		    " " . $user->email.
-		    " " . $user->password.
-		    " " . $user->permission;*/
+		   echo 
+		    "persid " . $user->person_id.
+		    "username ". $user->username.
+		    "email " . $user->email.
+		    "pass " . $user->password.
+		    "permissoin " . $user->permission;
 		    //exit;
 
 		    $user->save();
  			//$person->save();
 
-		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('users/index')->with('message', 'success|Student erfolgreich angelegt!');
     	/*} 
     	else
      	{

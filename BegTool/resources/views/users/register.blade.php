@@ -1,18 +1,19 @@
 @extends('layouts.main')
 
 @section('content')
-    <h2>Registrierung</h2>
-		{!! Form::open(array('url'=>'users/register', 'class'=>'form-signup')) !!}
+    <h2>{!! $member->firstname!!} {!! $member->lastname!!} als Mitarbeiter anlegen</h2>
 
+		{!! Form::open(array('url'=>'users/register', 'class'=>'form-signup')) !!}
+		<div class="hidden">
+			{!! Form::text('person_id', $member->id, array('class'=>'form-control ', 'placeholder'=>'Nachname'))!!}
+		</div>
 		{!! Form::label('firstname', 'Vorname') !!}
-		{!! Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'Vorname')) !!}
+		{!! Form::text('firstname', $member->firstname, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}
     	{!! Form::label('lastname', 'Nachname') !!}
-    	{!! Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Nachname')) !!}
+    	{!! Form::text('lastname', $member->lastname, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}
 	    {!! Form::label('birthdate', 'Geburtsdatum') !!}
-	    <div class="input-group date datetimepicker"  data-date-format="YYYY-MM-DD">
-	    {!! Form::text('birthdate', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum')) !!}          
-	        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-	    </div>
+	    {!! Form::text('birthdate', $member->birthdate, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}      
+
     	{!! Form::label('username', 'Benutzername') !!}
    	 	{!! Form::text('username', null, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}
 
