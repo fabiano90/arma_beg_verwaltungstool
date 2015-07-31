@@ -8,6 +8,11 @@
 		{!! Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'Vorname')) !!}
     	{!! Form::label('lastname', 'Nachname') !!}
     	{!! Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Nachname')) !!}
+	    {!! Form::label('birthdate', 'Geburtsdatum') !!}
+	    <div class="input-group date datetimepicker"  data-date-format="YYYY-MM-DD">
+	    {!! Form::text('birthdate', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum')) !!}          
+	        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	    </div>
     	{!! Form::label('username', 'Benutzername') !!}
    	 	{!! Form::text('username', null, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}
 
@@ -20,11 +25,11 @@
 
 		{!! Form::label('permission', 'Berechtigungen') !!}
 		<div class="form-inline">
-			{!! Form::radio('permission', 'admin') !!}
+			{!! Form::radio('permission', 0) !!}
 			{!! Form::label('admin', 'Admin') !!}<br/>
-			{!! Form::radio('permission', 'preacher') !!}
+			{!! Form::radio('permission', 1) !!}
 			{!! Form::label('preacher', 'Prediger') !!}<br/>
-			{!! Form::radio('permission', 'kigo') !!}
+			{!! Form::radio('permission', 2) !!}
 			{!! Form::label('kigo', 'Kigo') !!}<br/>
 		</div>
 

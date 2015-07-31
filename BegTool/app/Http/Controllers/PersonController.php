@@ -9,19 +9,19 @@ use View;
 use Request;
 use Hash;
 use Auth;
-class UserController extends Controller
+class PersonController extends Controller
 {
 
 	public function getIndex()
 	{
-		$users = User::paginate(15);
-		return view('users.index')->with('users', $users);
+		$persons = Person::paginate(15);
+		return view('persons.index');//->with('user', $persons);
 	}
 
 	public function getShow()
 	{
-		$users = User::all();
-		echo count($users);
+		$persons = Person::all();
+		echo count($persons);
 	}
 
 	public function getTimeline($user_id = 0)
@@ -41,8 +41,8 @@ class UserController extends Controller
 	}
 
 	public function getRegister(){
-		$user = new User();
-		return view('users.register')->with('user', $user);
+		$persons = new Person();
+		return view('persons.register')->with('person', $persons);
 	}
 
 	public function postRegister(){
@@ -57,29 +57,7 @@ class UserController extends Controller
 		    $person->lastname = Request::input('lastname');
 		    //if birthdate angegeggben
 		    $person->birthdate = Request::input('birthdate');
-
-		   // $person->save();
-
-
-	    	$user = new User;
-	    	//$user->person_id = $person->id;
-	    	$user->person_id = 0;
-		    $user->username = Request::input('username');
-		    $user->email = Request::input('email');		   	
-		    $user->password = Hash::make(Request::input('password'));
-		    $user->permission = 2;//intval(Request::input('permission'));
-
-		   /* echo " ".$person->firstname.
-		    " ". $person->lastname.
-		    " " . $user->person_id.
-		    " ". $user->username.
-		    " " . $user->email.
-		    " " . $user->password.
-		    " " . $user->permission;*/
-		    //exit;
-
-		    $user->save();
- 			//$person->save();
+ 			$person->save();
 
 		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
     	/*} 
