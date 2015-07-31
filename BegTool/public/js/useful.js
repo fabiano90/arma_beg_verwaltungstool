@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 
 
-	alert("Hallo");
+	
 	$('#leitung').dynatable();
 	$('.datetimepicker').datetimepicker({
 		language : 'de',
