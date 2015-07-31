@@ -20,6 +20,7 @@ Route::controller('persons', 'PersonController');
 Route::controller('posts', 'PostController');
 Route::controller('messages', 'MessageController');
 Route::controller('login', 'LoginController');
+Route::controller('sundayservices', 'SundayserviceController');
 Route::resource('rest/users', 'UserRESTController');
 Route::resource('rest/posts', 'PostRESTController');
 
