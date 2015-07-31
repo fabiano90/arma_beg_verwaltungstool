@@ -7,22 +7,22 @@
 {!! HTML::style('css/bootstrap.min.css') !!} {!!
 HTML::style('css/bootstrap-theme.min.css') !!} {!!
 HTML::style('css/bootstrap.datetimepicker.css') !!} {!!
-HTML::style('css/offcanvas.css') !!} {!! HTML::style('css/style.css')
-!!} {!! HTML::script('js/moment.js') !!} {!!
+HTML::style('css/offcanvas.css') !!} {!!
+HTML::style('css/jquery.dynatable.css') !!} {!!
+HTML::style('css/style.css') !!}
+<!-- JavaScript -->
+{!!
+HTML::script('js/vendor/jquery-1.7.2.min.js') !!}
+{!!
+HTML::script('js/jquery.dynatable.js') !!} 
+{!! HTML::script('js/moment.js') !!} {!!
 HTML::script('js/jquery.min.js') !!} {!! HTML::script('js/jquery.js')
 !!} {!! HTML::script('js/bootstrap.min.js')!!} {!!
 HTML::script('js/bootstrap.datetimepicker.js') !!} {!!
 HTML::script('js/bootstrap.datetimepicker-de.js') !!} {!!
-HTML::script('js/offcanvas.js') !!}
-<script>
-		$(document).ready(function() {
-		      $('.datetimepicker').datetimepicker({
-		          language: 'de',
-		          pickTime: false,
-		          format: 'yyyy-mm-DD'
-		      });
-		  });
-	</script>
+HTML::script('js/offcanvas.js') !!} {!!
+HTML::script('js/useful.js') !!} 
+
 </head>
 <body>
 	<nav class="navbar navbar-fixed-top navbar-inverse">
@@ -86,6 +86,8 @@ HTML::script('js/offcanvas.js') !!}
 
 		<hr>
 
+		
+		
 		<footer>
 			<p>© Firma 2014</p>
 		</footer>
