@@ -7,13 +7,13 @@ class Kigo extends Model
 {
     public function user()
     {
-        return $this->hasOne('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
     public function kigo_song() {
-    	return $this->hasMany( 'App\Models\Kigo_song', 'kigo_song' );
+    	return $this->hasMany( 'App\Models\Kigo_song', 'kigo_id' );
     }
     public function vers()
     {
-    	return $this->hasOne('App\Models\Vers');
+    	return $this->belongsTo('App\Models\Vers', 'vers_id');
     }
 }
