@@ -12,16 +12,33 @@ class SundayserviceController extends Controller {
 		$sundayservices = Sundayservice::all ();
 		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
 	}
+	public function getNewsunday(){
+		
+			
+		$users=User::all();
+			// queries the clients db table, orders by client_name and lists client_name and id
+			$client_optons = $users->users()->orderBy('username', 'asc')->lists('username','id');
+		
+			return View::make('sundayservices.newSunday', array('client_options' => $client_options));
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 	public function getNewyear($year) {
 
 		$sundays = $this->sundaysYear($year);
 		$users = User::all();
-
-		
-		// $sundayservices = new Sundayservices();
+		$sundayservices = Sundayservice::all();
 		return view ( 'sundayservices.newYear' )->with ( 'sundays', $sundays )->with('users', $users);
+	
 	}
-	public function postRegister(){
+	public function postNewyear(){
 
 		for($i=0;$i<52;$i++){
 		$sundayservices = new Sudayservice();
@@ -35,9 +52,7 @@ class SundayserviceController extends Controller {
 	
 		$user->save();
 		}
-
-	
-		return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
+		return redirect('users')->with('message', 'success|Jahr erfolgreich angelegt!');
 
 	}
 	public function sundaysYear($year) {
