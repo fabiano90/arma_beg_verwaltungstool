@@ -9,6 +9,7 @@ use View;
 use Request;
 use Hash;
 use Auth;
+
 class UserController extends Controller
 {
 
@@ -19,6 +20,48 @@ class UserController extends Controller
 		$users = User::paginate(15);
 		return view('users.index')->with('users', $users);
 	}
+
+	public function getRegister(){
+		$user = new User();
+		return view('users.register')->with('user', $user);
+	}
+
+	public function postRegister(){
+		$validator = Validator::make(Request::all(), User::$rules);
+    	$user = new User;
+		$user->member_id = Request::input('member_id');
+    	if ($validator->passes()) 
+    	{
+        	// validation has passed, save user in DB
+		    $user->username = Request::input('username');
+		    $user->email = Request::input('email');		   	
+		    $user->password = Hash::make(Request::input('password'));
+		    $user->permission = intval(Request::input('permission'));
+
+		   echo 
+		    "member_id: " . $user->member_id.
+		    " username: ". $user->username.
+		    " email: " . $user->email.
+		    " pass: " . $user->password.
+		    " permission: " . $user->permission;
+		    //exit;
+
+		    $user->save();
+		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
+    	} 
+    	else
+     	{
+        	// validation has failed, display error messages   
+        	return redirect('members/adduser/'.$user->member_id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+        	//eig. members/register sinniger
+    	}
+	}
+
+
+
+
+
+
 
 	public function getShow()
 	{
@@ -42,44 +85,6 @@ class UserController extends Controller
 		return view('users.timeline')->with('posts', $posts)->with('user', $user);
 	}
 
-	public function getRegister(){
-		$user = new User();
-		return view('users.register')->with('user', $user);
-	}
-
-	public function postRegister(){
-		/*$validator = Validator::make(Request::all(), User::$rules);
- 
-    	if ($validator->passes()) 
-    	{*/
-        	// validation has passed, save user in DB
-
-	    	$user = new User;
-	    	$user->person_id = Request::input('person_id');
-		    $user->username = Request::input('username');
-		    $user->email = Request::input('email');		   	
-		    $user->password = Hash::make(Request::input('password'));
-		    $user->permission = intval(Request::input('permission'));
-
-		   echo 
-		    "persid " . $user->person_id.
-		    "username ". $user->username.
-		    "email " . $user->email.
-		    "pass " . $user->password.
-		    "permissoin " . $user->permission;
-		    //exit;
-
-		    $user->save();
- 			//$person->save();
-
-		    return redirect('users/index')->with('message', 'success|Student erfolgreich angelegt!');
-    	/*} 
-    	else
-     	{
-        	// validation has failed, display error messages   
-        	return redirect('users/new')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-    	}*/
-	}
 	public function getSearch(){
 		$user = Auth::user();
 	}

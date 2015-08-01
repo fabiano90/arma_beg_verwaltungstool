@@ -5,7 +5,7 @@
 
 		{!! Form::open(array('url'=>'users/register', 'class'=>'form-signup')) !!}
 		<div class="hidden">
-			{!! Form::text('person_id', $member->id, array('class'=>'form-control ', 'placeholder'=>'Nachname'))!!}
+			{!! Form::text('member_id', $member->id, array('class'=>'form-control ', 'placeholder'=>'Nachname'))!!}
 		</div>
 		{!! Form::label('firstname', 'Vorname') !!}
 		{!! Form::text('firstname', $member->firstname, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}
