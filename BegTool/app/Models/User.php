@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function member()
 	{
-	    return $this->hasOne('App\Models\Member');
+	    return $this->belongsTo('App\Models\Member', 'member_id');
 	}
 	
 	public function absence()
@@ -26,11 +26,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 	public function kigo()
 	{
-		return $this->hasMany('App\Models\Kigo', 'kigo');
+		return $this->hasMany('App\Models\Kigo', 'user_id');
 	}
 	public function sundayservice()
 	{
-		return $this->hasMany('App\Models\Sundayservice', 'sundayservice');
+		return $this->hasMany('App\Models\Sundayservice', 'user_id');
 	}
 	
 

@@ -7,11 +7,11 @@ class Vers extends Model
 {
     public function sundayservice()
     {
-         return $this->hasMany('App\Models\Sundayservice', 'sundayservice');
+         return $this->hasMany('App\Models\Sundayservice', 'vers_id');
     }
 
     public function kigo()
     {
-    	return $this->hasMany('App\Models\Kigo', 'kigo');
+    	return $this->hasMany('App\Models\Kigo', 'vers_id');
     }
 }

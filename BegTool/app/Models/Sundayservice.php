@@ -7,18 +7,18 @@ class Sundayservice extends Model
 {
 	public function user()
 	{
-		return $this->hasOne('App\Models\User');
+		return $this->belongsTo('App\Models\User', 'user_id');
 	}
 	public function service_song() {
-		return $this->hasMany( 'App\Models\Service_song', 'service_song' );
+		return $this->hasMany( 'App\Models\Service_song', 'service_id' );
 	}
 	public function vers()
 	{
-		return $this->hasOne('App\Models\Vers');
+		return $this->belongsTo('App\Models\Vers', 'vers_id');
 	}
 	public function sermon()
 	{
-		return $this->hasOne('App\Models\Sermon');
+		return $this->belongsTo('App\Models\Sermon', 'sermon_id');
 	}
 }
 

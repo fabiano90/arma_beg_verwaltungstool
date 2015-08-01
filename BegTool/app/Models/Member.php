@@ -12,7 +12,7 @@ class Member extends Model
 
     public function sermon()
     {
-    	return $this->hasMany( 'App\Models\sermon', 'sermon' );
+    	return $this->hasMany( 'App\Models\sermon', 'preacher_id' );
     }
 
 	public static $rules = array(

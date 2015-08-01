@@ -7,7 +7,7 @@ class Sermon extends Model
 {
     public function member()
     {
-        return $this->hasOne('App\Models\Member');
+        return $this->belongsTo('App\Models\Member', 'preacher_id');
     }
 
     public function sundayservice()

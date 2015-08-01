@@ -3,11 +3,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kigo_song extends Model
+class Song_sundayservice extends Model
 {
-    public function kigo()
+    public function sundayservice()
     {
-        return $this->belongsTo('App\Models\Kigo', 'kigo_id');
+        return $this->belongsTo('App\Models\Sundayservices', 'service_id');
     }
 
     public function song()
