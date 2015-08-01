@@ -9,13 +9,12 @@ use View;
 use Request;
 use Hash;
 use Auth;
+
 class MemberController extends Controller
 {
 
 	public function getIndex()
 	{
-		//$members = new Member();
-		//return view('members.index');
 		$users = User::all();
 		$members = Member::paginate(10);
 		return view('members.index')->with('members', $members)->with('users', $users);//->with('user', $persons);
@@ -28,11 +27,9 @@ class MemberController extends Controller
 
 	public function postRegister(){
 		/*$validator = Validator::make(Request::all(), User::$rules);
-
 		if ($validator->passes()) 
 		{*/
 	    	// validation has passed, save user in DB
-
 			$person = new Member;
 		    $person->firstname = Request::input('firstname');
 		    $person->lastname = Request::input('lastname');
@@ -41,22 +38,20 @@ class MemberController extends Controller
 		    echo " ".$person->firstname.
 		    " ". $person->lastname.
 		    " " . $person->birthdate;
-		   // exit;
-				$person->save();
-
+		   	// exit;
+			$person->save();
 		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
 		/*} 
 		else
 	 	{
 	    	// validation has failed, display error messages   
-	    	return redirect('users/new')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
 		}*/
 	}
 
 	public function getAdduser($member_id){
-		$user = Auth::user();
-			//permission == 0 => admin
-		if($user->permission == 0){
+		$user = Auth::user();		
+		if($user->permission == 0){	//permission == 0 => admin
 			/*$users = User::all();
 			$containsUser = false;
 			foreach ($users as $u) {
@@ -75,9 +70,7 @@ class MemberController extends Controller
 			//$user = User::contains();
 			//var_dump($user);exit;
 			//if ($user->contains($member_id)) {
-
-		//if($containsUser){
-
+			//if($containsUser){
 			if($model != NULL){
 			//if(User::contains($member_id)){		
 				echo '<script>alert("zufügenButton nicht sichtbar, du aber üeber url...");</script>';	
