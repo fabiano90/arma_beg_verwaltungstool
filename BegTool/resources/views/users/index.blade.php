@@ -1,7 +1,10 @@
 @extends('layouts.main')
 
 @section('content')
-<h2>Mitarbeiter</h2>
+<h2>Mitarbeiter</h2>aaa
+@foreach($jaja as $nein)
+1.	{!! $nein->date; !!}
+@endforeach bbbb
 <div class="table-responsive">
 	<table class="table table-striped table-hover">
 		<thead>
@@ -29,7 +32,7 @@
 			@endforeach
 		</tbody>
 	</table>
-</div>
+</div>sdfghgfgh
 {!! str_replace('/?', '?', $users->render()) !!}
 <br/>
 

@@ -20,6 +20,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	    return $this->hasOne('App\Models\Member');
 	}
 	
+	public function absence()
+	{
+		return $this->hasMany('App\Models\Absence', 'user_id');
+	}
+	public function kigo()
+	{
+		return $this->hasMany('App\Models\Kigo', 'kigo');
+	}
+	public function sundayservice()
+	{
+		return $this->hasMany('App\Models\Sundayservice', 'sundayservice');
+	}
+	
+
 	public function posts()
 	{
 	    return $this->hasMany('App\Models\Post');
@@ -58,18 +72,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->belongsToMany('App\Models\User', 'friend_user', 'user_id', 'friend_id');
 		//tabelle, im this eigener key kennt er ja weil aktuelles objekt, also parameter bei attach( $bla) fuer friend_id
 		//normalerweise immer 2 eintträge , reicht aber eine Eintrag, nur gucken ob in user id friend id drin steht.
-	}
-	public function absence()
-	{
-		return $this->hasMany('App\Models\Absence', 'absence');
-	}
-	public function kigo()
-	{
-		return $this->hasMany('App\Models\Kigo', 'kigo');
-	}
-	public function sundayservice()
-	{
-		return $this->hasMany('App\Models\Sundayservice', 'sundayservice');
 	}
 	
 	

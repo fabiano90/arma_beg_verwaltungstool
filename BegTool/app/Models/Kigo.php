@@ -9,7 +9,7 @@ class Kigo extends Model
     {
         return $this->hasOne('App\Models\User');
     }
-    public function kigoSong() {
+    public function kigo_song() {
     	return $this->hasMany( 'App\Models\Kigo_song', 'kigo_song' );
     }
     public function vers()

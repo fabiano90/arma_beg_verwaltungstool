@@ -10,6 +10,11 @@ class Member extends Model
         return $this->hasOne('App\Models\User');
     }
 
+    public function sermon()
+    {
+    	return $this->hasMany( 'App\Models\sermon', 'sermon' );
+    }
+
 	public static $rules = array(
 	    'firstname'=>'required|alpha|min:2',
 	    'lastname'=>'required|alpha|min:2',

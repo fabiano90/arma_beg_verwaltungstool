@@ -9,7 +9,7 @@ class Sundayservice extends Model
 	{
 		return $this->hasOne('App\Models\User');
 	}
-	public function song() {
+	public function service_song() {
 		return $this->hasMany( 'App\Models\Service_song', 'service_song' );
 	}
 	public function vers()

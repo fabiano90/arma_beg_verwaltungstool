@@ -9,4 +9,9 @@ class Sermon extends Model
     {
         return $this->hasOne('App\Models\Member');
     }
+
+    public function sundayservice()
+    {
+    	return $this->hasOne('App\Models\Sundayservice');
+    }
 }

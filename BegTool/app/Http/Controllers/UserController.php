@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Message;
+use App\Models\Member;
 use Validator;
 use View;
 use Request;
@@ -15,10 +16,23 @@ class UserController extends Controller
 
 	public function getIndex()
 	{
+		$userr = User::find(19);
+		$jaja = $userr->absence()->get();
+		echo var_dump($jaja);exit;
+
+
 		//$persons = new User();
 		//return view('users.index')->with('users', $persons);
+		//$user = User::all();
+		//$bla = Member::find($user->member_id);
+		//$kp = $user->member()->orderBy('updated_at', 'DESC')->get();
+		//echo $kp;exit;
+		//echo $bla->firstname;
+		//$bla2 = $bla->member();
+		//echo var_dump($bla2);exit;
+		//echo $bla2;
 		$users = User::paginate(15);
-		return view('users.index')->with('users', $users);
+		return view('users.index')->with('users', $users)->with('jaja', $jaja);
 	}
 
 	public function getRegister(){
