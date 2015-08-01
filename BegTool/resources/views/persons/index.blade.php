@@ -14,7 +14,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($users as $user)
+			@foreach($persons as $user)
 			<tr>
 				<td>{!! $user->firstname !!}</td>
 				<td>{!! $user->lastname !!}</td>
@@ -28,7 +28,7 @@
 		</tbody>
 	</table>
 </div>
-{!! str_replace('/?', '?', $users->render()) !!}
+{!! str_replace('/?', '?', $persons->render()) !!}
 <br/>
 
 

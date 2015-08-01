@@ -20,8 +20,9 @@ HTML::script('js/jquery.min.js') !!} {!! HTML::script('js/jquery.js')
 !!} {!! HTML::script('js/bootstrap.min.js')!!} {!!
 HTML::script('js/bootstrap.datetimepicker.js') !!} {!!
 HTML::script('js/bootstrap.datetimepicker-de.js') !!} {!!
-HTML::script('js/offcanvas.js') !!} {!!
-HTML::script('js/useful.js') !!} 
+HTML::script('js/offcanvas.js') !!} 
+{!! HTML::script('js/useful.js') !!} 
+
 
 </head>
 <body>
@@ -42,6 +43,8 @@ HTML::script('js/useful.js') !!}
 					<li class="active">{!! HTML::link('/sundayservices', 'Leitung') !!}</li>
 					<li><a href="#ueber">Über</a></li>
 					<li><a href="#kontakt">Kontakt</a></li>
+					<li><a href="/public/users">Mitarbeiter</a></li>
+					<li><a href="/public/members">Mitglieder</a></li>
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
