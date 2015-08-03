@@ -17,33 +17,8 @@ class UserController extends Controller
 
 	public function getIndex()
 	{
-		$db = DB::table('users')->where('username', 'abcde')->value('id');
-		echo $db; 
-
-		$userr = User::find(19);
-		$jaja = $userr->absence()->get();
-
-		/*$myuser = User::select('id')->orderBy('created_at', 'DESC')->first();
-		//$blabla = $myuser->
-		$myuser2 = User::find(1);
-		$myuser3 = $myuser2->userid();
-		
-		echo $myuser3;*/
-		//echo var_dump($jaja);exit;
-
-
-		//$persons = new User();
-		//return view('users.index')->with('users', $persons);
-		//$user = User::all();
-		//$bla = Member::find($user->member_id);
-		//$kp = $user->member()->orderBy('updated_at', 'DESC')->get();
-		//echo $kp;exit;
-		//echo $bla->firstname;
-		//$bla2 = $bla->member();
-		//echo var_dump($bla2);exit;
-		//echo $bla2;
-		$users = User::paginate(15);
-		return view('users.index')->with('users', $users)->with('jaja', $jaja);
+		$users = User::paginate(15);		
+		return view('users.index')->with('users', $users);//->with('jaja', $jaja);
 	}
 
 	public function getRegister(){
