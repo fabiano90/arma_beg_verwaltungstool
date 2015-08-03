@@ -32,7 +32,7 @@
 			@endforeach
 		</tbody>
 	</table>
-</div>sdfghgfgh
+</div>
 {!! str_replace('/?', '?', $users->render()) !!}
 <br/>
 
