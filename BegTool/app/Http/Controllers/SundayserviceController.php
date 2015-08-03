@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Request;
 use App\Models\Sundayservice;
 use App\Models\User;
+use App\Models\Kigo;
+use App\Models\Sermon;
 use Illuminate\Database\Eloquent\Model;
 
 class SundayserviceController extends Controller {
@@ -13,14 +15,31 @@ class SundayserviceController extends Controller {
 		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
 	}
 	public function getNewsunday() {
-		$users = User::all ();
-		// queries the clients db table, orders by client_name and lists client_name and id
-		$client_optons = $users->sundayservice ()->orderBy ( 'username', 'asc' )->lists ( 'username', 'id' );
-		
-		return View::make ( 'sundayservices.newSunday', array (
-				'client_options' => $client_options 
-		) );
+		return view ( 'sundayservices.newsunday' );
 	}
+	
+	public function postNewsunday(){
+		$sundayservice = new Sundayservice;
+		$kigo= new Kigo;
+		$sermon =new Sermon;
+		
+		
+		$kigo->user_id = Request::input('kigo_leader');
+		$kigo->save();
+		
+		$sermon->preacher_id = Request::input('preacher_id');
+		$sermon->date = Request::input('date');
+		$sermon->save();
+		
+		$sundayservice->user_id = Request::input('lector_id');
+		$sundayservice->save();
+		return redirect('sundayservice')->with('message', 'success|Sonntag erfolgreich angelegt!');
+		
+	}
+	
+	
+	
+	
 	public function getNewyear($year) {
 		$sundays = $this->sundaysYear ( $year );
 		$users = User::all ();
