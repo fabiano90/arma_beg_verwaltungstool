@@ -18,17 +18,17 @@ class UserController extends Controller
 	public function getIndex()
 	{
 		$db = DB::table('users')->where('username', 'abcde')->value('id');
-		echo $db; exit;
+		echo $db; 
 
 		$userr = User::find(19);
 		$jaja = $userr->absence()->get();
 
-		$myuser = User::select('id')->orderBy('created_at', 'DESC')->first();
+		/*$myuser = User::select('id')->orderBy('created_at', 'DESC')->first();
 		//$blabla = $myuser->
 		$myuser2 = User::find(1);
 		$myuser3 = $myuser2->userid();
 		
-		echo $myuser3;exit;
+		echo $myuser3;*/
 		//echo var_dump($jaja);exit;
 
 

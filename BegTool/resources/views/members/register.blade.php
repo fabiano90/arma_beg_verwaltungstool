@@ -12,6 +12,7 @@
         <div class="input-group date datetimepicker"  data-date-format="YYYY-MM-DD">
         {!! Form::text('birthdate', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum JJJJ-MM-TT')) !!}          
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div>
+            {!! Form::select('size', array('L' => 'Large', 'S' => 'Small'), null, array('class'=>'form-control','style'=>'' )) !!}
 		{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 		{!! Form::close() !!}
 @stop
