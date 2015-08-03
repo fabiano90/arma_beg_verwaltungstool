@@ -39,7 +39,6 @@ class SundayserviceController extends Controller {
 		$sermon->save();
 		
 		/**** Preacher id suchen****/
-		$lector = Request::input('lector');
 		$lector_id = Request::input('lectors_list');
 		$sundayservice->user_id = $lector_id;
 		
