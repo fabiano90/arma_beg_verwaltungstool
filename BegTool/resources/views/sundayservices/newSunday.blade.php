@@ -2,19 +2,19 @@
 
 @section('content')
 
-{!! Form::open(array('url'=>'sundayservice/newsunday', 'class'=>'form-signup')) !!}
+{!! Form::open(array('url'=>'sundayservices/newsunday', 'class'=>'form-signup')) !!}
     <h2 class="form-signup-heading">Neuen Gottesdienst anlegen</h2>
     
-    {!! Form::label('kigoleader_id', 'Lektor_id') !!}
-    {!! Form::text('kigoleader_id', null, array('class'=>'form-control', 'placeholder'=>'Vorname')) !!}
+    {!! Form::label('kigoleader', 'Kigo Leiter') !!}
+    {!! Form::text('kigoleader', null, array('class'=>'form-control', 'placeholder'=>'Username')) !!}
     {!! Form::label('preacher_id', 'Prediger_id') !!}
-    {!! Form::text('preacher_id', null, array('class'=>'form-control', 'placeholder'=>'Nachname')) !!}
+    {!! Form::text('preacher_id', null, array('class'=>'form-control', 'placeholder'=>'Username')) !!}
     {!! Form::label('lector_id', 'Lektor_id') !!}
-    {!! Form::text('lector_id', null, array('class'=>'form-control', 'placeholder'=>'Nachname')) !!}
+    {!! Form::text('lector_id', null, array('class'=>'form-control', 'placeholder'=>'Username')) !!}
 
-    {!! Form::label('birthdate', 'Geburtsdatum') !!}
+    {!! Form::label('date', 'Geburtsdatum') !!}
     <div class="input-group date datetimepicker"  data-date-format="YYYY-MM-DD">
-    {!! Form::text('birthdate', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum')) !!}          
+    {!! Form::text('date', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum')) !!}          
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
     </div>
     <br/>
