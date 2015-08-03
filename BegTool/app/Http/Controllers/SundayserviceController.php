@@ -76,20 +76,27 @@ class SundayserviceController extends Controller {
 			$kigo = new Kigo;
 			$sermon = new Sermon;
 			
-			/**** Kigo id suchen und speichern ****/
+			/**** Kigo suchen und speichern ****/
 			$kigoleader_id = Request::input('kigos_list'.$sundays[$i]);
 			$kigo->user_id = $kigoleader_id;
-			$kigo->save();
+			$kigo->lection = Request::input('lection'.$sundays[$i]);
+			$kigo->lection_number = Request::input('lection_number'.$sundays[$i]);
+			
 			
 			/**** Preacher id + date suchen und speichern ****/
-			$sermon->preacher_id = Request::input('preachers_list'.$sundays[$i]);
+			$preacher_id = Request::input('preachers_list'.$sundays[$i]); // klappt nicht
+			$sermon->preacher_id = $preacher_id;
 			$sermon->date = Request::input('date'.$sundays[$i]);
-			$sermon->save();
+			
 			
 			/**** Lector id suchen****/
-			$lector_id = Request::input('lectors_list'.$sundays[$i]);
+			$lector_id = Request::input('lectors_list'.$sundays[$i]);  //klappt nicht 
 			$sundayservice->user_id = $lector_id;
+			echo '<br>Kigo: '.$kigo->user_id;
+			echo '<br>sermon: '.$preacher_id;
+			echo '<br>Godi: '.$lector_id; exit;
 			
+			$sermon->save();$kigo->save();
 			/**** Kigo und Sermon id suchen und Speichern****/
 			$kigo_id = Kigo::orderBy('id', 'DESC')->first();
 			$sermon_id =Sermon::orderBy('id', 'DESC')->first();

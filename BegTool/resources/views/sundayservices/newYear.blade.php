@@ -1,6 +1,6 @@
 @extends('layouts.main') @section('content')
 
-{!!Form::open(array('url'=>'sundayservices/newyear, 'class'=>'form-signup'))!!}
+{!!Form::open(array('url'=>'sundayservices/newyear', 'class'=>'form-signup'))!!}
 
 <h2>Jahresplanung{!! Form::text('year', $year, array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}</h2>
 <table class="table table-striped table-hover">
@@ -18,11 +18,15 @@
 		
 		<tr>
 			<td> {!! Form::text('date'.$sunday, date('d.m.Y', $sunday), array('class'=>'form-control btn-link')) !!}</td>
+			
 			<td> {!! Form::select('kigos_list'.$sunday, $kigos_list, null, array('class'=>'form-control', 'style'=> '')) !!}</td>
-			<td> {!! Form::text('lektion'.$sunday, null , array('class'=>'form-control ', 'placeholder'=>'Lektion')) !!}</td>
-			<td> {!! Form::text('topic'.$sunday, null , array('class'=>'form-control ', 'placeholder'=>'Thema')) !!}</td>
+			
+			<td> {!! Form::text('lection_number'.$sunday, null , array('class'=>'form-control ', 'placeholder'=>'Lektion')) !!}</td>
+			<td> {!! Form::text('lection'.$sunday, null , array('class'=>'form-control ', 'placeholder'=>'Thema')) !!}</td>
+			
 			<td> {!! Form::select('lectors_list.$sunday', $lectors_list, null, array('class'=>'form-control', 'style'=> '')) !!}</td>
 			<td> {!! Form::select('preachers_list.$sunday', $preachers_list, null, array('class'=>'form-control', 'style'=> '')) !!}</td>
+		
 		</tr>
 		@endforeach
 	
