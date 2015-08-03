@@ -41,5 +41,6 @@
 
 		</tbody>
 	</table>
+	{!! HTML::link('/sundayservices/newsunday', 'Gottesdienst hinz&uuml;fgen', array('class'=>'btn btn-default')) !!}
 </div>
 @stop
