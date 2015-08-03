@@ -41,5 +41,6 @@
 
 		</tbody>
 	</table>
+	{!! HTML::link('sundayservices/newsunday', 'Hinzuf&uuml;gen', array('class' => 'btn btn-default'))!!}
 </div>
 @stop
