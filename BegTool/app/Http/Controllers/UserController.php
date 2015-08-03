@@ -18,7 +18,14 @@ class UserController extends Controller
 	{
 		$userr = User::find(19);
 		$jaja = $userr->absence()->get();
-		echo var_dump($jaja);exit;
+
+		$myuser = User::select('id')->orderBy('created_at', 'DESC')->first();
+		//$blabla = $myuser->
+		$myuser2 = User::find(1);
+		$myuser3 = $myuser2->userid();
+		
+		echo $myuser3;exit;
+		//echo var_dump($jaja);exit;
 
 
 		//$persons = new User();

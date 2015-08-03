@@ -15,6 +15,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     use Authenticatable, CanResetPassword;
 
 
+
 	public function member()
 	{
 	    return $this->belongsTo('App\Models\Member', 'member_id');
@@ -47,6 +48,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function messagesReceived()
 	{
 	    return $this->hasMany('App\Models\Message', 'receiver_id');
+	}
+
+	public function userid(){
+		return User::where('username', 'qwe')->lists('id');
 	}
 
 	public function messages()
