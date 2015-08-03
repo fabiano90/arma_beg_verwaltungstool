@@ -12,6 +12,17 @@ use DB;
 
 class SundayserviceController extends Controller {
 	public function getIndex() {
+		$ausgabe = DB::table('sundayservices')
+					->join('kigos', 'sundayservices.kigo_id', '=', 'kigos.id')
+					->join('users', 'users.id', '=', 'kigos.user_id')
+					->select('users.username')					
+					->get();
+		//echo var_dump($ausgabe);
+		foreach ($ausgabe as $user) {
+		   echo $user->username. '<br>';
+		}
+					exit;
+
 		$sundayservices = Sundayservice::all ();
 		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
 	}

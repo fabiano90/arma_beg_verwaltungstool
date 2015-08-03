@@ -1,6 +1,6 @@
 @extends('layouts.main') @section('content')
 
-<h2>Übersicht Leitung</h2>
+<h2>Kalender</h2>
 <div  class="table-responsive">
 	<table id="leitung" class="table table-striped table-hover">
 		<thead>
@@ -28,9 +28,10 @@
 				<td>$sunday->comments Kommi</td>
 				<td>$sunday->sacrament Sakra</td>
 			</tr>
-			<tr>
-				<td>$sunday->sermon(_id->date 12.04.2015</td>
-				<td>$sunday->user_id Tim</td>
+			@foreach($sundayservices as $sunday)
+			<tr>				
+				<td>{!! $sunday->sermon_id !!} -> date 12.04.2015</td>
+				<td>{!! $sunday->kigo_id !!} Tim</td>
 				<td>$sunday->sermon)->preacher_id Prediger</td>
 				<td>$sunday->kigo()->user_id Tim</td>
 				<td>$sunday->psalm Psalm 104</td>
@@ -38,7 +39,7 @@
 				<td>$sunday->comments Kommi</td>
 				<td>$sunday->sacrament Sakra</td>
 			</tr>
-
+			@endforeach
 		</tbody>
 	</table>	
 </div>
