@@ -103,9 +103,6 @@ class SundayserviceController extends Controller {
 			/**** Lector id suchen****/
 			$lector_id = Request::input('lectors_list'.$sundays[$i]);  //klappt nicht 
 			$sundayservice->user_id = $lector_id;
-			echo '<br>Kigo: '.$kigo->user_id;
-			echo '<br>sermon: '.$preacher_id;
-			echo '<br>Godi: '.$lector_id; exit;
 			
 			$sermon->save();$kigo->save();
 			/**** Kigo und Sermon id suchen und Speichern****/
