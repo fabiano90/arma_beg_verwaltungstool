@@ -20,5 +20,8 @@ class Sundayservice extends Model
 	{
 		return $this->belongsTo('App\Models\Sermon', 'sermon_id');
 	}
+	public function kigo(){
+		return $this->hasOne('App\Models\Kigo');
+	}
 }
 
