@@ -57,24 +57,47 @@ class SundayserviceController extends Controller {
 	}
 	
 	
-	
-	
 	public function getNewyear($year) {
+		
 		$sundays = $this->sundaysYear ( $year );
-		$users = User::all ();
-		$sundayservices = Sundayservice::all ();
-		return view ( 'sundayservices.newYear' )->with ( 'sundays', $sundays )->with ( 'users', $users );
+		$kigos_list = DB::table('users')->where('permission', 2)->lists('username', 'id');
+		$preachers_list = DB::table('members')->lists('onlinename', 'id');
+		$lectors_list = DB::table('users')->where('permission', 1)->lists('username', 'id');
+		return view ( 'sundayservices.newYear' )->with ( 'sundays', $sundays )->with('kigos_list', $kigos_list)->with('preachers_list',$preachers_list)->with('lectors_list',$lectors_list)->with('year',$year);
 	}
 	public function postNewyear() {
+		$year = Request::input('year');
+		$sundays = $this->sundaysYear ( $year );
+		
+		
 		for($i = 0; $i < 52; $i ++) {
-			$sundayservices = new Sudayservice ();
-			$sundayservices->user_id = Request::input ( 'user_id' . $i );
-			$sundayservices->username = Request::input ( 'username' );
-			$sundayservices->email = Request::input ( 'email' );
-			$sundayservices->password = Hash::make ( Request::input ( 'password' ) );
-			$sundayservices->permission = 2; // intval(Request::input('permission'));
+		
+			$sundayservice = new Sundayservice;
+			$kigo = new Kigo;
+			$sermon = new Sermon;
 			
-			$user->save ();
+			/**** Kigo id suchen und speichern ****/
+			$kigoleader_id = Request::input('kigos_list'.$sundays[$i]);
+			$kigo->user_id = $kigoleader_id;
+			$kigo->save();
+			
+			/**** Preacher id + date suchen und speichern ****/
+			$sermon->preacher_id = Request::input('preachers_list'.$sundays[$i]);
+			$sermon->date = Request::input('date'.$sundays[$i]);
+			$sermon->save();
+			
+			/**** Lector id suchen****/
+			$lector_id = Request::input('lectors_list'.$sundays[$i]);
+			$sundayservice->user_id = $lector_id;
+			
+			/**** Kigo und Sermon id suchen und Speichern****/
+			$kigo_id = Kigo::orderBy('id', 'DESC')->first();
+			$sermon_id =Sermon::orderBy('id', 'DESC')->first();
+			$sundayservice->user_id = $lector_id;
+			$sundayservice->kigo_id = $kigo_id->id;
+			$sundayservice->sermon_id = $sermon_id->id;
+			$sundayservice->save();			
+			
 		}
 		return redirect ( 'users' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
 	}
