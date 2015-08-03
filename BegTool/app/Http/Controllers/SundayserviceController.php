@@ -24,7 +24,7 @@ class SundayserviceController extends Controller {
 		$sermon =new Sermon;
 		
 		
-		$kigo->user_id = Request::input('kigo_leader');
+		$kigo->user_id = Request::input('kigoleader_id');
 		$kigo->save();
 		
 		$sermon->preacher_id = Request::input('preacher_id');
