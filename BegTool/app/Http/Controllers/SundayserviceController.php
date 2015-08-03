@@ -24,38 +24,33 @@ class SundayserviceController extends Controller {
 		$kigo = new Kigo;
 		$sermon = new Sermon;
 		
-
+		/**** Kigo id suchen und speichern ****/
 		$kigoleader = Request::input('kigoleader');
 		$kigoleader_id = DB::table('users')->where('username', $kigoleader)->value('id');
-		//$kigoleaders = User::all();
-		//$kigoleader_id = $kigoleader->select('id')->where('username', $kigoleader)->get();//->lists('id');//select('id')->where->get oder lists('id') statt get()
-		//echo $kigoleader_id;exit;
 		$kigo->user_id = $kigoleader_id;
+		$kigo->save();
 		
+		/**** Preacher id + date suchen und speichern ****/
 		$preacher = Request::input('preacher');
+		$preacher_id = DB::table('members')->where('onlinename', $preacher)->value('id');
+		$sermon->preacher_id = $preacher_id;
 		$sermon->date = Request::input('date');
 		$sermon->save();
-		$kigo->save();
-
-		//$userr = User::find(19);
-		//$jaja = $userr->absence()->get();
-		//$posts = $user->posts()->orderBy('updated_at', 'DESC')->get();
 		
+		/**** Preacher id suchen****/
+		$lector = Request::input('lector');
+		$lector_id = DB::table('users')->where('username', $lector)->value('id');
+		$sundayservice->user_id = $lector_id;
+		
+		/**** Kigo und Sermon id suchen und Speichern****/
 		$kigo_id = Kigo::orderBy('created_at', 'DESC')->first();
 		$sermon_id =Sermon::orderBy('created_at', 'DESC')->first();
-
-		$sundayservice->user_id = Request::input('lector_id');
+		$sundayservice->user_id = $lector_id;
 		$sundayservice->kigo_id = $kigo_id->id;
 		$sundayservice->sermon_id = $sermon_id->id;
-
-		/*echo 'ki'. $kigo
-		.' sermonPreach '. 
-		$sermon->preacher_id.' date '. 
-		$sermon->date.
-		 $sundayservice->user_id;*/
-		//exit;
-		
 		$sundayservice->save();
+		
+		
 		return redirect('sundayservices')->with('message', 'success|Sonntag erfolgreich angelegt!');
 		
 	}
