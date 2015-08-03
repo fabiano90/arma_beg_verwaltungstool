@@ -8,9 +8,10 @@ use App\Models\User;
 use App\Models\Kigo;
 use App\Models\Sermon;
 use Illuminate\Database\Eloquent\Model;
-use DB;
 
-class SundayserviceController extends Controller {
+class KigoController extends Controller {
+
+	//alles muell
 	public function getIndex() {
 		$sundayservices = Sundayservice::all ();
 		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
@@ -24,39 +25,17 @@ class SundayserviceController extends Controller {
 		$kigo = new Kigo;
 		$sermon = new Sermon;
 		
-
-		$kigoleader = Request::input('kigoleader');
-		$kigoleader_id = DB::table('users')->where('username', $kigoleader)->value('id');
-		//$kigoleaders = User::all();
-		//$kigoleader_id = $kigoleader->select('id')->where('username', $kigoleader)->get();//->lists('id');//select('id')->where->get oder lists('id') statt get()
-		//echo $kigoleader_id;exit;
-		$kigo->user_id = $kigoleader_id;
 		
-		$preacher = Request::input('preacher');
+		$kigo->user_id = Request::input('kigoleader_id');
+		$kigo->save();
+		
+		$sermon->preacher_id = Request::input('preacher_id');
 		$sermon->date = Request::input('date');
 		$sermon->save();
-		$kigo->save();
-
-		//$userr = User::find(19);
-		//$jaja = $userr->absence()->get();
-		//$posts = $user->posts()->orderBy('updated_at', 'DESC')->get();
 		
-		$kigo_id = Kigo::orderBy('created_at', 'DESC')->first();
-		$sermon_id =Sermon::orderBy('created_at', 'DESC')->first();
-
 		$sundayservice->user_id = Request::input('lector_id');
-		$sundayservice->kigo_id = $kigo_id->id;
-		$sundayservice->sermon_id = $sermon_id->id;
-
-		/*echo 'ki'. $kigo
-		.' sermonPreach '. 
-		$sermon->preacher_id.' date '. 
-		$sermon->date.
-		 $sundayservice->user_id;*/
-		//exit;
-		
 		$sundayservice->save();
-		return redirect('sundayservices')->with('message', 'success|Sonntag erfolgreich angelegt!');
+		return redirect('sundayservice')->with('message', 'success|Sonntag erfolgreich angelegt!');
 		
 	}
 	

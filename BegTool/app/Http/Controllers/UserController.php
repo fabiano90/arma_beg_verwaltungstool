@@ -10,12 +10,16 @@ use View;
 use Request;
 use Hash;
 use Auth;
+use DB;
 
 class UserController extends Controller
 {
 
 	public function getIndex()
 	{
+		$db = DB::table('users')->where('username', 'abcde')->value('id');
+		echo $db; exit;
+
 		$userr = User::find(19);
 		$jaja = $userr->absence()->get();
 
