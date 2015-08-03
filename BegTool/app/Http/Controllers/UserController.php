@@ -18,7 +18,7 @@ class UserController extends Controller
 	{
 		$userr = User::find(19);
 		$jaja = $userr->absence()->get();
-		echo var_dump($jaja);exit;
+		//echo var_dump($jaja);exit;
 
 
 		//$persons = new User();
