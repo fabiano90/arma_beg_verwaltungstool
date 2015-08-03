@@ -50,10 +50,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	    return $this->hasMany('App\Models\Message', 'receiver_id');
 	}
 
-	public function userid(){
-		return User::where('username', 'qwe')->lists('id');
-	}
-
 	public function messages()
 	{
 	    return Message::where('sender_id', '=', $this->id)
