@@ -16,7 +16,11 @@ class SundayserviceController extends Controller {
 		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
 	}
 	public function getNewsunday() {
-		return view ( 'sundayservices.newsunday' );
+		$kigos_list = DB::table('users')->where('permission', 2)->lists('username', 'id');
+		$preachers_list = DB::table('members')->lists('onlinename', 'id');
+		$lectors_list = DB::table('users')->where('permission', 1)->lists('username', 'id');
+		
+		return view ( 'sundayservices.newsunday' )->with('kigos_list', $kigos_list)->with('preachers_list',$preachers_list)->with('lectors_list',$lectors_list);
 	}
 	
 	public function postNewsunday(){
@@ -25,21 +29,18 @@ class SundayserviceController extends Controller {
 		$sermon = new Sermon;
 		
 		/**** Kigo id suchen und speichern ****/
-		$kigoleader = Request::input('kigoleader');
-		$kigoleader_id = DB::table('users')->where('username', $kigoleader)->value('id');
+		$kigoleader_id = Request::input('kigos_list');
 		$kigo->user_id = $kigoleader_id;
 		$kigo->save();
 		
 		/**** Preacher id + date suchen und speichern ****/
-		$preacher = Request::input('preacher');
-		$preacher_id = DB::table('members')->where('onlinename', $preacher)->value('id');
-		$sermon->preacher_id = $preacher_id;
+		$sermon->preacher_id = Request::input('preachers_list');
 		$sermon->date = Request::input('date');
 		$sermon->save();
 		
 		/**** Preacher id suchen****/
 		$lector = Request::input('lector');
-		$lector_id = DB::table('users')->where('username', $lector)->value('id');
+		$lector_id = Request::input('lectors_list');
 		$sundayservice->user_id = $lector_id;
 		
 		/**** Kigo und Sermon id suchen und Speichern****/

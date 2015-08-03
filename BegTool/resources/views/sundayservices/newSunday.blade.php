@@ -12,12 +12,12 @@
     {!! Form::text('date', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum')) !!}          
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
     </div>
-    {!! Form::label('kigoleader', 'Kigo Leiter') !!}
-    {!! Form::text('kigoleader', null, array('class'=>'form-control', 'placeholder'=>'Username')) !!}
-    {!! Form::label('preacher', 'Prediger (Vorname Nachname') !!}
-    {!! Form::text('preacher', null, array('class'=>'form-control', 'placeholder'=>'Username')) !!}
-    {!! Form::label('lector', 'Lektor') !!}
-    {!! Form::text('lector', null, array('class'=>'form-control', 'placeholder'=>'Username')) !!}
+    {!! Form::label('kigos_list', 'Kigo Leiter') !!}
+    {!! Form::select('kigos_list', $kigos_list, null, array('class'=>'form-control', 'style'=> '')) !!}
+    {!! Form::label('preachers_list', 'Prediger') !!}
+    {!! Form::select('preachers_list', $preachers_list, null, array('class'=>'form-control', 'style'=> '')) !!}
+    {!! Form::label('lectors_list', 'Lektor') !!}
+    {!! Form::select('lectors_list', $lectors_list, null, array('class'=>'form-control', 'style'=> '')) !!}
     <br/>
     {!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 {!! Form::close() !!}
