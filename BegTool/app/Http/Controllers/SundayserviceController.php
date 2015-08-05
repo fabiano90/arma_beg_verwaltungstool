@@ -12,15 +12,59 @@ use DB;
 
 class SundayserviceController extends Controller {
 	public function getIndex() {
-		$ausgabe = DB::table('sundayservices')
-					->join('kigos', 'sundayservices.kigo_id', '=', 'kigos.id')
-					->join('users', 'users.id', '=', 'kigos.user_id')
-					->select('users.username')					
+		$date = DB::table('sundayservices') 
+					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
+					->select('sermons.date')
 					->get();
-		//echo var_dump($ausgabe);
-		foreach ($ausgabe as $user) {
-		   echo $user->username. '<br>';
+
+		$kigoUser = DB::table('sundayservices')					
+					->join('kigos', 'sundayservices.kigo_id', '=', 'kigos.id')
+					->join('users', 'kigos.user_id', '=', 'users.id') //User der Kigo					
+					->select('users.username as kigo_username', 'kigos.lection_number', 'kigos.lection');
+					//->get();
+
+		$lector = DB::table('sundayservices')			
+					->join('users', 'sundayservices.user_id', '=', 'users.id')					
+					->select('users.username as lector_username')
+					->get();	
+
+		$sermonMember = DB::table('sundayservices')//preacher				
+					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
+					->join('members', 'sermons.preacher_id', '=', 'members.id')					
+					->select('members.firstname', 'members.lastname')					
+					->get();				
+
+		/*$all = DB::table('sundayservices')					
+					->join('kigos', 'sundayservices.kigo_id', '=', 'kigos.id')
+					->join('users', 'kigos.user_id', '=', 'users.id') //User der Kigo					
+					->select('users.username as kigo_username')			
+					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
+					->addSelect('sermons.date')		
+					->join('users', 'sundayservices.user_id', '=', 'users.id')					
+					->addSelect('users.username as lector_username')			
+					->get();
+*/
+		//$newall = $lector->union($kigoUser)->get();
+
+		foreach ($lector as $a) {
+			//echo 'da: '. $a->date;
+			//echo 'da: '. $a->username;
+			//echo ' ki: ' . $a->kigo_username;
+			echo ' lec: ' . $a->lector_username;
+
+			echo '<br/>';
 		}
+		
+		/*foreach ($kigoUser as $t) {
+			echo $t->username . '<br>';
+			echo $t->lection_number . '<br>';
+			echo $t->lection . '<br>';
+		}
+		
+		foreach ($sermonMember as $user) {
+		   echo $user->firstname. '<br>';
+		   echo $user->lastname. '<br>';
+		}*/
 					exit;
 
 		$sundayservices = Sundayservice::all ();
@@ -29,7 +73,7 @@ class SundayserviceController extends Controller {
 	public function getNewsunday() {
 		$kigos_list = DB::table('users')->where('permission', 2)->lists('username', 'id');
 		$preachers_list = DB::table('members')->lists('onlinename', 'id');
-		$lectors_list = DB::table('users')->where('permission', 1)->lists('username', 'id');
+		$lectors_list = DB::table('users')->where('permission', '<=', 1)->lists('username', 'id');
 		
 		return view ( 'sundayservices.newsunday' )->with('kigos_list', $kigos_list)->with('preachers_list',$preachers_list)->with('lectors_list',$lectors_list);
 	}
@@ -72,7 +116,7 @@ class SundayserviceController extends Controller {
 		$sundays = $this->sundaysYear ( $year );
 		$kigos_list = DB::table('users')->where('permission', 2)->lists('username', 'id');
 		$preachers_list = DB::table('members')->lists('onlinename', 'id');
-		$lectors_list = DB::table('users')->where('permission', 1)->lists('username', 'id');
+		$lectors_list = DB::table('users')->where('permission', '<=', 1)->lists('username', 'id');
 		return view ( 'sundayservices.newYear' )->with ( 'sundays', $sundays )->with('kigos_list', $kigos_list)->with('preachers_list',$preachers_list)->with('lectors_list',$lectors_list)->with('year',$year);
 	}
 	public function postNewyear() {
