@@ -1,5 +1,10 @@
-@extends('layouts.main')
-
+@extends('layouts.main') 
+@section('menu')
+<ul class="nav nav-pills nav-stacked">
+	<li><a href="/public/users">Mitarbeiter</a></li>
+	<li><a href="/public/members">Geburtstage</a></li>
+</ul>
+@stop 
 @section('content')
 <h2>Mitarbeiter</h2>
 <div class="table-responsive">
@@ -10,7 +15,7 @@
 				<th>Benutzername</th>
 				<th>Berechtigungen</th>
 				<th>E-Mail</th>
-				
+
 				<th width="40%">Bearbeiten</th>
 			</tr>
 		</thead>
@@ -22,8 +27,9 @@
 				<td>{!! $user->permission !!}</td>
 				<td>{!! $user->email !!}</td>
 				<td>
-					<div class="btn-group">{!! HTML::link('/users/addfriend/'.$user->id, 'Freund hinzufügen', array('class'=>'btn btn-default')) !!}
-					</div>
+					<div class="btn-group">{!!
+						HTML::link('/users/addfriend/'.$user->id, 'Freund hinzufügen',
+						array('class'=>'btn btn-default')) !!}</div>
 				</td>
 			</tr>
 			@endforeach
@@ -31,9 +37,9 @@
 	</table>
 </div>
 {!! str_replace('/?', '?', $users->render()) !!}
-<br/>
+<br />
 
 
 
-{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
-@stop
+{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default',
+'onClick="javascript:history.back();return false;"'))!!} @stop

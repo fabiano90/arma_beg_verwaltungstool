@@ -44,7 +44,7 @@ HTML::script('js/offcanvas.js') !!}
 					<li><a href="#ueber">Über</a></li>
 					<li><a href="#kontakt">Kontakt</a></li>
 					<li><a href="/public/users">Mitarbeiter</a></li>
-					<li><a href="/public/members">Mitglieder</a></li>
+					<li><a href="/public/users">Gemeinde</a></li>
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
@@ -60,7 +60,7 @@ HTML::script('js/offcanvas.js') !!}
 			<div class="col-xs-12 col-sm-9">
 				<p class="pull-right visible-xs">
 					<button type="button" class="btn btn-primary btn-xs"
-						data-toggle="offcanvas">Toggle nav</button>
+						data-toggle="offcanvas">Menü ausklappen</button>
 				</p>
 				<div class="jumbotron">
 					<div class="container">@yield('content')</div>
@@ -70,18 +70,7 @@ HTML::script('js/offcanvas.js') !!}
 			<!--/.col-xs-12.col-sm-9-->
 
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-				<div class="list-group">
-					<a href="#" class="list-group-item active">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a> <a href="#"
-						class="list-group-item">Link</a>
-				</div>
+				@yield('menu')
 			</div>
 			<!--/.sidebar-offcanvas-->
 		</div>

@@ -26,27 +26,34 @@ class MemberController extends Controller
 	}
 
 	public function postRegister(){
-		/*$validator = Validator::make(Request::all(), User::$rules);
+		$validator = Validator::make(Request::all(), Member::$rules);
 		if ($validator->passes()) 
-		{*/
+		{
 	    	// validation has passed, save user in DB
 			$person = new Member;
 		    $person->firstname = Request::input('firstname');
 		    $person->lastname = Request::input('lastname');
 		    //if birthdate angegeggben
 		    $person->birthdate = Request::input('birthdate');
+		    
+		    $person->onlinename = $person->firstname." ".$person->lastname;
+
+		    
+		    
 		    echo " ".$person->firstname.
 		    " ". $person->lastname.
-		    " " . $person->birthdate;
-		   	// exit;
+		    " ". $person->onlinename;
+		   	
 			$person->save();
 		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
-		/*} 
+		} 
 		else
 	 	{
+	 
+	 		
 	    	// validation has failed, display error messages   
 	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-		}*/
+		}
 	}
 
 	public function getAdduser($member_id){

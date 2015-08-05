@@ -37,6 +37,7 @@ class UserController extends Controller
 		    $user->email = Request::input('email');		   	
 		    $user->password = Hash::make(Request::input('password'));
 		    $user->permission = intval(Request::input('permission'));
+		   
 
 		   echo 
 		    "member_id: " . $user->member_id.

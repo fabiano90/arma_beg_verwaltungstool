@@ -2,11 +2,14 @@
 
 @section('content')
 		{!! Form::open(array('url'=>'members/register', 'class'=>'form-signup')) !!}
+		{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
         <h2 class="form-signup-heading">Registrierung</h2>
 		{!! Form::label('firstname', 'Vorname') !!}
-		{!! Form::text('firstname', null, array('class'=>'form-control', 'placeholder'=>'Vorname')) !!}
+		{!! Form::text('firstname', null, array('id'=>'firstname', 'class'=>'form-control', 'placeholder'=>'Vorname')) !!}
     	{!! Form::label('lastname', 'Nachname') !!}
-    	{!! Form::text('lastname', null, array('class'=>'form-control', 'placeholder'=>'Nachname')) !!}    
+    	{!! Form::text('firstname', null, array('id'=>'lastname', 'class'=>'form-control', 'placeholder'=>'Vorname')) !!}
+    	{!! Form::label('onlinename', 'Onlinename') !!}
+    	{!! Form::text('onlinename', null, array('id'=>'onlinename', 'class'=>'form-control', 'placeholder'=>'Nachname')) !!}    
         {!! Form::label('birthdate', 'Geburtsdatum') !!}
         <div class="input-group date datetimepicker"  data-date-format="YYYY-MM-DD">
         {!! Form::text('birthdate', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum JJJJ-MM-TT')) !!}          
