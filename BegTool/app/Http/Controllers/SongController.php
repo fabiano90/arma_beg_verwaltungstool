@@ -25,22 +25,16 @@ class SongController extends Controller
 		return view('songs.addsong');//->with('member', $members);
 	}
 
-	public function postRegister(){
+	public function postAddsong(){
 		/*$validator = Validator::make(Request::all(), User::$rules);
 		if ($validator->passes()) 
 		{*/
 	    	// validation has passed, save user in DB
-			$person = new Member;
-		    $person->firstname = Request::input('firstname');
-		    $person->lastname = Request::input('lastname');
-		    //if birthdate angegeggben
-		    $person->birthdate = Request::input('birthdate');
-		    echo " ".$person->firstname.
-		    " ". $person->lastname.
-		    " " . $person->birthdate;
-		   	// exit;
-			$person->save();
-		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
+			$song = new Song;
+		    $song->name = Request::input('name');
+		    $song->annotation = Request::input('annotation');
+			$song->save();
+		    return redirect('songs')->with('message', 'success|Student erfolgreich angelegt!');
 		/*} 
 		else
 	 	{
@@ -48,6 +42,48 @@ class SongController extends Controller
 	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
 		}*/
 	}
+
+	public function getEditsong($song_id){
+		$song = Song::find($song_id);
+		return view('songs.editsong')->with('song', $song);
+	}
+
+	public function postEditsong($song_id){
+		/*$validator = Validator::make(Request::all(), User::$rules);
+		if ($validator->passes()) 
+		{*/
+	    	// validation has passed, save user in DB
+			$song = Song::find($song_id);
+			$song->number = Request::input('number');
+		    $song->name = Request::input('name');
+		    $song->annotation = Request::input('annotation');
+			$song->save();
+		    return redirect('songs')->with('message', 'success|Student erfolgreich angelegt!');
+		/*} 
+		else
+	 	{
+	    	// validation has failed, display error messages   
+	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+		}*/
+	}
+
+    public function getShow($id = 0)
+    {
+        $user = Song::find($id);
+        return view('songs.showsong')->with('song', $song);
+    }
+
+    public function getDeletesong($id)
+    {
+        $song = Song::find($id);
+       	//$song->deleteCascade();
+        $song->delete();
+        return redirect('songs/index')->with('message', 'success|Student wurde erfolgreich gelöscht!');
+    }
+
+
+
+
 
 	public function getAdduser($member_id){
 		$user = Auth::user();		
@@ -88,13 +124,6 @@ class SongController extends Controller
 	}
 
 
-
-
-	public function getShow()
-	{
-		$persons = Person::all();
-		echo count($persons);
-	}
 
 	public function getTimeline($user_id = 0)
 	{
