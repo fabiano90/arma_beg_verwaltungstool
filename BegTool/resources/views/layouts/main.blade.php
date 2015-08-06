@@ -4,24 +4,28 @@
 <meta charset="UTF-8">
 <title>Beg Osnabrück</title>
 <!-- Latest compiled and minified CSS -->
-{!! HTML::style('css/bootstrap.min.css') !!} {!!
-HTML::style('css/bootstrap-theme.min.css') !!} {!!
-HTML::style('css/bootstrap.datetimepicker.css') !!} {!!
-HTML::style('css/offcanvas.css') !!} {!!
-HTML::style('css/jquery.dynatable.css') !!} {!!
-HTML::style('css/style.css') !!}
+{!!HTML::style('css/footable/footable.standalone.css')!!}
+{!!HTML::style('css/footable/footable.core.css')!!}
+{!!HTML::style('css/bootstrap.min.css')!!}
+{!!HTML::style('css/bootstrap-theme.min.css')!!}
+{!!HTML::style('css/bootstrap.datetimepicker.css')!!}
+{!!HTML::style('css/offcanvas.css')!!}
+
+{!!HTML::style('css/style.css')!!}
 <!-- JavaScript -->
-{!!
-HTML::script('js/vendor/jquery-1.7.2.min.js') !!}
-{!!
-HTML::script('js/jquery.dynatable.js') !!} 
-{!! HTML::script('js/moment.js') !!} {!!
-HTML::script('js/jquery.min.js') !!} {!! HTML::script('js/jquery.js')
-!!} {!! HTML::script('js/bootstrap.min.js')!!} {!!
-HTML::script('js/bootstrap.datetimepicker.js') !!} {!!
-HTML::script('js/bootstrap.datetimepicker-de.js') !!} {!!
-HTML::script('js/offcanvas.js') !!} 
-{!! HTML::script('js/useful.js') !!} 
+
+{!!HTML::script('js/moment.js')!!}
+{!!HTML::script('js/jquery.min.js')!!}
+{!!HTML::script('js/jquery.js')!!}
+{!!HTML::script('js/bootstrap.min.js')!!}
+{!!HTML::script('js/bootstrap.datetimepicker.js')!!}
+{!!HTML::script('js/bootstrap.datetimepicker-de.js')!!}
+{!!HTML::script('js/offcanvas.js')!!}
+{!!HTML::script('js/footable-plugin/footable.js')!!}
+{!!HTML::script('js/footable-plugin/footable.filter.js')!!}
+{!!HTML::script('js/footable-plugin/footable.sort.js')!!}
+
+{!!HTML::script('js/useful.js')!!}
 
 
 </head>
@@ -70,16 +74,16 @@ HTML::script('js/offcanvas.js') !!}
 			<!--/.col-xs-12.col-sm-9-->
 
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-				@yield('menu')
-			</div>
+				@yield('menu')</div>
 			<!--/.sidebar-offcanvas-->
 		</div>
 		<!--/row-->
 
+
 		<hr>
 
-		
-		
+
+
 		<footer>
 			<p>© Firma 2014</p>
 		</footer>

@@ -16,7 +16,7 @@
 	    {!! Form::text('birthdate', $member->birthdate, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}      
 
     	{!! Form::label('username', 'Benutzername') !!}
-   	 	{!! Form::text('username', null, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}
+   	 	{!! Form::text('username', $member->firstname, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}
 
 		{!! Form::label('email', 'E-Mail') !!}
 	    {!! Form::text('email', null, array('class'=>'form-control', 'placeholder'=>'E-Mail')) !!}

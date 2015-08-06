@@ -15,7 +15,7 @@ class Member extends Model {
 	public static $rules = array (
 			'firstname' => 'required|alpha|min:2',
 			'lastname' => 'required|alpha|min:2',
-			'birthdate' => 'date_format:Y-m-d' ,
-			'onlinename' => 'required|onlinename|unique:members'
+			'birthdate' => 'date_format:d.m.Y' ,
+			'onlinename' => 'required|unique:members'
 	);
 }

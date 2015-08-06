@@ -29,21 +29,12 @@ class MemberController extends Controller
 		$validator = Validator::make(Request::all(), Member::$rules);
 		if ($validator->passes()) 
 		{
-	    	// validation has passed, save user in DB
+	    	// validation has passed, save member in DB
 			$person = new Member;
 		    $person->firstname = Request::input('firstname');
 		    $person->lastname = Request::input('lastname');
-		    //if birthdate angegeggben
-		    $person->birthdate = Request::input('birthdate');
-		    
-		    $person->onlinename = $person->firstname." ".$person->lastname;
-
-		    
-		    
-		    echo " ".$person->firstname.
-		    " ". $person->lastname.
-		    " ". $person->onlinename;
-		   	
+		    $person->birthdate = strtotime(Request::input('birthdate'));  
+		    $person->onlinename = Request::input('onlinename');	   	
 			$person->save();
 		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
 		} 

@@ -48,7 +48,7 @@ class UserController extends Controller
 		    //exit;
 
 		    $user->save();
-		    return redirect('users')->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('users')->with('message', 'success|'.$user->username.' erfolgreich angelegt!');
     	} 
     	else
      	{

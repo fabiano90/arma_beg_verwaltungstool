@@ -3,23 +3,24 @@
 @section('content')
 
 
-<h2>Geburtstage der Gemeindemitglieder</h2>
+<h2>Geburtstagsliste</h2>
 <div class="table-responsive">
-	<table class="table table-striped table-hover">
+<input id="filter" class="form-control" type="text" placeholder="Suche">
+	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 		<thead>
 			<tr>
-				<th>Vorname</th>
-				<th>Nachname</th>
-				<th>Geburtsdatum</th>				
-				<th width="40%">Bearbeiten</th>
+				
+				<th>Name</th>
+				<th data-hide="phone">Geburtsdatum</th>				
+				<th data-hide="phone"width="40%">Bearbeiten</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($members as $member)
 			<tr>
-				<td>{!! $member->firstname !!}</td>
-				<td>{!! $member->lastname !!}</td>
-				<td>{!! $member->birthdate !!}</td>
+				<td>{!! $member->onlinename !!}</td>
+				
+				<td data-type="numeric" data-value= '{!!strtotime($member->birthdate)!!}'>{!! $member->birthdate!!}</td>
 				<td>
 					<div class="btn-group">{!! HTML::link('/members/adduser/'.$member->id, 'Als Mitarbeiter hinzufügen', array('class'=>'btn btn-default')) !!}
 					</div>
