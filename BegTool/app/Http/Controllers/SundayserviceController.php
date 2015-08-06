@@ -12,29 +12,6 @@ use DB;
 
 class SundayserviceController extends Controller {
 	public function getIndex() {
-
-		$date = DB::table('sundayservices') 
-					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
-					->select('sermons.date');
-					//->get();
-		
-		$kigoUser = DB::table('sundayservices')					
-					->join('kigos', 'sundayservices.kigo_id', '=', 'kigos.id')
-					->join('users', 'kigos.user_id', '=', 'users.id') //User der Kigo					
-					->select('users.username as kigo_username', 'kigos.lection_number', 'kigos.lection');
-					//->get();
-		
-		$lector = DB::table('sundayservices')			
-					->join('users', 'sundayservices.user_id', '=', 'users.id')					
-					->select('users.username as lector_username')
-					->get();	
-				
-		$preacher = DB::table('sundayservices')				
-					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
-					->join('members', 'sermons.preacher_id', '=', 'members.id')					
-					->select('members.firstname', 'members.lastname')					
-					->get();	
-
 		$kalenders = DB::table('sundayservices')
 					->join('sermons', 'sundayservices.sermon_id', '=','sermons.id')
 					->join('kigos', 'sundayservices.kigo_id', '=','kigos.id')

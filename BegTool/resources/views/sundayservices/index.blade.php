@@ -1,6 +1,9 @@
 @extends('layouts.main') @section('content')
 
 <h2>Kalender</h2>
+<p>
+	{!! HTML::link('sundayservices/newsunday', 'Hinzuf&uuml;gen', array('class' => 'btn btn-default'))!!}
+</p>
 <div  class="table-responsive">
 	<table id="leitung" class="table table-striped table-hover footable toggle-medium">
 		<thead>
@@ -28,6 +31,4 @@
 		</tbody>
 	</table>	
 </div>
-
-{!! HTML::link('sundayservices/newsunday', 'Hinzuf&uuml;gen', array('class' => 'btn btn-default'))!!}
 @stop
