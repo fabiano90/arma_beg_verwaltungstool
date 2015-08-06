@@ -23,5 +23,11 @@ class Sundayservice extends Model
 	public function kigo(){
 		return $this->hasOne('App\Models\Kigo');
 	}
+	
+	public static $rules = array(
+			'date' => 'date_format:d.m.Y|required' ,
+			'lection_number'=>'numeric'
+	);
+	
 }
 

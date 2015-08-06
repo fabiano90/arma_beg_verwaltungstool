@@ -14,4 +14,8 @@ class Sermon extends Model
     {
     	return $this->hasOne('App\Models\Sundayservice');
     }
+    
+    public static $rules = array(
+    		'lection_number'=>'num',
+    );
 }
