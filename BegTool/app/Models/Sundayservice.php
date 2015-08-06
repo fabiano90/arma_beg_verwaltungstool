@@ -9,17 +9,25 @@ class Sundayservice extends Model
 	{
 		return $this->belongsTo('App\Models\User', 'user_id');
 	}
-	public function service_song() {
-		return $this->hasMany( 'App\Models\Service_song', 'service_id' );
+
+	//public function service_song() {
+	//	return $this->hasMany( 'App\Models\Service_song', 'service_id' );
+	//}
+
+	public function songs(){
+		return $this->belongsToMany('App\Models\Song');//kigo_songs
 	}
+
 	public function vers()
 	{
 		return $this->belongsTo('App\Models\Vers', 'vers_id');
 	}
+
 	public function sermon()
 	{
 		return $this->belongsTo('App\Models\Sermon', 'sermon_id');
 	}
+	
 	public function kigo(){
 		return $this->hasOne('App\Models\Kigo');
 	}

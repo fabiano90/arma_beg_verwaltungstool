@@ -49,6 +49,8 @@
 					<li><a href="#kontakt">Kontakt</a></li>
 					<li><a href="/public/users">Mitarbeiter</a></li>
 					<li><a href="/public/users">Gemeinde</a></li>
+					<li><a href="/public/songs">Lieder</a></li>
+					<li><a href="/public/kigos">Kigos</a></li>
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->

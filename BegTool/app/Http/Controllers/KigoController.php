@@ -8,73 +8,46 @@ use App\Models\User;
 use App\Models\Kigo;
 use App\Models\Sermon;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class KigoController extends Controller {
 
-	//alles muell
 	public function getIndex() {
-		$sundayservices = Sundayservice::all ();
-		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
+		$kigoAndLeader = DB::table('kigos')
+			->join('users', 'kigos.user_id', '=','users.id')
+			->select('kigos.id', 'users.username', 'lection_number', 'lection', 'conclusion', 'material', 'crafting')
+			->get();
+
+		//$kigos = Kigo::paginate(10);
+		return view ('kigos.index')->with('kigos', $kigoAndLeader);//->with('kigo_leader', $kigoAndLeader);
 	}
-	public function getNewsunday() {
-		return view ( 'sundayservices.newsunday' );
+
+	public function getEditkigo($kigo_id){
+		$kigo = Kigo::find($kigo_id);
+		return view('kigos.editkigo')->with('kigo', $kigo);
 	}
+
+	public function postEditkigo($kigo_id){
+		/*$validator = Validator::make(Request::all(), User::$rules);
+		if ($validator->passes()) 
+		{*/
+	    	// validation has passed, save user in DB
+			$kigo = Kigo::find($kigo_id);
+		    $kigo->lection_number = Request::input('lection_number');
+		    $kigo->lection = Request::input('lection');
+		    $kigo->conclusion = Request::input('conclusion');
+		    $kigo->material = Request::input('material');
+		    $kigo->crafting = Request::input('crafting');
+			$kigo->save();
+		    return redirect('kigos')->with('message', 'success|Student erfolgreich angelegt!');
+		/*} 
+		else
+	 	{
+	    	// validation has failed, display error messages   
+	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+		}*/
+	}
+
+
 	
-	public function postNewsunday(){
-		$sundayservice = new Sundayservice;
-		$kigo = new Kigo;
-		$sermon = new Sermon;
-		
-		
-		$kigo->user_id = Request::input('kigoleader_id');
-		$kigo->save();
-		
-		$sermon->preacher_id = Request::input('preacher_id');
-		$sermon->date = Request::input('date');
-		$sermon->save();
-		
-		$sundayservice->user_id = Request::input('lector_id');
-		$sundayservice->save();
-		return redirect('sundayservice')->with('message', 'success|Sonntag erfolgreich angelegt!');
-		
-	}
-	
-	
-	
-	
-	public function getNewyear($year) {
-		$sundays = $this->sundaysYear ( $year );
-		$users = User::all ();
-		$sundayservices = Sundayservice::all ();
-		return view ( 'sundayservices.newYear' )->with ( 'sundays', $sundays )->with ( 'users', $users );
-	}
-	public function postNewyear() {
-		for($i = 0; $i < 52; $i ++) {
-			$sundayservices = new Sudayservice ();
-			$sundayservices->user_id = Request::input ( 'user_id' . $i );
-			$sundayservices->username = Request::input ( 'username' );
-			$sundayservices->email = Request::input ( 'email' );
-			$sundayservices->password = Hash::make ( Request::input ( 'password' ) );
-			$sundayservices->permission = 2; // intval(Request::input('permission'));
-			
-			$user->save ();
-		}
-		return redirect ( 'users' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
-	}
-	public function sundaysYear($year) {
-		$startDate = strtotime ( $year . '-01-01 23:59:59' );
-		$sundays [] = null;
-		$ids [] = null;
-		$nextYear = $year + 1;
-		
-		for($i = 0; strcmp ( date ( 'd.m.Y', $startDate ), '01.01.' . $nextYear ) != 0;) {
-			
-			if (strcmp ( date ( 'D', $startDate ), 'Sun' ) == 0) {
-				$sundays [$i] = $startDate;
-				$i ++;
-			}
-			$startDate = strtotime ( '+1 day', $startDate );
-		}
-		return $sundays;
-	}
 }
