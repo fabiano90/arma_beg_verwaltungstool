@@ -8,14 +8,23 @@
 
 
     {!! Form::label('date', 'Sonntag') !!}
-    <div class="input-group date datetimepicker"  data-date-format="YYYY-MM-DD">
-    {!! Form::text('date', null, array('class'=>'form-control', 'placeholder'=>'Geburtsdatum')) !!}          
+    <div class="input-group date datetimepicker"  data-date-format="DD.MM.YYYY">
+    {!! Form::text('date', null, array('class'=>'form-control', 'placeholder'=>'Datum')) !!}          
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
     </div>
+    <br/>
     {!! Form::label('kigos_list', 'Kigo Leiter') !!}
     {!! Form::select('kigos_list', $kigos_list, null, array('class'=>'form-control', 'style'=> '')) !!}
+    <br/>
+    {!! Form::label('lection_number', 'Lektionsnummer') !!}
+    {!! Form::text('lection_number', null , array('class'=>'form-control ', 'placeholder'=>'Nummer')) !!}
+    <br/>
+    {!! Form::label('lection', 'Lektion') !!}
+    {!! Form::text('lection', null , array('class'=>'form-control ', 'placeholder'=>'Thema')) !!}
+    <br/>
     {!! Form::label('preachers_list', 'Prediger') !!}
     {!! Form::select('preachers_list', $preachers_list, null, array('class'=>'form-control', 'style'=> '')) !!}
+    <br/>
     {!! Form::label('lectors_list', 'Lektor') !!}
     {!! Form::select('lectors_list', $lectors_list, null, array('class'=>'form-control', 'style'=> '')) !!}
     <br/>

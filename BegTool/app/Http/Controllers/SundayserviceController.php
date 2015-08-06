@@ -12,63 +12,39 @@ use DB;
 
 class SundayserviceController extends Controller {
 	public function getIndex() {
+
 		$date = DB::table('sundayservices') 
 					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
-					->select('sermons.date')
-					->get();
-
+					->select('sermons.date');
+					//->get();
+		
 		$kigoUser = DB::table('sundayservices')					
 					->join('kigos', 'sundayservices.kigo_id', '=', 'kigos.id')
 					->join('users', 'kigos.user_id', '=', 'users.id') //User der Kigo					
 					->select('users.username as kigo_username', 'kigos.lection_number', 'kigos.lection');
 					//->get();
-
+		
 		$lector = DB::table('sundayservices')			
 					->join('users', 'sundayservices.user_id', '=', 'users.id')					
 					->select('users.username as lector_username')
 					->get();	
-
-		$sermonMember = DB::table('sundayservices')//preacher				
+				
+		$preacher = DB::table('sundayservices')				
 					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
 					->join('members', 'sermons.preacher_id', '=', 'members.id')					
 					->select('members.firstname', 'members.lastname')					
-					->get();				
+					->get();	
 
-		/*$all = DB::table('sundayservices')					
-					->join('kigos', 'sundayservices.kigo_id', '=', 'kigos.id')
-					->join('users', 'kigos.user_id', '=', 'users.id') //User der Kigo					
-					->select('users.username as kigo_username')			
-					->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
-					->addSelect('sermons.date')		
-					->join('users', 'sundayservices.user_id', '=', 'users.id')					
-					->addSelect('users.username as lector_username')			
+		$kalenders = DB::table('sundayservices')
+					->join('sermons', 'sundayservices.sermon_id', '=','sermons.id')
+					->join('kigos', 'sundayservices.kigo_id', '=','kigos.id')
+					->join('users as kigo_leader', 'kigos.user_id', '=','kigo_leader.id')
+					->join('users as lector', 'sundayservices.user_id', '=','lector.id')
+					->join('members', 'sermons.preacher_id', '=','members.id')
+					->select('sermons.date', 'kigo_leader.username as kigo_name', 'kigos.lection_number', 'kigos.lection', 'lector.username as lector_name', 'members.onlinename')
 					->get();
-*/
-		//$newall = $lector->union($kigoUser)->get();
 
-		foreach ($lector as $a) {
-			//echo 'da: '. $a->date;
-			//echo 'da: '. $a->username;
-			//echo ' ki: ' . $a->kigo_username;
-			echo ' lec: ' . $a->lector_username;
-
-			echo '<br/>';
-		}
-		
-		/*foreach ($kigoUser as $t) {
-			echo $t->username . '<br>';
-			echo $t->lection_number . '<br>';
-			echo $t->lection . '<br>';
-		}
-		
-		foreach ($sermonMember as $user) {
-		   echo $user->firstname. '<br>';
-		   echo $user->lastname. '<br>';
-		}*/
-					exit;
-
-		$sundayservices = Sundayservice::all ();
-		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
+		return view ( 'sundayservices.index' )->with ( 'kalenders', $kalenders );
 	}
 	public function getNewsunday() {
 		$kigos_list = DB::table('users')->where('permission', 2)->lists('username', 'id');
@@ -86,6 +62,8 @@ class SundayserviceController extends Controller {
 		/**** Kigo id suchen und speichern ****/
 		$kigoleader_id = Request::input('kigos_list');
 		$kigo->user_id = $kigoleader_id;
+		$kigo->lection = Request::input('lection');
+		$kigo->lection_number = Request::input('lection_number');
 		$kigo->save();
 		
 		/**** Preacher id + date suchen und speichern ****/
@@ -138,16 +116,17 @@ class SundayserviceController extends Controller {
 			
 			
 			/**** Preacher id + date suchen und speichern ****/
-			$preacher_id = Request::input('preachers_list'.$sundays[$i]); // klappt nicht
+			$preacher_id = Request::input('preachers_list'.$sundays[$i]);
 			$sermon->preacher_id = $preacher_id;
 			$sermon->date = Request::input('date'.$sundays[$i]);
 			
 			
 			/**** Lector id suchen****/
-			$lector_id = Request::input('lectors_list'.$sundays[$i]);  //klappt nicht 
+			$lector_id = Request::input('lectors_list'.$sundays[$i]);
 			$sundayservice->user_id = $lector_id;
 			
-			$sermon->save();$kigo->save();
+			$sermon->save();
+			$kigo->save();
 			/**** Kigo und Sermon id suchen und Speichern****/
 			$kigo_id = Kigo::orderBy('id', 'DESC')->first();
 			$sermon_id =Sermon::orderBy('id', 'DESC')->first();

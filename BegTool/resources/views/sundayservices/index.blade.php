@@ -2,42 +2,27 @@
 
 <h2>Kalender</h2>
 <div  class="table-responsive">
-	<table id="leitung" class="table table-striped table-hover">
+	<table id="leitung" class="table table-striped table-hover footable toggle-medium">
 		<thead>
 			<tr>
 				<th>Sonntag</th>
-				<th>Leitung</th>
+				<th>Kigoleitung</th>
+				<th data-hidden="phone">Lektion</th>
+				<th data-hidden="phone">Thema</th>
+				<th>Lektor</th>
 				<th>Prediger</th>
-				<th>Kigo</th>
-				<th>Psalm</th>
-				<th>Lieder</th>
-				<th>comments</th>
-				<th>sacrament</th>
 			</tr>
 		</thead>
 
 		<tbody>
-
-			<tr>
-				<td>$sunday->sermon(_id->date 12.04.2015</td>
-				<td>$sunday->user_id Tim</td>
-				<td>$sunday->sermon)->preacher_id Prediger</td>
-				<td>$sunday->kigo()->user_id Tim</td>
-				<td>$sunday->psalm Psalm 104</td>
-				<td>$sunday->biblereading 102 Lobe den Herren</td>
-				<td>$sunday->comments Kommi</td>
-				<td>$sunday->sacrament Sakra</td>
-			</tr>
-			@foreach($sundayservices as $sunday)
+			@foreach($kalenders as $kalender)
 			<tr>				
-				<td>{!! $sunday->sermon_id !!} -> date 12.04.2015</td>
-				<td>{!! $sunday->kigo_id !!} Tim</td>
-				<td>$sunday->sermon)->preacher_id Prediger</td>
-				<td>$sunday->kigo()->user_id Tim</td>
-				<td>$sunday->psalm Psalm 104</td>
-				<td>$sunday->biblereading 102 Lobe den Herren</td>
-				<td>$sunday->comments Kommi</td>
-				<td>$sunday->sacrament Sakra</td>
+				<td data-type="numeric" data-value='{!! strtotime($kalender->date)!!}'>{!! $kalender->date !!}</td>
+				<td>{!! $kalender->kigo_name !!}</td>
+				<td>{!! $kalender->lection_number !!}</td>
+				<td>{!! $kalender->lection !!}</td>
+				<td>{!! $kalender->lector_name !!}</td>
+				<td>{!! $kalender->onlinename !!}</td>
 			</tr>
 			@endforeach
 		</tbody>
