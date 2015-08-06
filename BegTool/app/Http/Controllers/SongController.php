@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Member;
 use App\Models\Message;
 use App\Models\Song;
+use App\Models\Kigo;
 use Validator;
 use View;
 use Request;
@@ -16,13 +17,18 @@ class SongController extends Controller
 
 	public function getIndex()
 	{
+		//kigo_song pivot...
+		//$mysong = Song::find(1);
+		//foreach ($mysong->kigos as $role) {
+    	//	echo $role->pivot->song_id;
+		//}
+
 		$songs = Song::paginate(10);
 		return view('songs.index')->with('songs', $songs);
 	}
 
 	public function getAddsong(){
-		$members = new Member();
-		return view('songs.addsong');//->with('member', $members);
+		return view('songs.addsong');
 	}
 
 	public function postAddsong(){
