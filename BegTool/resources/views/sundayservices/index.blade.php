@@ -4,16 +4,18 @@
 <p>
 	{!! HTML::link('sundayservices/newsunday', 'Hinzuf&uuml;gen', array('class' => 'btn btn-default'))!!}
 </p>
-<div  class="table-responsive">
-	<table id="leitung" class="table table-striped table-hover footable toggle-medium">
+<div class="table-responsive">
+<input id="filter" class="form-control" type="text" placeholder="Suche">
+	<table class="table table-striped table-hover footable" data-filter="#filter">
 		<thead>
 			<tr>
-				<th>Sonntag</th>
-				<th>Kigoleitung</th>
-				<th data-hidden="phone">Lektion</th>
-				<th data-hidden="phone">Thema</th>
+				<th data-sort-initial="true">Sonntag</th>
+				<th>Kigo</th>
+				<th data-hide="phone">Nr.</th>
+				<th data-hide="phone">Lektion</th>
 				<th>Lektor</th>
 				<th>Prediger</th>
+				<th></th>
 			</tr>
 		</thead>
 
@@ -26,6 +28,7 @@
 				<td>{!! $kalender->lection !!}</td>
 				<td>{!! $kalender->lector_name !!}</td>
 				<td>{!! $kalender->onlinename !!}</td>
+				<td><a href="sundayservices/editsunday/{!! $kalender->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
 			</tr>
 			@endforeach
 		</tbody>

@@ -23,4 +23,7 @@ class Kigo extends Model {
 	public function sundayservice() {
 		return $this->belongsTo ( 'App\Models\Sundayservice', 'kigo_id' );
 	}
+	public static $rules = array(
+			'lection_number'=>'num',
+	);
 }

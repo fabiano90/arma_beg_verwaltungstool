@@ -3,6 +3,7 @@
 {!!Form::open(array('url'=>'sundayservices/newyear', 'class'=>'form-signup'))!!}
 
 <h2>Jahresplanung{!! Form::text('year', $year, array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}</h2>
+{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 <table class="table table-striped table-hover">
 	<tbody>
 		<tr>
