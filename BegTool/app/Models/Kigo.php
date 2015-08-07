@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Kigo extends Model {
+
 	public function users() {
 		return $this->belongsTo ( 'App\Models\User', 'user_id' );
 	}
@@ -20,8 +21,8 @@ class Kigo extends Model {
 		return $this->belongsTo ( 'App\Models\Vers', 'vers_id' );
 	}
 	
-	public function sundayservice() {
-		return $this->belongsTo ( 'App\Models\Sundayservice', 'kigo_id' );
+	public function sundayservices() {
+		return $this->hasOne('App\Models\Sundayservice');
 	}
 	public static $rules = array(
 			'lection_number'=>'num',

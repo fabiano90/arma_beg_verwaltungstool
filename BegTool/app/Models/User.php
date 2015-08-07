@@ -16,20 +16,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 
 
-	public function member()
+	public function members()
 	{
 	    return $this->belongsTo('App\Models\Member', 'member_id');
 	}
 	
-	public function absence()
+	public function absences()
 	{
 		return $this->hasMany('App\Models\Absence', 'user_id');
 	}
-	public function kigo()
+	public function kigos()
 	{
 		return $this->hasMany('App\Models\Kigo', 'user_id');
 	}
-	public function sundayservice()
+	public function sundayservices()
 	{
 		return $this->hasMany('App\Models\Sundayservice', 'user_id');
 	}

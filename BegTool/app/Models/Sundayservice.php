@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sundayservice extends Model
 {
-	public function user()
+	public function users()
 	{
 		return $this->belongsTo('App\Models\User', 'user_id');
 	}
@@ -23,13 +23,13 @@ class Sundayservice extends Model
 		return $this->belongsTo('App\Models\Vers', 'vers_id');
 	}
 
-	public function sermon()
+	public function sermons()
 	{
 		return $this->belongsTo('App\Models\Sermon', 'sermon_id');
 	}
 	
-	public function kigo(){
-		return $this->hasOne('App\Models\Kigo');
+	public function kigos(){
+		return $this->belongsTo('App\Models\Kigo', 'kigo_id' );
 	}
 	
 	public static $rules = array(

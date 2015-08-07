@@ -13,12 +13,53 @@ use DB;
 class KigoController extends Controller {
 
 	public function getIndex() {
-		$kigoAndLeader = DB::table('kigos')
+		/*$kigoAndLeader = DB::table('kigos')
 			->join('users', 'kigos.user_id', '=','users.id')
-			->select('kigos.id', 'users.username', 'lection_number', 'lection', 'conclusion', 'material', 'crafting')
+			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
+			->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
+			->join('kigo_song', 'kigos.id', '=', 'kigo_song.kigo_id')
+			->join('songs', 'kigo_song.song_id', '=', 'songs.id')
+			->select('sermons.date', 'kigos.id', 'users.username', 'lection_number', 'lection', 'conclusion', 'material', 'crafting', 'songs.name')
 			->get();
 
+		$kigoAndLeader2 = DB::table('kigos')
+			->join('users', 'kigos.user_id', '=','users.id')
+			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
+			->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
+			->join('kigo_song', 'kigos.id', '=', 'asdffgfghhjjhahsbbstgbsrtdhfadysnd')
+			->join('songs', 'kigo_song.song_id', '=', 'songs.id')
+			->select('sermons.date', 'kigos.id', 'users.username', 'lection_number', 'lection', 'conclusion', 'material', 'crafting', 'songs.name')
+			->get();	
+		*/	
+
+		//print_r($kigoAndLeader);
+		//echo '<br/><br/>'.var_dump($kigoAndLeader);exit;	
+		//$merged = $kigoAndLeader->push($kigoAndLeader2);
+		//$merged = $kigoAndLeader + $kigoAndLeader2;
+
+		//	$array2 = array("name" => "jo");
+		//	$temp = array_merge($kigoAndLeader2, $array2);
+		//$merged = array_combine ($kigoAndLeader, $kigoAndLeader2);
+
 		//$kigos = Kigo::paginate(10);
+
+
+
+
+		$kigos = Kigo::all();
+		//echo $kigo->users->username;
+		foreach ($kigos as $kigo) {
+			echo $kigo->sundayservices->sermons->date;
+			echo $kigo->sundayservices->users->username;
+			echo $kigo->users->username;			
+			foreach ($kigo->songs as $song) {
+			    echo $song->name;
+			}
+			echo '<br/>';
+		}
+		exit;
+
+
 		return view ('kigos.index')->with('kigos', $kigoAndLeader);//->with('kigo_leader', $kigoAndLeader);
 	}
 
