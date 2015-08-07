@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model {
-	public function user() {
+	public function users() {
 		return $this->hasOne ( 'App\Models\User' );
 	}
-	public function sermon() {
+	public function sermons() {
 		return $this->hasMany ( 'App\Models\sermon', 'preacher_id' );
 	}
 

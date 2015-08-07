@@ -20,15 +20,16 @@
 		</thead>
 
 		<tbody>
-			@foreach($kalenders as $kalender)
+			@foreach($sundayservices as $sundayservice)
 			<tr>				
-				<td data-type="numeric" data-value='{!! strtotime($kalender->date)!!}'>{!! $kalender->date !!}</td>
-				<td>{!! $kalender->kigo_name !!}</td>
-				<td>{!! $kalender->lection_number !!}</td>
-				<td>{!! $kalender->lection !!}</td>
-				<td>{!! $kalender->lector_name !!}</td>
-				<td>{!! $kalender->onlinename !!}</td>
-				<td><a href="sundayservices/editsunday/{!! $kalender->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+				<td data-type="numeric" data-value='{!! strtotime($sundayservice->sermons->date)!!}'>{!! $sundayservice->sermons->date !!}</td>
+				<td>{!! $sundayservice->kigos->users->username !!}</td>
+				<td>{!! $sundayservice->kigos->lection_number !!}</td>
+				<td>{!! $sundayservice->kigos->lection !!}</td>
+				<td>{!! $sundayservice->users->username !!}</td>
+				<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
+				<td><a href="sundayservices/editsunday/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+
 			</tr>
 			@endforeach
 		</tbody>

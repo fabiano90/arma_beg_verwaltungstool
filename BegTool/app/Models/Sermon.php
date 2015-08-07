@@ -5,12 +5,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sermon extends Model
 {
-    public function member()
+    public function members()
     {
         return $this->belongsTo('App\Models\Member', 'preacher_id');
     }
 
-    public function sundayservice()
+    public function sundayservices()
     {
     	return $this->hasOne('App\Models\Sundayservice');
     }
