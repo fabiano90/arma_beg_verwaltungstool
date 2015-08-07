@@ -10,7 +10,7 @@
 	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 		<thead>
 			<tr>
-				<th>Datum</th>
+				<th data-sort-initial="true">Datum</th>
 				<th>Kigoleiter</th>
 				<th>Lektionsnummer</th>
 				<th>Thema</th>				
@@ -24,7 +24,7 @@
 		<tbody>			
 			@foreach($kigos as $kigo)
 			<tr>
-				<td>{!! $kigo->sundayservices->sermons->date !!}</td>
+				<td data-type="numeric" data-value='{!! strtotime($kigo->sundayservices->sermons->date)!!}'>{!! date('d.m.Y', strtotime($kigo->sundayservices->sermons->date)) !!}</td>
 				<td>{!! $kigo->users->username !!}</td>
 				<td>{!! $kigo->lection_number !!}</td>				
 				<td>{!! $kigo->lection !!}</td>	

@@ -27,8 +27,14 @@ class SongController extends Controller
 		return view('songs.index')->with('songs', $songs);
 	}
 
-	public function getAddsong(){
-		return view('songs.addsong');
+//	public function getAddsong(){
+	//	return view('songs.addsong');
+	//}
+
+	public function getAddsong()
+	{
+		$songs = Song::all();
+		return view('songs.addsong')->with('songs', $songs);
 	}
 
 	public function postAddsong(){
@@ -72,6 +78,13 @@ class SongController extends Controller
 	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
 		}*/
 	}
+
+
+
+
+
+
+
 
     public function getShow($id = 0)
     {

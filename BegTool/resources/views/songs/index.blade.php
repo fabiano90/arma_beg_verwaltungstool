@@ -5,13 +5,14 @@
 
 <h2>Lieder</h2>
 <div class="table-responsive">
-	<table class="table table-striped table-hover">
+<input id="filter" class="form-control" type="text" placeholder="Suche">
+	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 		<thead>
 			<tr>
 				<th>Nummer</th>
 				<th>Name</th>
-				<th>Bemerkung</th>				
-				<th width="40%">Bearbeiten</th>
+				<th data-hide="phone">Bemerkung</th>				
+				<th data-hide="phone" width="40%">Bearbeiten</th>
 			</tr>
 		</thead>
 		<tbody>
