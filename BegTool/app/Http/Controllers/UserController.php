@@ -17,6 +17,14 @@ class UserController extends Controller
 
 	public function getIndex()
 	{
+		/*
+		auth...
+		$kigos = User::find($user_id)->kigos;
+		foreach ($kigos as $kigo) {
+		    echo $kigo->lection;
+		}
+
+		*/
 		$users = User::paginate(15);		
 		return view('users.index')->with('users', $users);//->with('jaja', $jaja);
 	}
