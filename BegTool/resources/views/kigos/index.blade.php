@@ -24,15 +24,18 @@
 		<tbody>			
 			@foreach($kigos as $kigo)
 			<tr>
-				<td>{!! $kigo->date !!}</td>
-				<td>{!! $kigo->username !!}</td>
+				<td>{!! $kigo->sundayservices->sermons->date !!}</td>
+				<td>{!! $kigo->users->username !!}</td>
 				<td>{!! $kigo->lection_number !!}</td>				
 				<td>{!! $kigo->lection !!}</td>	
 				<td>{!! $kigo->conclusion !!}</td>	
 				<td>{!! $kigo->material !!}</td>
-				<td>{!! $kigo->crafting !!}</td>		
-				<td>{!! $kigo->name !!}</td>	
-			
+				<td>{!! $kigo->crafting !!}</td>	
+				<td>
+					@foreach($kigo->songs as $song)	
+						{!! $song->name !!}<br/>
+					@endforeach	
+				</td>
 				<td>
 					<div class="btn-group">						
 						{!! HTML::link('/kigos/editkigo/'.$kigo->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
