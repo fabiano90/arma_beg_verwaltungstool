@@ -10,7 +10,7 @@
 	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 		<thead>
 			<tr>
-				<th>Datum</th>
+				<th data-sort-initial="true">Datum</th>
 				<th>Kigoleiter</th>
 				<th>Lektionsnummer</th>
 				<th>Thema</th>				
@@ -24,15 +24,18 @@
 		<tbody>			
 			@foreach($kigos as $kigo)
 			<tr>
-				<td>{!! $kigo->date !!}</td>
-				<td>{!! $kigo->username !!}</td>
+				<td data-type="numeric" data-value='{!! strtotime($kigo->sundayservices->sermons->date)!!}'>{!! date('d.m.Y', strtotime($kigo->sundayservices->sermons->date)) !!}</td>
+				<td>{!! $kigo->users->username !!}</td>
 				<td>{!! $kigo->lection_number !!}</td>				
 				<td>{!! $kigo->lection !!}</td>	
 				<td>{!! $kigo->conclusion !!}</td>	
 				<td>{!! $kigo->material !!}</td>
-				<td>{!! $kigo->crafting !!}</td>		
-				<td>{!! $kigo->name !!}</td>	
-			
+				<td>{!! $kigo->crafting !!}</td>	
+				<td>
+					@foreach($kigo->songs as $song)	
+						{!! $song->name !!}<br/>
+					@endforeach	
+				</td>
 				<td>
 					<div class="btn-group">						
 						{!! HTML::link('/kigos/editkigo/'.$kigo->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}

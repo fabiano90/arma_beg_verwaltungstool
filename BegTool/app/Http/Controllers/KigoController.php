@@ -7,65 +7,21 @@ use App\Models\Sundayservice;
 use App\Models\User;
 use App\Models\Kigo;
 use App\Models\Sermon;
+use App\Models\Song;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
 class KigoController extends Controller {
 
 	public function getIndex() {
-		/*$kigoAndLeader = DB::table('kigos')
-			->join('users', 'kigos.user_id', '=','users.id')
-			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
-			->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
-			->join('kigo_song', 'kigos.id', '=', 'kigo_song.kigo_id')
-			->join('songs', 'kigo_song.song_id', '=', 'songs.id')
-			->select('sermons.date', 'kigos.id', 'users.username', 'lection_number', 'lection', 'conclusion', 'material', 'crafting', 'songs.name')
-			->get();
-
-		$kigoAndLeader2 = DB::table('kigos')
-			->join('users', 'kigos.user_id', '=','users.id')
-			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
-			->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
-			->join('kigo_song', 'kigos.id', '=', 'asdffgfghhjjhahsbbstgbsrtdhfadysnd')
-			->join('songs', 'kigo_song.song_id', '=', 'songs.id')
-			->select('sermons.date', 'kigos.id', 'users.username', 'lection_number', 'lection', 'conclusion', 'material', 'crafting', 'songs.name')
-			->get();	
-		*/	
-
-		//print_r($kigoAndLeader);
-		//echo '<br/><br/>'.var_dump($kigoAndLeader);exit;	
-		//$merged = $kigoAndLeader->push($kigoAndLeader2);
-		//$merged = $kigoAndLeader + $kigoAndLeader2;
-
-		//	$array2 = array("name" => "jo");
-		//	$temp = array_merge($kigoAndLeader2, $array2);
-		//$merged = array_combine ($kigoAndLeader, $kigoAndLeader2);
-
-		//$kigos = Kigo::paginate(10);
-
-
-
-
 		$kigos = Kigo::all();
-		//echo $kigo->users->username;
-		foreach ($kigos as $kigo) {
-			echo $kigo->sundayservices->sermons->date;
-			echo $kigo->sundayservices->users->username;
-			echo $kigo->users->username;			
-			foreach ($kigo->songs as $song) {
-			    echo $song->name;
-			}
-			echo '<br/>';
-		}
-		exit;
-
-
-		return view ('kigos.index')->with('kigos', $kigoAndLeader);//->with('kigo_leader', $kigoAndLeader);
+		return view ('kigos.index')->with('kigos', $kigos);//->with('kigo_leader', $kigoAndLeader);
 	}
 
 	public function getEditkigo($kigo_id){
 		$kigo = Kigo::find($kigo_id);
-		return view('kigos.editkigo')->with('kigo', $kigo);
+		$kigo_songs = $kigo->songs;
+		return view('kigos.editkigo')->with('kigo', $kigo)->with('kigo_songs', $kigo_songs);
 	}
 
 	public function postEditkigo($kigo_id){
@@ -80,7 +36,7 @@ class KigoController extends Controller {
 		    $kigo->material = Request::input('material');
 		    $kigo->crafting = Request::input('crafting');
 			$kigo->save();
-		    return redirect('kigos')->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('kigos/addsong/'.$kigo_id)->with('message', 'success|Student erfolgreich angelegt!');
 		/*} 
 		else
 	 	{
@@ -89,6 +45,25 @@ class KigoController extends Controller {
 		}*/
 	}
 
+	public function getAddsong($kigo_id)
+	{
+		$kigo = Kigo::find($kigo_id);
+		$songs = Song::all();
+		$kigo_songs = $kigo->songs;
+		return view('kigos.addsongtokigo')->with('songs', $songs)->with('kigo', $kigo)->with('kigo_songs', $kigo_songs);
+	}
 
-	
+	public function postAddsongtokigo($kigo_id)
+	{
+		$kigo = Kigo::find($kigo_id);
+
+		$songs = Song::all();
+		foreach ($songs as $song) {
+			//echo 'song id:' . $song->id;
+			//echo ' input req: ' . Request::input('id'.$song->id). '<br/>';
+			$kigo->songs()->attach(Request::input('id'.$song->id));
+		}
+		$kigo->save();
+		return redirect('kigos')->with('message', 'success|Kigo erfolgreich bearbeitet!');		
+	}	
 }
