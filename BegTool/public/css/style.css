@@ -1,6 +1,9 @@
 body {
 	padding-top: 55px;
-	padding-bottom: 55px;
+	padding-bottom: 10px;
+}
+footer {
+    padding: 0;
 }
 
 ul.form-error {
@@ -37,19 +40,6 @@ td.mealfield.mealfieldhovered {
 	background-color: #d9edf7 !important;
 	 
 }
-
-/* .header {
-
-    background-color: yellow;
-   
-    position: fixed;
-    width: 100%;
-    z-index: 1030;
-} */
-footer {
-    padding: 0;
-}
-body {
-    padding-bottom: 10px;
-}
+.form-control {
+    margin-bottom: 13px;
 }

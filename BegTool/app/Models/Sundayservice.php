@@ -36,6 +36,10 @@ class Sundayservice extends Model
 			'date' => 'date_format:d.m.Y|required' ,
 			'lection_number'=>'numeric'
 	);
+	public static $rulesedit = array(
+			
+			'lection_number'=>'numeric'
+	);
 	
 }
 

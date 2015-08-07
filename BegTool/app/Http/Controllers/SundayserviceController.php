@@ -13,7 +13,7 @@ use DB;
 
 class SundayserviceController extends Controller {
 	public function getIndex() {
-		$kalenders = DB::table ( 'sundayservices' )
+		$kalender2s = DB::table ( 'sundayservices' )
 			->select ( 'sermons.date', 'kigo_leader.username as kigo_name', 'kigos.lection_number', 'kigos.lection', 'lector.username as lector_name', 'members.onlinename', 'sundayservices.id' )
 			->join ( 'sermons', 'sundayservices.sermon_id', '=', 'sermons.id' )
 			->join ( 'kigos', 'sundayservices.kigo_id', '=', 'kigos.id' )
@@ -21,6 +21,8 @@ class SundayserviceController extends Controller {
 			->join ( 'users as lector', 'sundayservices.user_id', '=', 'lector.id' )
 			->join ( 'members', 'sermons.preacher_id', '=', 'members.id' )
 			->get ();
+
+		$kalenders=Sundayservice::all();
 		
 		return view ( 'sundayservices.index' )->with ( 'kalenders', $kalenders );
 	}
@@ -44,6 +46,51 @@ class SundayserviceController extends Controller {
 		
 		return view ( 'sundayservices.editsunday' )->with ( 'sundays', $sundays )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list );
 	}
+
+	public function postEditsunday($actualSunday) {
+		$sundayservice = Sundayservice::find($actualSunday);
+		$kigo = Kigo::find($sundayservice->kigo_id);
+		$sermon = Sermon::find($sundayservice->sermon_id);
+		$validator = Validator::make ( Request::all (), Sundayservice::$rulesedit );
+		if ($validator->passes ()) {
+			/**
+			 * ** Kigo id suchen und speichern ***
+			 */
+			$kigoleader_id = Request::input ( 'kigos_list' );
+			$kigo->user_id = $kigoleader_id;
+			$kigo->lection = Request::input ( 'lection' );
+			$kigo->lection_number = Request::input ( 'lection_number' );
+			$kigo->save ();
+			
+			/**
+			 * ** Preacher id + date suchen und speichern ***
+			 */
+			$sermon->preacher_id = Request::input ( 'preachers_list' );
+			$sermon->save ();
+			
+			/**
+			 * ** Preacher id suchen***
+			 */
+			$lector_id = Request::input ( 'lectors_list' );
+			$sundayservice->user_id = $lector_id;
+			
+			/**
+			 * ** Kigo und Sermon id suchen und Speichern***
+			 */
+			$kigo_id = Kigo::orderBy ( 'created_at', 'DESC' )->first ();
+			$sermon_id = Sermon::orderBy ( 'created_at', 'DESC' )->first ();
+			$sundayservice->user_id = $lector_id;
+			$sundayservice->save ();
+			
+			return redirect ( 'sundayservices' )->with ( 'message', 'success|Sonntag erfolgreich angelegt!' );
+		} else {
+			// validation has failed, display error messages
+			return redirect ( 'sundayservices/editsunday/'.$actualSunday )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
+		}
+	}
+
+
+
 	
 
 	public function getNewsunday() {
