@@ -13,9 +13,9 @@ use Validator;
 use DB;
 
 class SundayserviceController extends Controller {
-	public function getIndex() {
+	public function getKalender() {
 		$sundayservices=Sundayservice::all();		
-		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
+		return view ( 'sundayservices.kalender' )->with ( 'sundayservices', $sundayservices );
 	}
 
 	public function getEditsunday($sundayId) {
@@ -63,10 +63,10 @@ class SundayserviceController extends Controller {
 			$sundayservice->user_id = $lector_id;
 			$sundayservice->save ();
 			
-			return redirect ( 'sundayservices' )->with ( 'message', 'success|Sonntag erfolgreich angelegt!' );
+			return redirect ( 'sundayservices/kalender' )->with ( 'message', 'success|Sonntag erfolgreich angelegt!' );
 		} else {
 			// validation has failed, display error messages
-			return redirect ( 'sundayservices/editsunday/'.$actualSunday )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
+			return redirect ( 'sundayservices.editsunday/'.$actualSunday )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
 		}
 	}
 
@@ -116,10 +116,10 @@ class SundayserviceController extends Controller {
 			$sundayservice->sermon_id = $sermon_id->id;
 			$sundayservice->save ();
 			
-			return redirect ( 'sundayservices' )->with ( 'message', 'success|Sonntag erfolgreich angelegt!' );
+			return redirect ( 'sundayservices/kalender' )->with ( 'message', 'success|Sonntag erfolgreich angelegt!' );
 		} else {
 			// validation has failed, display error messages
-			return redirect ( 'sundayservices/newsunday' )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
+			return redirect ( 'sundayservices.newsunday' )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
 		}
 	}
 
@@ -170,10 +170,10 @@ class SundayserviceController extends Controller {
 				 
 				
 			}
-			return redirect ( 'sundayservices/' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
+			return redirect ( 'sundayservices.kalender' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
 		} else {
 			// validation has failed, display error messages
-			return redirect ( 'sundayservices/edityear/2015' )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
+			return redirect ( 'sundayservices.edityear/2015' )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
 		}
 	}
 
@@ -231,7 +231,7 @@ class SundayserviceController extends Controller {
 				$sundayservice->sermon_id = $sermon_id->id;
 				$sundayservice->save ();
 			}
-			return redirect ( 'sundayservices/' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
+			return redirect ( 'sundayservices/kalender' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
 		} else {
 			// validation has failed, display error messages
 			return redirect ( 'sundayservices/newyear/' . $user->member_id )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
