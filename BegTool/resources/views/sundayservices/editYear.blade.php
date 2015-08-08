@@ -20,12 +20,12 @@
 	<tbody>
 		@foreach($sundays as $sunday)
 			<tr>
-				<td data-type="numeric" data-value= '{!!strtotime($sunday->sermons->date)!!}'> {!! date('d.m.Y', strtotime($sunday->sermons->date)) !!}</td>
-				<td data-value= '{!!$sunday->kigos->users->username!!}'> {!! Form::select('kigos_list'.$sunday->id, $kigos_list, [$sunday->kigos->user_id], array('class'=>'form-control', 'style'=> '')) !!}</td>
-				<td data-value= '{!!$sunday->kigos->lection_number!!}'> {!! Form::text('lection_number'.$sunday->id, $sunday->kigos->lection_number , array('class'=>'form-control ', 'placeholder'=>'Lektion')) !!}</td>
-				<td data-value= '{!!$sunday->kigos->lection!!}'> {!! Form::text('lection'.$sunday->id, $sunday->kigos->lection , array('class'=>'form-control ', 'placeholder'=>'Thema')) !!}</td>
-				<td data-value= '{!!$sunday->users->username!!}'> {!! Form::select('lectors_list'.$sunday->id, $lectors_list, [$sunday->user_id] , array('class'=>'form-control', 'style'=> '')) !!}</td>
-				<td data-value= '{!!$sunday->sermons->members->onlinename!!}'> {!! Form::select('preachers_list'.$sunday->id, $preachers_list, [$sunday->sermons->members->onlinename] , array('class'=>'form-control', 'style'=> '')) !!}</td>
+				<td data-type="numeric" data-value= '{!!$sunday->date!!}'> {!! date('d.m.Y', $sunday->date) !!}</td>
+				<td data-value= '{!!$sunday->sundayservices->kigos->users->username!!}'> {!! Form::select('kigos_list'.$sunday->sundayservices->id, $kigos_list, [$sunday->sundayservices->kigos->user_id], array('class'=>'form-control', 'style'=> '')) !!}</td>
+				<td data-value= '{!!$sunday->sundayservices->kigos->lection_number!!}'> {!! Form::text('lection_number'.$sunday->sundayservices->id, $sunday->sundayservices->kigos->lection_number , array('class'=>'form-control ', 'placeholder'=>'Lektion')) !!}</td>
+				<td data-value= '{!!$sunday->sundayservices->kigos->lection!!}'> {!! Form::text('lection'.$sunday->sundayservices->id, $sunday->sundayservices->kigos->lection , array('class'=>'form-control ', 'placeholder'=>'Thema')) !!}</td>
+				<td data-value= '{!!$sunday->sundayservices->users->username!!}'> {!! Form::select('lectors_list'.$sunday->sundayservices->id, $lectors_list, [$sunday->sundayservices->user_id] , array('class'=>'form-control', 'style'=> '')) !!}</td>
+				<td data-value= '{!!$sunday->members->onlinename!!}'> {!! Form::select('preachers_list'.$sunday->sundayservices->id, $preachers_list, [$sunday->members->onlinename] , array('class'=>'form-control', 'style'=> '')) !!}</td>
 			</tr>
 		@endforeach
 	

@@ -124,9 +124,13 @@ class SundayserviceController extends Controller {
 	}
 
 	public function getEdityear($year) {
-		$sundays=Sundayservice::all();
+		
+		 $lastyear = $year-"1 year";
+		 $lastyear = strtotime("31.12.".$lastyear);
+		 $nextyear = $year+"1 year";
+		 $nextyear = strtotime("01.01.".$nextyear);
 
-		$sundays2 = $this->sundaysYear ( $year );
+		$sundays=Sermon::where('date', '<', $nextyear )->where('date', '>', $lastyear )->get();
 		$kigos_list =$this-> getKigoslist();
 		$preachers_list =$this-> getPreacherslist();
 		$lectors_list = $this->getLectorslist();
@@ -189,7 +193,7 @@ class SundayserviceController extends Controller {
 		$year = Request::input ( 'year' );
 		$sundays = $this->sundaysYear ( $year );
 		
-		$validator = Validator::make ( Request::all (), Sundayservice::$rules );
+		$validator = Validator::make ( Request::all (), Sundayservice::$rulesedit );
 		if ($validator->passes ()) {
 			
 			for($i = 0; $i < 52; $i ++) {
@@ -211,8 +215,9 @@ class SundayserviceController extends Controller {
 				 */
 				$preacher_id = Request::input ( 'preachers_list' . $sundays [$i] );
 				$sermon->preacher_id = $preacher_id;
-				$sermon->date = Request::input ( 'date' . $sundays [$i] );
-				
+				$date = Request::input ( 'date' . $sundays [$i] );
+				$sermon->date=strtotime($date);
+				echo $sermon->date;
 				/**
 				 * ** Lector id suchen***
 				 */
@@ -234,7 +239,7 @@ class SundayserviceController extends Controller {
 			return redirect ( 'sundayservices/kalender' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
 		} else {
 			// validation has failed, display error messages
-			return redirect ( 'sundayservices/newyear/' . $user->member_id )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
+			return redirect ( 'sundayservices/newyear/' . $year )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
 		}
 	}
 

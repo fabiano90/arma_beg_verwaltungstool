@@ -33,7 +33,7 @@
 		<tbody>
 			@foreach($sundayservices as $sundayservice)
 			<tr>				
-				<td data-type="numeric" data-value='{!! strtotime($sundayservice->sermons->date)!!}'>{!! date('d.m.Y',strtotime($sundayservice->sermons->date)) !!}</td>
+				<td data-type="numeric" data-value='{!!$sundayservice->sermons->date!!}'>{!! date('d.m.Y',$sundayservice->sermons->date) !!}</td>
 				<td>{!! $sundayservice->kigos->users->username !!}</td>
 				<td>{!! $sundayservice->kigos->lection_number !!}</td>
 				<td>{!! $sundayservice->kigos->lection !!}</td>
