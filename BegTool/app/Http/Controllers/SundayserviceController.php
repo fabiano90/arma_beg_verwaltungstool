@@ -136,47 +136,44 @@ class SundayserviceController extends Controller {
 	public function postEdityear() {
 		
 			
-		$validator = Validator::make ( Request::all (), Sundayservice::$rules );
+		$validator = Validator::make ( Request::all (), Sundayservice::$rulesedit );
 		if ($validator->passes ()) {
+
 			
-			foreach($sundays as $sunday) {
-				
-				$sundayservice = new Sundayservice ();
-				$kigo = new Kigo ();
-				$sermon = new Sermon ();
-				
+			
+			$sundays=Sundayservice::all();
+			foreach ($sundays as $sunday) {
+			
+				$sundayservice = Sundayservice::find($sunday->id);
+				$kigo = Kigo::find($sunday->kigo_id);
+				$sermon = Sermon::find($sunday->sermon_id);
+						
 				/**
 				 * ** Kigo suchen und speichern ***
 				 */
-				$kigoleader_id = Request::input ( 'kigos_list' . $sunday->id );
-				$kigo->user_id = $kigoleader_id;
+				$kigo->user_id = Request::input ( 'kigos_list' . $sunday->id );
 				$kigo->lection = Request::input ( 'lection' . $sunday->id);
 				$kigo->lection_number = Request::input ( 'lection_number' . $sunday->id );
-				
+				$kigo->save ();
 				/**
 				 * ** Preacher id + date suchen und speichern ***
 				 */
-				$preacher_id = Request::input ( 'preachers_list' . $sunday->id );
-				$sermon->date = Request::input ( 'date' . $sunday->id );
+				$sermon->preacher_id = Request::input ( 'preachers_list' . $sunday->id );
+				$sermon->save ();
+				
 				
 				/**
 				 * ** Lector id suchen***
 				 */
-				$lector_id = Request::input ( 'lectors_list' . $sunday->id );
-				$sundayservice->user_id = $lector_id;
-				
-				$sermon->save ();
-				$kigo->save ();
-				/**
-				 * ** Kigo und Sermon id suchen und Speichern***
-				 */
-				$sundayservice->user_id = $lector_id;
+				$sundayservice->user_id = Request::input ( 'lectors_list' . $sunday->id );
 				$sundayservice->save ();
+				 
+				
 			}
 			return redirect ( 'sundayservices/' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
 		} else {
 			// validation has failed, display error messages
-			return redirect ( 'sundayservices/newyear/' . $user->member_id )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
+			return redirect ( 'sundayservices/edityear/2015' )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
 		}
 	}
 

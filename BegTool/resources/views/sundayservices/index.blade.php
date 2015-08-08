@@ -1,9 +1,20 @@
 @extends('layouts.main') @section('content')
 
 <h2>Kalender</h2>
-<p>
-	{!! HTML::link('sundayservices/newsunday', 'Hinzuf&uuml;gen', array('class' => 'btn btn-default'))!!}
-</p>
+<div class="btn-group">
+	{!! HTML::link('sundayservices/newsunday',' Neuen Gottesdienst anlegen', array('class' => 'btn btn-default'))!!}
+	{!! HTML::link('sundayservices/newyear/'.date('Y'),date('Y').' anlegen' , array('class' => 'btn btn-default'))!!}
+	{!! HTML::link('sundayservices/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")), date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")).'anlegen', array('class' => 'btn btn-default'))!!}
+
+	{!! HTML::link('sundayservices/edityear/'.date('Y'),' Jahr '. date('Y'), array('class' => 'btn btn-default'))!!}
+	{!! HTML::link('sundayservices/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")),' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")), array('class' => 'btn btn-default'))!!}
+</div>
+
+ 	<a href='sundayservices/edityear/'.date('Y')><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a>
+
+ <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable" data-filter="#filter">
@@ -22,7 +33,7 @@
 		<tbody>
 			@foreach($sundayservices as $sundayservice)
 			<tr>				
-				<td data-type="numeric" data-value='{!! strtotime($sundayservice->sermons->date)!!}'>{!! $sundayservice->sermons->date !!}</td>
+				<td data-type="numeric" data-value='{!! strtotime($sundayservice->sermons->date)!!}'>{!! date('d.m.Y',strtotime($sundayservice->sermons->date)) !!}</td>
 				<td>{!! $sundayservice->kigos->users->username !!}</td>
 				<td>{!! $sundayservice->kigos->lection_number !!}</td>
 				<td>{!! $sundayservice->kigos->lection !!}</td>
