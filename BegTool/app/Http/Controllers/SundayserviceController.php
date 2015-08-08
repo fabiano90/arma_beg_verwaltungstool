@@ -8,15 +8,69 @@ use App\Models\User;
 use App\Models\Kigo;
 use App\Models\Sermon;
 use App\Models\Member;
+use App\Models\Song;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use DB;
 
 class SundayserviceController extends Controller {
+
 	public function getKalender() {
 		$sundayservices=Sundayservice::all();		
 		return view ( 'sundayservices.kalender' )->with ( 'sundayservices', $sundayservices );
 	}
+
+	public function getIndex() {
+		$sundayservices = Sundayservice::all();		
+		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
+	}
+
+	public function getEditservice($sundayId) {
+		$sunday=Sundayservice::find($sundayId);
+		//$sunday_songs = $sunday->songs;
+		return view ( 'sundayservices.editservice' )->with ( 'sunday', $sunday );
+	}
+
+	public function postEditservice($service_id){
+		/*$validator = Validator::make(Request::all(), User::$rules);
+		if ($validator->passes()) 
+		{*/
+	    	// validation has passed, save user in DB
+			$kigo = Sundayservice::find($service_id);
+		    $kigo->psalm = Request::input('psalm');
+		    $kigo->biblereading = Request::input('biblereading');
+		    $kigo->comments = Request::input('comments');
+		    $kigo->sacrament = Request::input('sacrament');		   
+			$kigo->save();
+		    return redirect('sundayservices/addsong/'.$service_id)->with('message', 'success|Student erfolgreich angelegt!');
+		/*} 
+		else
+	 	{
+	    	// validation has failed, display error messages   
+	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+		}*/
+	}
+
+	public function getAddsong($service_id)
+	{
+		$sunday = Sundayservice::find($service_id);
+		$songs = Song::all();
+		return view('sundayservices.addsongtosunday')->with('songs', $songs)->with('sunday', $sunday);
+	}
+
+	public function postAddsongtosunday($service_id)
+	{
+		$service = Sundayservice::find($service_id);
+
+		$songs = Song::all();
+		foreach ($songs as $song) {
+			//echo 'song id:' . $song->id;
+			//echo ' input req: ' . Request::input('id'.$song->id). '<br/>';
+			$service->songs()->attach(Request::input('id'.$song->id));
+		}
+		$service->save();
+		return redirect('sundayservices')->with('message', 'success|Gottesdienst erfolgreich bearbeitet!');		
+	}	
 
 	public function getEditsunday($sundayId) {
 		$sunday=Sundayservice::find($sundayId);

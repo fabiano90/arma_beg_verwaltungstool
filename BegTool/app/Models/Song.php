@@ -13,9 +13,9 @@ class Song extends Model {
 	//	return $this->hasMany( 'App\Models\Kigo_song', 'song_id' );
 	//}
 	public function kigos(){
-		return $this->belongsToMany('App\Models\Kigo');//kigo_songs
+		return $this->belongsToMany('App\Models\Kigo' , 'service_id');//kigo_songs
 	}
 	public function songs(){
-		return $this->belongsToMany('App\Models\Sundayservice');//kigo_songs
+		return $this->belongsToMany('App\Models\Sundayservice', 'song_sundayservice', 'song_id', 'service_id');//kigo_songs
 	}
 }

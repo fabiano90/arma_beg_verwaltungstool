@@ -20,8 +20,7 @@ class KigoController extends Controller {
 
 	public function getEditkigo($kigo_id){
 		$kigo = Kigo::find($kigo_id);
-		$kigo_songs = $kigo->songs;
-		return view('kigos.editkigo')->with('kigo', $kigo)->with('kigo_songs', $kigo_songs);
+		return view('kigos.editkigo')->with('kigo', $kigo);//->with('kigo_songs', $kigo_songs);
 	}
 
 	public function postEditkigo($kigo_id){

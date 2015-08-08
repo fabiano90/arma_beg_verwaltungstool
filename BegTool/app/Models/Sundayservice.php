@@ -15,7 +15,7 @@ class Sundayservice extends Model
 	//}
 
 	public function songs(){
-		return $this->belongsToMany('App\Models\Song');//kigo_songs
+		return $this->belongsToMany('App\Models\Song', 'song_sundayservice', 'service_id', 'song_id' );//kigo_songs
 	}
 
 	public function vers()

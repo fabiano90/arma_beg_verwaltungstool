@@ -2,7 +2,10 @@
 
 @section('content')
 <h2>Lied zu Kigo am {!!$kigo->sundayservices->sermons->date!!} hinzufügen</h2>
-<h5>Bereits zum Kigo hinzugefügte Lieder:</h5>
+<h4>Bereits zum Kigo hinzugefügte Lieder:</h4>
+    @if($kigo->songs == '[]')
+        Bisher keine Lieder hinzugefügt.
+    @endif
  	<ul>
 		@foreach($kigo_songs as $song)
 			<li>{!! $song->name !!}</li>
@@ -14,7 +17,7 @@
 
 {!! Form::model($kigo, array('url' => array('kigos/addsongtokigo', $kigo->id))) !!}
 <div class="table-responsive">
-{!! Form::label('filter', 'Durch den Checkbox-Haken und anschließendem "Speichern" wird dem Kigo ein neuer Song hinzugefügt.') !!}
+{!! Form::submit('Lieder hinzufügen und Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 <input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 		<thead>
@@ -41,6 +44,5 @@
 		</tbody>
 	</table>
 </div>
-{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 {!! Form::close() !!}
 @stop			

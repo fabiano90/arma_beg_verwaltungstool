@@ -39,7 +39,7 @@
 				<td>{!! $sundayservice->kigos->lection !!}</td>
 				<td>{!! $sundayservice->users->username !!}</td>
 				<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
-				<td><a href="sundayservices/editsunday/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+				<td><a href="editsunday/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
 
 			</tr>
 			@endforeach
