@@ -13,9 +13,12 @@
 	{!! Form::textarea('material', null, array('class'=>'form-control', 'row'=>'2', 'placeholder'=>'Material')) !!}
 	{!! Form::label('crafting', 'Basteln') !!}
 	{!! Form::textarea('crafting', null, array('class'=>'form-control', 'row'=>'2', 'placeholder'=>'Material')) !!}
-    {!! Form::label('songs', 'Lieder') !!}
+
+    @if($kigo->songs != '[]')
+        {!! Form::label('songs', 'Lieder') !!}
+    @endif
     <ul>
-        @foreach($kigo_songs as $song)
+        @foreach($kigo->songs as $song)
             <li>{!! $song->name !!}</li>
         @endforeach
     </ul>

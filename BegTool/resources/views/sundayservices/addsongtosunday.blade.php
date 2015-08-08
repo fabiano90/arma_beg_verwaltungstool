@@ -1,21 +1,21 @@
 @extends('layouts.main')
 
 @section('content')
-<h2>Lied zu Kigo am {!!$kigo->sundayservices->sermons->date!!} hinzufügen</h2>
-<h4>Bereits zum Kigo hinzugefügte Lieder:</h4>
-    @if($kigo->songs == '[]')
-        Bisher keine Lieder hinzugefügt.
+<h2>Lied zu Gottesdienst am {!!$sunday->sermons->date!!} hinzufügen</h2>
+
+<h4>Bereits zum Gottesdienst hinzugefügte Lieder:</h4>
+    @if($sunday->songs == '[]')
+    	Bisher keine Lieder hinzugefügt.
     @endif
  	<ul>
-		@foreach($kigo_songs as $song)
+		@foreach($sunday->songs as $song)
 			<li>{!! $song->name !!}</li>
 		@endforeach
 	</ul>
-
 <br/>
 
 
-{!! Form::model($kigo, array('url' => array('kigos/addsongtokigo', $kigo->id))) !!}
+{!! Form::model($sunday, array('url' => array('sundayservices/addsongtosunday', $sunday->id))) !!}
 <div class="table-responsive">
 {!! Form::submit('Lieder hinzufügen und Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 <input id="filter" class="form-control" type="text" placeholder="Suche">
