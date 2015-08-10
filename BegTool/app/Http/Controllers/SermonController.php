@@ -20,15 +20,19 @@ class SermonController extends Controller {
 		return view('sermons.editsermon')->with('sermon', $sermon);//->with('kigo_songs', $kigo_songs);
 	}
 
-	public function postEditsermon($sermon_id){
+	public function postEditsermon($sermon_id, $count){
 		/*$validator = Validator::make(Request::all(), User::$rules);
 		if ($validator->passes()) 
 		{*/
 	    	// validation has passed, save user in DB
 			$sermon = Sermon::find($sermon_id);
 			$sermon->scripture = Request::input('scripture');
-			$sermon->topic = Request::input('topic');
-			$sermon->subitem = Request::input('subitem');
+			$sermon->topic = Request::input('topic0');
+			$tempString = '';
+			for($i = 1; $i < $count; $i++){				
+				 $tempString .= '<li>' . Request::input('subitem' . $i) . '</li>';
+			}
+			$sermon->subitem = $tempString;
 			$sermon->series = Request::input('series');
 			$sermon->book = Request::input('book');
 			$sermon->occasion = Request::input('occasion');

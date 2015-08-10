@@ -30,7 +30,7 @@
 				<td>{!! $sermon->members->onlinename !!}</td>
 				<td>{!! $sermon->scripture !!}</td>
 				<td>{!! $sermon->topic !!}</td>
-				<td>{!! $sermon->subitem !!}</td>
+				<td><ol>{!! $sermon->subitem !!}</ol></td>
 				<td>{!! $sermon->series !!}</td>
 				<td>{!! $sermon->book !!}</td>
 				<td>{!! $sermon->occasion !!}</td>

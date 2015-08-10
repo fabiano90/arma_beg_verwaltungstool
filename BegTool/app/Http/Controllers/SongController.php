@@ -6,6 +6,8 @@ use App\Models\Member;
 use App\Models\Message;
 use App\Models\Song;
 use App\Models\Kigo;
+use App\Models\Sundayservice;
+use App\Models\Sermon;
 use Validator;
 use View;
 use Request;
@@ -22,6 +24,20 @@ class SongController extends Controller
 		//foreach ($mysong->kigos as $role) {
     	//	echo $role->pivot->song_id;
 		//}
+
+
+		/* DATUM SONGS usw.
+		$song = Song::find(1);
+		$sunny = $song->sundayservices()->get();
+		$date = $song->sundayservices()->sermons()->get();
+
+		foreach ($alle as $a) {
+			echo $a->user_id . '<br/>';
+		}
+
+		foreach ($date as $a) {
+			echo $a->date . '<br/>';
+		}*/
 
 		$songs = Song::paginate(10);
 		return view('songs.index')->with('songs', $songs);
