@@ -6,6 +6,8 @@ $(document).ready(function() {
 	});
 	$('.footable').footable();
 	
+
+	
 });
 $(document).on('keyup', 'input#firstname', function() {
 	var onlinename = $(this).val() + " " + $('input#lastname').val();
