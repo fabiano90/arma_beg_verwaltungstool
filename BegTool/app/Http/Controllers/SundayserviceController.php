@@ -16,7 +16,13 @@ use DB;
 class SundayserviceController extends Controller {
 
 	public function getKalender() {
-		$sundayservices=Sundayservice::all();		
+		$sundayservices=Sundayservice::all();
+// 		$thisyearangelegt=0;
+// 		foreach ($sundayservices as $sundayservice) {
+// 			if(date('Y',$sundayservice->sermon->date) = date(date('y'))
+// 				$thisyearangelegt++;
+// 		}
+			
 		return view ( 'sundayservices.kalender' )->with ( 'sundayservices', $sundayservices );
 	}
 
