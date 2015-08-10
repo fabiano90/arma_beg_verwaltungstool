@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 
 Route::controller('users', 'UserController');
-Route::controller('persons', 'PersonController');
 Route::controller('members', 'MemberController');
 Route::controller('songs', 'SongController');
 Route::controller('posts', 'PostController');
