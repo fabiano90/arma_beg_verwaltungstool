@@ -21,7 +21,7 @@
 		<tbody>
 			@foreach($sundayservices as $sundayservice)
 			<tr>				
-				<td data-type="numeric" data-value='{!! strtotime($sundayservice->sermons->date)!!}'>{!! date('d.m.Y', strtotime($sundayservice->sermons->date)) !!}</td>
+				<td data-type="numeric" data-value='{!! $sundayservice->sermons->date!!}'>{!! date('d.m.Y', $sundayservice->sermons->date) !!}</td>
 				<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
 				<td>{!! $sundayservice->users->username !!}</td>
 				<td>{!! $sundayservice->psalm !!}</td>

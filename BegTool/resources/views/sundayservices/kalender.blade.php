@@ -16,7 +16,7 @@
 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 
 <div class="table-responsive">
-<input id="filter" class="form-control" type="text" placeholder="Suche">
+	<input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable" data-filter="#filter">
 		<thead>
 			<tr>

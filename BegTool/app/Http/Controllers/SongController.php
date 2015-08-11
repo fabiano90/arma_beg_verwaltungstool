@@ -13,6 +13,7 @@ use View;
 use Request;
 use Hash;
 use Auth;
+use DB;
 
 class SongController extends Controller
 {
@@ -25,22 +26,38 @@ class SongController extends Controller
     	//	echo $role->pivot->song_id;
 		//}
 
+		//group by count von songs mit einem random datum
+		/*$sundaysong = DB::table('sundayservices')
+						->join('sermons', 'sundayservices.sermon_id', '=', 'sermons.id')
+						->join('song_sundayservice', 'sundayservices.id', '=', 'song_sundayservice.service_id')
+						->join('songs', 'songs.id', '=', 'song_sundayservice.song_id')
+						->groupBy('song_id')					
+						->select('songs.name', 'song_sundayservice.id as ssong_id', 'sermons.date', DB::raw('count(*) as song_count, song_id'))
+						->get();
 
-		/* DATUM SONGS usw.
-		$song = Song::find(1);
-		$sunny = $song->sundayservices()->get();
-		$date = $song->sundayservices()->sermons()->get();
+		foreach ($sundaysong as $a) {
+			echo date('d.m.Y', $a->date) . ' ';
+			echo $a->ssong_id . ' ';
+			echo $a->song_count. ' ';
+			echo $a->name. '<br>';
+		}*/						
 
-		foreach ($alle as $a) {
-			echo $a->user_id . '<br/>';
+
+		/*$groupsong = DB::table('song_sundayservice')
+					->groupBy('song_id')					
+					->select('id', DB::raw('count(*) as song_count, song_id'))
+					->get();
+		
+		//echo var_dump($groupsong);exit;
+		foreach ($groupsong as $a) {
+			echo $a->song_id . ' ';
+			echo $a->song_count . '<br/>';
 		}
+		exit;
+		*/
 
-		foreach ($date as $a) {
-			echo $a->date . '<br/>';
-		}*/
-
-		$songs = Song::paginate(10);
-		return view('songs.index')->with('songs', $songs);
+		$songs = Sundayservice::has('songs')->has('sermons')->orderBy('date', 'DESC')->get();
+		return view('songs.index')->with('songs', $songs);//->with('song_dates', $song_dates)->with('song_count', $song_count);
 	}
 
 //	public function getAddsong(){
