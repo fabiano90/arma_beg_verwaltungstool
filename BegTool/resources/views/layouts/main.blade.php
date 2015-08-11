@@ -70,7 +70,12 @@
 		<!-- /.container -->
 	</nav>
 	<!-- /.navbar -->
-
+	<ul class="nav nav-tabs">
+		  <li role="presentation" class="active"><a href="#">Start</a></li>
+		  <li role="presentation"><a href="#">Profil</a></li>
+		  <li role="presentation"><a href="#">Nachrichten</a></li>
+	</ul>
+	@yield('menu')
 	<div class="container-fluid navbar-default">@yield('content')</div>
 
 		<div class="row row-offcanvas row-offcanvas-right">
@@ -88,7 +93,7 @@
 			<!--/.col-xs-12.col-sm-9-->
 
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-				@yield('menu')</div>
+				</div>
 			<!--/.sidebar-offcanvas-->
 		</div>
 		<!--/row-->
