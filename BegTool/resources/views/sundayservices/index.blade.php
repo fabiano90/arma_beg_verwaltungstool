@@ -1,10 +1,10 @@
 @extends('layouts.main') @section('content')
 
-<h2>Leitung</h2>
+<h2 class='header'>Leitung</h2>
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable" data-filter="#filter">
-		<thead>
+		<thead id='summary'>
 			<tr>
 				<th data-sort-initial="true">Datum</th>
 				<th data-hide="phone">Leitung</th>

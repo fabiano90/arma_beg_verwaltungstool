@@ -24,18 +24,22 @@
 {!!HTML::script('js/footable-plugin/footable.js')!!}
 {!!HTML::script('js/footable-plugin/footable.filter.js')!!}
 {!!HTML::script('js/footable-plugin/footable.sort.js')!!}
+{!!HTML::script('js/ScrollToFixed-master/jquery-scrolltofixed-min.js')!!}
 
 {!!HTML::script('js/useful.js')!!}
 
 
 </head>
 <body>
+
+
 	<div class="container">
-	<h3><a class="" href="#">Projekt-Titel</a></h3>
-	<nav class="navbar navbar-default">
+	<h3><a class="" href="#">Logo</a></h3>
+	<nav class="navbar navbar-default header">
 		<div class="container-fluid">
 
 			<div class="navbar-header">
+				<a id"title-menu" class="navbar-brand" href="#">BEG - Osnabrück</a>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Navigation ein-/ausblenden</span>
 					<span class="icon-bar"></span>
@@ -45,12 +49,20 @@
 				
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active">{!! HTML::link('/sundayservices/kalender', 'Kalender') !!}</li>
-					<li class="active">{!! HTML::link('/sundayservices', 'Leitung') !!}</li>
-					<li><a href="/public/users">Gemeinde</a></li>
-					<li><a href="/public/songs">Lieder</a></li>
-					<li><a href="/public/kigos">Kigos</a></li>
+				<ul class="nav navbar-nav navbar-right">
+					{!! cleverLink('/sundayservices/kalender', 'Kalender') !!}
+					{!! cleverLink('/kigos', 'Kigo') !!}
+	            	{!! cleverLink('/sundayservices', 'Leitung') !!} 
+	            	{!! cleverLink('/sermons', 'Predigten') !!}
+	            	<li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gemeinde <span class="caret"></span></a>
+				          <ul class="dropdown-menu" role="menu">
+				            {!! cleverLink('/users/userlist', 'Mitarbeiter') !!}  
+				            {!! cleverLink('/members', 'Geburtstage') !!}  
+				          </ul>
+				     </li>
+	            	
+	            	
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
@@ -59,7 +71,7 @@
 	</nav>
 	<!-- /.navbar -->
 
-	
+	<div class="container-fluid navbar-default">@yield('content')</div>
 
 		<div class="row row-offcanvas row-offcanvas-right">
 
@@ -68,9 +80,9 @@
 					<button type="button" class="btn btn-primary btn-xs"
 						data-toggle="offcanvas">Menü ausklappen</button>
 				</p>
-				<div class="jumbotron">
-					<div class="container">@yield('content')</div>
-				</div>
+				
+					
+				
 
 			</div>
 			<!--/.col-xs-12.col-sm-9-->
@@ -86,7 +98,7 @@
 
 
 
-		<footer>
+		<footer class"footer">
 			<p>© Firma 2014</p>
 		</footer>
 

@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Kigo;
+use App\Models\Sermon;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Message;
 use App\Models\Member;
+use App\Models\Sundayservice;
+
 use Validator;
 use View;
 use Request;
@@ -17,16 +21,47 @@ class UserController extends Controller
 
 	public function getIndex()
 	{
-		/*
-		auth...
-		$kigos = User::find($user_id)->kigos;
-		foreach ($kigos as $kigo) {
-		    echo $kigo->lection;
-		}
+		
+		$user = Auth::user();
+		$today=time();
+		//$kigos=$user->sundayservices->sermons->where('user_id','=',$user->id)->get();
+		//echo date('d.m.Y',time());exit;
+		$kigos=Kigo::where('user_id','=',$user->id)->get();
+		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
+		$lektors=Sundayservice::whereHas('sermons', function($q) use ($today)
+				{
+				    $q->where('date','>=',$today);
 
-		*/
+				})->where('user_id','=',$user->id)->get();
+		/*echo $user.'<br>';
+			$user = 24;
+		//$services = Sundayservice::all();
+		//$services->kigos->where('user_id','=',$user->id)->get();
+
+		$services = Sundayservice::whereHas('kigos', function($q) use ($user)
+				{
+				    $q->where('user_id', 'like', $user);
+
+				})->orWhere('user_id', 'like', $user)
+				  ->get();
+		echo var_dump($services);
+
+		foreach ($services as $service) {
+			//echo $service->kigos()->where('user_id','=',$user->id)->get();
+			echo '('.$service->kigos->user_id.') ';	
+			echo date('d.m.Y',$service->sermons->date);
+			echo $service->users->username;
+			echo '<br>'	;
+		}
+		exit;*/
+
+		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors);//->with('jaja', $jaja);
+	}
+		public function getUserlist()
+	{
+
 		$users = User::paginate(15);		
-		return view('users.index')->with('users', $users);//->with('jaja', $jaja);
+		return view('users.userlist')->with('users', $users);//->with('jaja', $jaja);
 	}
 
 	public function getRegister(){
