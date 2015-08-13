@@ -12,7 +12,8 @@
 				<th>Nummer</th>
 				<th>Name</th>
 				<th data-hide="phone">Bemerkung</th>				
-				<th data-hide="phone" width="40%">Bearbeiten</th>
+				<th data-hide="phone">Zuletzt gesungen</th>
+				<th data-hide="phone">Bearbeiten</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,6 +21,24 @@
 			<tr>
 				<td>{!! $song->number !!}</td>
 				<td>{!! $song->name !!}</td>				
+				<td>
+					<ul><div class="hide">{!!$i = 0; !!}</div>
+						@foreach($songs as $sundayservice)
+							@if($i++ <= 2)
+								<li>{!! date('d.m.Y', $sundayservice->sermons->date) !!}</li>
+							@endif							
+						@endforeach
+						
+					</ul>
+				</td>
+				<td>
+						<div class="hide">{!!$i = 0; !!}</div>
+						@foreach($songs as $sundayservice)
+							@if($i++ <= 2)
+							@endif							
+						@endforeach
+						{!!  $i !!}
+				</td>	
 				<td>{!! $song->annotation !!}</td>	
 				<td>
 					<div class="btn-group">						
@@ -33,7 +52,6 @@
 		</tbody>
 	</table>
 </div>
-{!! str_replace('/?', '?', $songs->render()) !!}
 <br/>
 
 

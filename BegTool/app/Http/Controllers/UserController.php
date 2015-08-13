@@ -33,6 +33,24 @@ class UserController extends Controller
 				    $q->where('date','>=',$today);
 
 				})->where('user_id','=',$user->id)->get();
+
+		$kigos2 = Kigo::has('sundayservices')->where('user_id','=', $user->id)->get();
+
+		$kigos3=Sundayservice::whereHas('sermons', function($q) use ($today)
+				{
+				    $q->where('date','>=',$today);
+
+				})->has('kigos')->where('user_id', '=', $user->id)->get();
+
+
+		/*->whereHas('kigos', function($q) use ($today)
+
+
+				{
+				    $q->where('date','>=',$today);
+
+				})->where('user_id','=',$user->id)->get();*/
+
 		/*echo $user.'<br>';
 			$user = 24;
 		//$services = Sundayservice::all();
@@ -55,7 +73,7 @@ class UserController extends Controller
 		}
 		exit;*/
 
-		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors);//->with('jaja', $jaja);
+		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos3)->with('lektors', $lektors);//->with('jaja', $jaja);
 	}
 		public function getUserlist()
 	{
