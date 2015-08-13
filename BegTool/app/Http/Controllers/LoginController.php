@@ -17,8 +17,6 @@ class LoginController extends Controller
 
 	public function getLogin()
 	{	
-		echo Hash::make('abc');
-		//echo Hash::make('123456');
 		return view('login.login');
 	}
 
