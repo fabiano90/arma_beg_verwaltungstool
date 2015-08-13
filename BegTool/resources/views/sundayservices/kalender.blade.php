@@ -1,22 +1,26 @@
-@extends('layouts.main') @section('content')
+@extends('layouts.main') 
+@section('title')
+Kalender
+@stop
+@section('menu')
+	<li role="presentation" class="active"><a href="sundayservices/newsunday"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
+	<li role="presentation"><a href='{!! 'newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
+	<li role="presentation"><a href='{!! 'newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{!!'Jahr '.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+	<li role="presentation"><a href='{!!'edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date('Y')!!}</a></li>
+	<li role="presentation"><a href='{!! 'edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+	
+	<form class="navbar-form navbar-right search-div" role="search">
+ 		 <div class="form-group">
+   		 	<input type="text" class="search-form" placeholder="Suchen">
+		 </div>
+  	</form>
 
-<h2>Kalender</h2>
-<div class="btn-group">
-	{!! HTML::link('sundayservices/newsunday',' Neuen Gottesdienst anlegen', array('class' => 'btn btn-default'))!!}
-	{!! HTML::link('sundayservices/newyear/'.date('Y'),date('Y').' anlegen' , array('class' => 'btn btn-default'))!!}
-	{!! HTML::link('sundayservices/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")), date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")).'anlegen', array('class' => 'btn btn-default'))!!}
+@stop
 
-	{!! HTML::link('sundayservices/edityear/'.date('Y'),' Jahr '. date('Y'), array('class' => 'btn btn-default'))!!}
-	{!! HTML::link('sundayservices/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")),' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year")), array('class' => 'btn btn-default'))!!}
-</div>
-
- 	<a href='sundayservices/edityear/'.date('Y')><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a>
-
- <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+@section('content')
 
 <div class="table-responsive">
-<input id="filter" class="form-control" type="text" placeholder="Suche">
+
 	<table class="table table-striped table-hover footable" data-filter="#filter">
 		<thead>
 			<tr>

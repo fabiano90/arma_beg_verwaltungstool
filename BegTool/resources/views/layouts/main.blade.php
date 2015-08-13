@@ -39,7 +39,7 @@
 		<div class="container-fluid">
 
 			<div class="navbar-header">
-				<a id"title-menu" class="navbar-brand" href="#">BEG - Osnabrück</a>
+				<a id"title-menu" class="navbar-brand" href="#">@yield('title')</a>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Navigation ein-/ausblenden</span>
 					<span class="icon-bar"></span>
@@ -72,11 +72,9 @@
 	</nav>
 	<!-- /.navbar -->
 	<ul class="nav nav-tabs">
-		  <li role="presentation" class="active"><a href="#">Start</a></li>
-		  <li role="presentation"><a href="#">Profil</a></li>
-		  <li role="presentation"><a href="#">Nachrichten</a></li>
+		@yield('menu')
 	</ul>
-	@yield('menu')
+	
 	<div class="container-fluid navbar-default">@yield('content')</div>
 
 		<div class="row row-offcanvas row-offcanvas-right">

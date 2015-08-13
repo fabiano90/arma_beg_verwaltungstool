@@ -11,12 +11,12 @@ $(document).ready(function() {
         $('.header').bind('fixed.ScrollToFixed', function() {   $(this).find( "h2" ).addClass( 'navbar-brand' ) });
         $('.header').bind('unfixed.ScrollToFixed', function() { $(this).find( "h2" ).removeClass( 'navbar-brand' ) });
 
-        $('.footer').scrollToFixed( {
+        /*$('.footer').scrollToFixed( {
             bottom: 0,
             limit: $('.footer').offset().top,
             preFixed: function() { $(this).css('color', 'blue'); },
             postFixed: function() { $(this).css('color', ''); },
-        });
+        });*/
 
         // Order matters here because we are dependent on the state of the footer above for
         // our limit.  The footer must be set first; otherwise, we will not be in the right
