@@ -11,7 +11,7 @@ Kalender
 	
 	<form class="navbar-form navbar-right search-div" role="search">
  		 <div class="form-group">
-   		 	<input type="text" class="search-form" placeholder="Suchen">
+   		 	<input id="filter" type="text" class="search-form" placeholder="Suchen">
 		 </div>
   	</form>
 
@@ -20,7 +20,6 @@ Kalender
 @section('content')
 
 <div class="table-responsive">
-	<input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable" data-filter="#filter">
 		<thead>
 			<tr>
