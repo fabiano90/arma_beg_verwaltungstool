@@ -58,7 +58,7 @@ class SongController extends Controller
 
 		$songs = Song::all();
 		$sundays_of_song = collect([]);
-		foreach ($songs as $song) {
+		/*foreach ($songs as $song) {
 			$sundays_of_song->push($song->sundayservices);
 		}
 		foreach ($sundays_of_song as $sunday_of_song) {
@@ -88,7 +88,7 @@ class SongController extends Controller
 		}
 		foreach ($bla as $blakey) {
 				echo $blakey . '<br>';
-			}
+		}
 		//asort($bla);
 		//echo $sundays_of_song;
 		foreach ($sundays_of_song as $key => $value) {
@@ -99,7 +99,9 @@ class SongController extends Controller
 				//echo 'key: ' . $key .' date: ' . date('d.m.Y', $date) . '<br/>';
 			} 
 		}
-		//$songs = Sundayservice::has('songs')->has('sermons')->orderBy('date', 'DESC')->get();
+		*/
+
+		$songs = Sundayservice::has('songs')->has('sermons')->orderBy('date', 'DESC')->get();
 
 		return view('songs.index')->with('songs', $songs)->with('sundays', $sundays_of_song->all());//->with('song_dates', $song_dates)->with('song_count', $song_count);
 	}
