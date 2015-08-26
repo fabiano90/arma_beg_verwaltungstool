@@ -56,8 +56,52 @@ class SongController extends Controller
 		exit;
 		*/
 
-		$songs = Sundayservice::has('songs')->has('sermons')->orderBy('date', 'DESC')->get();
-		return view('songs.index')->with('songs', $songs);//->with('song_dates', $song_dates)->with('song_count', $song_count);
+		$songs = Song::all();
+		$sundays_of_song = collect([]);
+		foreach ($songs as $song) {
+			$sundays_of_song->push($song->sundayservices);
+		}
+		foreach ($sundays_of_song as $sunday_of_song) {
+
+			$sunday_of_song = $sunday_of_song->transform(function ($item, $key) {						
+    			return collect([ $key => $item->sermons->date, 'id'.$key => $item->pivot->song_id]);
+			});
+			//echo $sunday_of_song2;//4*sunday und pivot song_id [1234],[12]
+
+		}		
+		$bla2;
+		$bla = [];
+		foreach ($sundays_of_song->all() as $key => $value) {
+			//echo $key . ': ' . $value .'<br/> ';//key song_id, value date
+			//$bla2[] = $value;
+			//arsort($bla2);
+			$bla[] = $value[];
+			asort($bla);
+			
+			foreach ($value as $key => $date) {
+				//array_multisort($date['date'], SORT_DESC, SORT_NUMERIC,
+				//		$date['song_id'], SORT_DESC, SORT_NUMERIC	);
+				//echo 'key: ' . $key . ' song_id: ' . $date['song_id'] . ' date: ' . date('d.m.Y', $date['date']) . '<br/>';
+				//$date->sortByDesc($date['song_id']);
+
+			}
+		}
+		foreach ($bla as $blakey) {
+				echo $blakey . '<br>';
+			}
+		//asort($bla);
+		//echo $sundays_of_song;
+		foreach ($sundays_of_song as $key => $value) {
+			//echo $key . ': ' . $value .'<br/> ';//key song_id, value date			
+			//sort($value);
+			foreach ($value as $key => $date) {
+				//echo 'key: ' . $key . ' song_id: ' . $date['song_id'] . ' date: ' . date('d.m.Y', $date['date']) . '<br/>';
+				//echo 'key: ' . $key .' date: ' . date('d.m.Y', $date) . '<br/>';
+			} 
+		}
+		//$songs = Sundayservice::has('songs')->has('sermons')->orderBy('date', 'DESC')->get();
+
+		return view('songs.index')->with('songs', $songs)->with('sundays', $sundays_of_song->all());//->with('song_dates', $song_dates)->with('song_count', $song_count);
 	}
 
 //	public function getAddsong(){

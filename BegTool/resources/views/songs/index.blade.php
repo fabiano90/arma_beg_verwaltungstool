@@ -13,6 +13,7 @@
 				<th>Name</th>
 				<th data-hide="phone">Bemerkung</th>				
 				<th data-hide="phone">Zuletzt gesungen</th>
+				<th data-hide="phone">Zuletzt gesungen</th>
 				<th data-hide="phone">Bearbeiten</th>
 			</tr>
 		</thead>
@@ -22,22 +23,21 @@
 				<td>{!! $song->number !!}</td>
 				<td>{!! $song->name !!}</td>				
 				<td>
-					<ul><div class="hide">{!!$i = 0; !!}</div>
-						@foreach($songs as $sundayservice)
-							@if($i++ <= 2)
-								<li>{!! date('d.m.Y', $sundayservice->sermons->date) !!}</li>
-							@endif							
-						@endforeach
-						
+					<ul>
+						<div class="hide">{!!$count = 0; !!}</div>
+						@foreach($sundays as $key => $value)
+							@foreach($value as $song_id => $date)
+								@foreach($date as $song_id2 => $date2)
+									@if($song_id < 3 && $song_id2 == $song->id)
+										<li>{!! $date2 !!}</li>
+									@endif							
+								@endforeach
+							@endforeach
+						@endforeach				
 					</ul>
 				</td>
-				<td>
-						<div class="hide">{!!$i = 0; !!}</div>
-						@foreach($songs as $sundayservice)
-							@if($i++ <= 2)
-							@endif							
-						@endforeach
-						{!!  $i !!}
+				<td>		
+
 				</td>	
 				<td>{!! $song->annotation !!}</td>	
 				<td>
