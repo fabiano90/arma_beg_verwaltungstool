@@ -91,7 +91,9 @@ class MemberController extends Controller
 	}
 
 	public function postEditmember($member_id){
-		$validator = Validator::make(Request::all(), Member::$rules);
+        $rules = Member::$rules;
+        $rules['onlinename'] = 'required|unique:members,onlinename,'.$member_id;
+		$validator = Validator::make(Request::all(), $rules);
 		if ($validator->passes()) 
 		{
 	    	// validation has passed, save user in DB

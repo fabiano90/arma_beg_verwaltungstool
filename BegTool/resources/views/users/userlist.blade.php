@@ -20,9 +20,9 @@
 				<td>{!! $user->permission !!}</td>
 				<td>{!! $user->email !!}</td>
 				<td>
-					<div class="btn-group">{!!
-						HTML::link('/messages/chat/'.$user->id, 'Nachricht schreiben',
-						array('class'=>'btn btn-default')) !!}
+					<div class="btn-group">
+						{!! HTML::link('/users/edituser/'.$user->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+						{!! HTML::link('/messages/chat/'.$user->id, 'Nachricht schreiben', array('class'=>'btn btn-default')) !!}						
 					</div>
 				</td>
 			</tr>
