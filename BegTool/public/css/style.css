@@ -40,7 +40,13 @@ td.mealfield.mealfieldhovered {
 	background-color: #d9edf7 !important;
 	 
 }
+table {
+    margin-top: 13px;
+}
 .form-control {
+    margin-bottom: 13px;
+}
+.input-group{
     margin-bottom: 13px;
 }
 .search-form {
@@ -64,3 +70,6 @@ td.mealfield.mealfieldhovered {
 
 	margin-right: 10px;
 }
+.table-responsive {
+    border: medium none;
+    }

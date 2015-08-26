@@ -33,8 +33,12 @@ class SundayserviceController extends Controller {
 
 	public function getEditservice($sundayId) {
 		$sunday=Sundayservice::find($sundayId);
-		//$sunday_songs = $sunday->songs;
-		return view ( 'sundayservices.editservice' )->with ( 'sunday', $sunday );
+		$songs = Song::all();
+		$songsOrder=array(1 => "",2 => "",3 => "",4 => "",5 => "",6 => "");
+		foreach ($sunday->songs as $song) {
+			$songsOrder[$song->pivot->song_id] =': '.$song->name;
+		}
+		return view ( 'sundayservices.editservice' )->with ( 'sunday', $sunday )->with('songs', $songs)->with('songsOrder', $songsOrder);
 	}
 
 	public function postEditservice($service_id){
@@ -42,13 +46,46 @@ class SundayserviceController extends Controller {
 		if ($validator->passes()) 
 		{*/
 	    	// validation has passed, save user in DB
-			$kigo = Sundayservice::find($service_id);
-		    $kigo->psalm = Request::input('psalm');
-		    $kigo->biblereading = Request::input('biblereading');
-		    $kigo->comments = Request::input('comments');
-		    $kigo->sacrament = Request::input('sacrament');		   
-			$kigo->save();
-		    return redirect('sundayservices/addsong/'.$service_id)->with('message', 'success|Student erfolgreich angelegt!');
+			$service = Sundayservice::find($service_id);
+		    $service->psalm = Request::input('psalm');
+		    $service->biblereading = Request::input('biblereading');
+		    $service->comments = Request::input('comments');
+		    $service->sacrament = Request::input('sacrament');
+		    $song1 = Request::input('song1');
+		    $song2 = Request::input('song2');
+		    $song3 = Request::input('song3');
+		    $song4 = Request::input('song4');
+		    $song5 = Request::input('song5');
+		    $song6 = Request::input('song6');
+
+			if($song1){
+				$service->songs()->detach($service_id,['order' => '1']);
+				$service->songs()->attach($song1,['order' => '1']);
+
+			}
+			
+			if($song2){
+				$service->songs()->detach($service_id,['order' => '2']);
+				$service->songs()->attach($song2,['order' => '2']);
+			}if($song3){
+				$service->songs()->detach($service_id,['order' => '3']);
+				$service->songs()->attach($song3,['order' => '3']);
+			}if($song4){
+				$service->songs()->detach($service_id,['order' => '4']);
+				$service->songs()->attach($song4,['order' => '4']);
+			}if($song5){
+				$service->songs()->detach($service_id,['order' => '5']);
+				$service->songs()->attach($song5,['order' => '5']);
+			}
+			if($song6){
+				$service->songs()->detach($service_id,['order' => '6']);
+				$service->songs()->attach($song6,['order' => '6']);
+			}
+		
+
+
+			$service->save();
+		    return redirect('sundayservices')->with('message', 'success|Student erfolgreich angelegt!');
 		/*} 
 		else
 	 	{
