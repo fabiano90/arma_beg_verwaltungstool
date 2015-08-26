@@ -211,7 +211,7 @@ showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 {!! Form::label('song6', 'Lied 6'.$songsOrder[6]) !!} 
 <div class="table-responsive">
     <div class="input-group">
-        <input id="song6" class="form-control" type="text" placeholder="Suche">
+        <input id="song1" class="form-control" type="text" placeholder="Suche">
         <span class="input-group-btn"><button class="btn btn-primary"
                 type="button" data-toggle="collapse" data-target="#tableSong6"
                 aria-expanded="false" aria-controls="collapseBeispiel">Liederliste</button>
@@ -222,7 +222,7 @@ showMessageAndErrors(Session::get('message'), $errors->all()) !!}
     <div id="tableSong6" class="collapse">
         <table
             class="table table-striped table-hover footable toggle-default "
-            data-filter="#song6">
+            data-filter="#song1">
             <thead>
                 <tr>
                     <th>Nr</th>
@@ -238,7 +238,7 @@ showMessageAndErrors(Session::get('message'), $errors->all()) !!}
                     <td>{!! $song->number !!}</td>
                     <td>{!! $song->name !!}</td>
                     <td>{!! $song->annotation !!}</td>
-                    <td>{!! Form::radio('tableSong6', $song->id, false) !!}</td>
+                    <td>{!! Form::radio('song6', $song->id, false) !!}</td>
                 </tr>
                 @endforeach
 
