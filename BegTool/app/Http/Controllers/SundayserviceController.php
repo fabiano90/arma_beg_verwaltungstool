@@ -36,7 +36,7 @@ class SundayserviceController extends Controller {
 		$songs = Song::all();
 		$songsOrder=array(1 => "",2 => "",3 => "",4 => "",5 => "",6 => "");
 		foreach ($sunday->songs as $song) {
-			$songsOrder[$song->pivot->song_id] =': '.$song->name;
+			$songsOrder[$song->pivot->order] =': '.$song->name;
 		}
 		return view ( 'sundayservices.editservice' )->with ( 'sunday', $sunday )->with('songs', $songs)->with('songsOrder', $songsOrder);
 	}
@@ -58,27 +58,69 @@ class SundayserviceController extends Controller {
 		    $song5 = Request::input('song5');
 		    $song6 = Request::input('song6');
 
+		   
+		   
 			if($song1){
-				$service->songs()->detach($service_id,['order' => '1']);
-				$service->songs()->attach($song1,['order' => '1']);
+				$aktSong=0;
+				foreach ($service->songs as $song) {
+					if($song->pivot->order==1)	
+					$aktSong= $song->pivot->song_id;
+				}
+				$service->songs()->detach($aktSong);
+				$service->songs()->attach($song1,['order' => '1','songdate' => $service->sermons->date]);
+				
 
 			}
-			
+
 			if($song2){
-				$service->songs()->detach($service_id,['order' => '2']);
+				$aktSong=0;
+				foreach ($service->songs as $song) {
+					if($song->pivot->order==2)	
+					$aktSong= $song->pivot->song_id;
+				}
+				$service->songs()->detach($aktSong);
 				$service->songs()->attach($song2,['order' => '2']);
-			}if($song3){
-				$service->songs()->detach($service_id,['order' => '3']);
+			}
+
+			if($song3){
+				$aktSong=0;
+				foreach ($service->songs as $song) {
+					if($song->pivot->order==3)	
+					$aktSong= $song->pivot->song_id;
+				}
+				$service->songs()->detach($aktSong);
 				$service->songs()->attach($song3,['order' => '3']);
-			}if($song4){
-				$service->songs()->detach($service_id,['order' => '4']);
+			}
+
+			if($song4){
+				$aktSong=0;
+				foreach ($service->songs as $song) {
+					if($song->pivot->order==4)	
+					$aktSong= $song->pivot->song_id;
+				}
+				$service->songs()->detach($aktSong);
 				$service->songs()->attach($song4,['order' => '4']);
-			}if($song5){
-				$service->songs()->detach($service_id,['order' => '5']);
+			}
+
+			if($song5){
+				$aktSong=0;
+				foreach ($service->songs as $song) {
+					if($song->pivot->order==5)	
+					$aktSong= $song->pivot->song_id;
+				}
+				$service->songs()->detach($aktSong);				
 				$service->songs()->attach($song5,['order' => '5']);
 			}
+
+
 			if($song6){
-				$service->songs()->detach($service_id,['order' => '6']);
+				
+				$aktSong=0;
+				foreach ($service->songs as $song) {
+					if($song->pivot->order==6)	
+					$aktSong= $song->pivot->song_id;
+				}
+				$service->songs()->detach($aktSong);
 				$service->songs()->attach($song6,['order' => '6']);
 			}
 		

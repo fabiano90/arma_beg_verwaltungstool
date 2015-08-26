@@ -16,7 +16,7 @@ $(document).ready(function() {
             limit: $('.footer').offset().top,
             preFixed: function() { $(this).css('color', 'blue'); },
             postFixed: function() { $(this).css('color', ''); },
-        });*/
+        });
 
         // Order matters here because we are dependent on the state of the footer above for
         // our limit.  The footer must be set first; otherwise, we will not be in the right
@@ -46,7 +46,7 @@ $(document).ready(function() {
             if (window.console) console.log('summary fixed');
             $(this).css('color', 'red');
             $('.header').trigger('fixed.ScrollToFixed');
-        });
+        });*/
 	
 
 	

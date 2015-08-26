@@ -11,6 +11,6 @@ class Song extends Model {
 		return $this->belongsToMany('App\Models\Kigo' , 'service_id');//kigo_songs
 	}
 	public function sundayservices(){
-		return $this->belongsToMany('App\Models\Sundayservice', 'song_sundayservice', 'song_id', 'service_id')->withPivot('order');//kigo_songs
+		return $this->belongsToMany('App\Models\Sundayservice', 'song_sundayservice', 'song_id', 'service_id')->withPivot('order')->withPivot('songdate');//kigo_songs
 	}
 }
