@@ -2,7 +2,7 @@
 
 @section('content')
 
-{!! Form::model($sundays, array('url' => array('sundayservices/edityear'))) !!}
+{!! Form::model($sundays, array('url' => array('sundays/edityear'))) !!}
 
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 <input id="filter" class="form-control" type="text" placeholder="Suche">

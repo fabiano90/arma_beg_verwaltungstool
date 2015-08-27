@@ -2,7 +2,7 @@
 
 @section('content')
 
-{!! Form::open(array('url'=>'sundayservices/newsunday', 'class'=>'form-signup')) !!}
+{!! Form::open(array('url'=>'sundays/newsunday', 'class'=>'form-signup')) !!}
     <h2 class="form-signup-heading">Neuen Gottesdienst anlegen</h2>
     {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 

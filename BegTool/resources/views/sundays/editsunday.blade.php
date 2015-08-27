@@ -2,7 +2,7 @@
 
 @section('content')
 
-{!! Form::model($sunday, array('url' => array('sundayservices/editsunday', $sunday->id))) !!}
+{!! Form::model($sunday, array('url' => array('sundays/editsunday', $sunday->id))) !!}
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 
     <h2 class="form-signup-heading">Dienste tasuchen für den:  {!! $sunday->sermons->date!!}</h2>
