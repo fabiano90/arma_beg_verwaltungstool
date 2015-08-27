@@ -1,11 +1,13 @@
 @extends('layouts.main')
-
+@section('title')
+ Dienste tasuchen für den:  {!! date('d.m.Y',$sunday->sermons->date)!!}
+@stop
 @section('content')
 
 {!! Form::model($sunday, array('url' => array('sundays/editsunday', $sunday->id))) !!}
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 
-    <h2 class="form-signup-heading">Dienste tasuchen für den:  {!! $sunday->sermons->date!!}</h2>
+   
     
 
     {!! Form::label('kigos_list', 'Kigo Leiter') !!}
