@@ -17,11 +17,20 @@
 			@foreach($users as $user)
 			<tr>
 				<td>{!! $user->username !!}</td>
-				<td>{!! $user->permission !!}</td>
+				<td>
+					@if($user->permission == 0)
+						Admin ({!! $user->permission !!})
+					@elseif($user->permission == 1)
+						Leitung & Kigo ({!! $user->permission !!})
+					@elseif($user->permission == 2)
+						Kigo anlegen ({!! $user->permission !!})
+					@endif
+				</td>
 				<td>{!! $user->email !!}</td>
 				<td>
 					<div class="btn-group">
 						{!! HTML::link('/users/edituser/'.$user->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+						{!! HTML::link('/users/editpassword/'.$user->id, 'Passwort ändern', array('class'=>'btn btn-default')) !!}
 						{!! HTML::link('/messages/chat/'.$user->id, 'Nachricht schreiben', array('class'=>'btn btn-default')) !!}						
 					</div>
 				</td>

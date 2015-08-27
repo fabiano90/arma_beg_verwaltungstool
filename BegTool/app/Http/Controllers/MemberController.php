@@ -81,7 +81,8 @@ class MemberController extends Controller
 			}
 		}
 		else{
-			//alert('nope kein permission! gibts was schoeneres als alert??');
+			echo '<script>alert("nope kein permission! gibts was schoeneres als alert??");</script>';
+			return redirect('members');
 		}
 	}
 

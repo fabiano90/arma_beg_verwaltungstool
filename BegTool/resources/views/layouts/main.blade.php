@@ -34,7 +34,7 @@
 
 
 	<div class="container">
-	<h3><a class="" href="#">Logo</a></h3>
+	<h3><a class="" href="users">Logo</a></h3>
 	<nav class="navbar navbar-default header">
 		<div class="container-fluid">
 
@@ -62,7 +62,7 @@
 				            {!! cleverLink('/members', 'Geburtstage') !!}  
 				          </ul>
 				     </li>
-	            	
+	            	{!! cleverLink('/login/logout', 'Logout') !!}
 	            	
 				</ul>
 			</div>

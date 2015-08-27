@@ -101,16 +101,16 @@ class UserController extends Controller
 		    $user->permission = intval(Request::input('permission'));
 		   
 
-		   echo 
+		   /*echo 
 		    "member_id: " . $user->member_id.
 		    " username: ". $user->username.
 		    " email: " . $user->email.
 		    " pass: " . $user->password.
-		    " permission: " . $user->permission;
+		    " permission: " . $user->permission;*/
 		    //exit;
 
 		    $user->save();
-		    return redirect('users')->with('message', 'success|'.$user->username.' erfolgreich angelegt!');
+		    return redirect('users/userlist')->with('message', 'success|'.$user->username.' erfolgreich angelegt!');
     	} 
     	else
      	{
@@ -121,9 +121,69 @@ class UserController extends Controller
 	}
 
 	public function getEdituser ($user_id){
+		$auth_user = Auth::user();
 		$user = User::find($user_id);
 		$member = Member::find($user->member_id);
-		return view('users.edituser')->with('user', $user)->with('member', $member);
+		return view('users.edituser')->with('user', $user)->with('member', $member)->with('auth_user', $auth_user);
 	}
 
+	public function postEdituser ($user_id){	
+        $rules = User::$rules;
+        $rules['username'] = 'required|alpha|min:2|unique:users,username,'.$user_id;
+        $rules['password'] = '';
+        $rules['password_confirmation'] = '';
+        $rules['email'] = 'required|email|unique:users,email,'.$user_id;
+        $rules['member_id'] = 'required|unique:users,member_id,'.$user_id;
+        $validator = Validator::make(Request::all(), $rules);
+ 		
+        if ($validator->passes()) 
+        {
+            // validation has passed, save user in DB
+            $user = User::find($user_id);
+            $user->member_id = Request::input('member_id');
+            $user->username = Request::input('username');
+		    $user->email = Request::input('email');		   	
+		    $user->password = Hash::make(Request::input('password'));
+		    $user->permission = intval(Request::input('permission'));
+            $user->save();         
+            return redirect('users/userlist')->with('message', 'success|Mitarbeiter erfolgreich bearbeitet!');
+        }
+        else 
+        {
+            // validation has failed, display error messages   
+            return redirect('users/edituser/'.$user_id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+        }
+	}
+
+	public function getEditpassword ($user_id){
+		$auth_user = Auth::user();
+		$user = User::find($user_id);
+		$member = Member::find($user->member_id);
+		return view('users.editpassword')->with('user', $user)->with('member', $member)->with('auth_user', $auth_user);
+	}
+
+	public function postEditpassword ($user_id){	
+        $rules = User::$rules;
+        $rules['username'] = ''.$user_id;
+        $rules['password'] = 'required|alpha_num|between:6,12|confirmed';
+        $rules['password_confirmation'] = 'required|alpha_num|between:6,12';
+        $rules['email'] = '';
+        $rules['permission'] = '';
+        $rules['member_id'] = '';
+        $validator = Validator::make(Request::all(), $rules);
+ 		
+        if ($validator->passes()) 
+        {
+            // validation has passed, save user in DB
+            $user = User::find($user_id);
+		    $user->password = Hash::make(Request::input('password'));
+            $user->save();         
+            return redirect('users/userlist')->with('message', 'success|Passwort erfolgreich geändert!');
+        }
+        else 
+        {
+            // validation has failed, display error messages   
+            return redirect('users/editpassword/'.$user_id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+        }
+	}
 }

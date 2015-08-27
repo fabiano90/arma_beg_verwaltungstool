@@ -46,6 +46,7 @@ class LoginController extends Controller
 
 	public function getLogout($user_id = 0){
 		Auth::logout();
+		return redirect('login/login');
 	}
 
 	public function getToken()
