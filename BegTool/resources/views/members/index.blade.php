@@ -19,10 +19,12 @@
 			@foreach($members as $member)
 			<tr>
 				<td>{!! $member->onlinename !!}</td>
-				
-				<td data-type="numeric" data-value= '{!!strtotime($member->birthdate)!!}'>{!! $member->birthdate!!}</td>
+				<td data-type="numeric" data-value= '{!!$member->birthdate!!}'>{!! date('d.m.Y', $member->birthdate) !!}</td>
 				<td>
-					<div class="btn-group">{!! HTML::link('/members/adduser/'.$member->id, 'Als Mitarbeiter hinzufügen', array('class'=>'btn btn-default')) !!}
+					<div class="btn-group">
+						{!! HTML::link('/members/editmember/'.$member->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+						{!! HTML::link('/nope'.$member->id, 'Eliminiern', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+						{!! HTML::link('/members/adduser/'.$member->id, 'Als Mitarbeiter hinzufügen', array('class'=>'btn btn-default')) !!}						
 					</div>
 				</td>				
 			</tr>

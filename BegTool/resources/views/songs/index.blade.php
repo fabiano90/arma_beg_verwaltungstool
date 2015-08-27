@@ -24,16 +24,7 @@
 				<td>{!! $song->name !!}</td>				
 				<td>
 					<ul>
-						<div class="hide">{!!$count = 0; !!}</div>
-						@foreach($sundays as $key => $value)
-							@foreach($value as $song_id => $date)
-								@foreach($date as $song_id2 => $date2)
-									@if($song_id < 3 && $song_id2 == $song->id)
-										<li>{!! $date2 !!}</li>
-									@endif							
-								@endforeach
-							@endforeach
-						@endforeach				
+			
 					</ul>
 				</td>
 				<td>		
