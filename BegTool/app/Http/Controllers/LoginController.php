@@ -36,7 +36,7 @@ class LoginController extends Controller
 		{
 			//login ok
 			$user = Auth::user();
-			return redirect('users/timeline/'. $user->id);
+			return redirect('users');
 		}
 		else{
 			//login nicht ok
