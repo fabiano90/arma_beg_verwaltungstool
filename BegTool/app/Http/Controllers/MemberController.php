@@ -15,9 +15,10 @@ class MemberController extends Controller
 
 	public function getIndex()
 	{
+		$auth_user = Auth::user();
 		$users = User::all();
 		$members = Member::all();
-		return view('members.index')->with('members', $members)->with('users', $users);//->with('user', $persons);
+		return view('members.index')->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
 	}
 
 	public function getRegister(){

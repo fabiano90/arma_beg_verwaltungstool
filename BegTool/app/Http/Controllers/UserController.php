@@ -78,9 +78,9 @@ class UserController extends Controller
 
 	public function getUserlist()
 	{
-
-		$users = User::paginate(15);		
-		return view('users.userlist')->with('users', $users);//->with('jaja', $jaja);
+		$auth_user = Auth::user();
+		$users = User::all();		
+		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);//->with('jaja', $jaja);
 	}
 
 	public function getRegister(){
