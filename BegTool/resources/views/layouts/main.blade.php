@@ -50,7 +50,7 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-					{!! cleverLink('/sundayservices/kalender', 'Kalender') !!}
+					{!! cleverLink('/sundays', 'Kalender') !!}
 					{!! cleverLink('/kigos', 'Kigo') !!}
 	            	{!! cleverLink('/sundayservices', 'Leitung') !!} 
 	            	{!! cleverLink('/sermons', 'Predigten') !!}

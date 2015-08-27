@@ -24,6 +24,7 @@ Route::controller('login', 'LoginController');
 Route::controller('kigos', 'KigoController');
 Route::controller('sermons', 'SermonController');
 Route::controller('sundayservices', 'SundayserviceController');
+Route::controller('sundays', 'SundayController');
 Route::resource('rest/users', 'UserRESTController');
 Route::resource('rest/posts', 'PostRESTController');
 
