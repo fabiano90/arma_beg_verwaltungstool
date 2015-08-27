@@ -1,11 +1,32 @@
 @extends('layouts.main')
+@section('title')
+{!!' Jahr '.$year.' bearbeiten'!!}
+@stop
+@section('menu')
+	<li role="presentation" ><a href='/public/sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
+	<li role="presentation"><a href='{!! '/public/sundays/newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
+	<li role="presentation"><a href='{!! '/public/sundays/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{!!'Jahr '.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+	@if($year == date('Y'))
+	<li role="presentation"class="active"><a href='{!!'/public/sundays/edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date('Y')!!}</a></li>
+	<li role="presentation"><a href='{!! '/public/sundays/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+	@else
+	<li role="presentation"><a href='{!!'/public/sundays/edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date('Y')!!}</a></li>
+	<li role="presentation"class="active"><a href='{!! '/public/sundays/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+	@endif
+	<form class="navbar-form navbar-right search-div" role="search">
+ 		 <div class="form-group">
+   		 	<input id="filter" type="text" class="search-form" placeholder="Nach Datum suchen">
+		 </div>
+  	</form>
+  	
+
+@stop
 
 @section('content')
 
 {!! Form::model($sundays, array('url' => array('sundays/edityear'))) !!}
 
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
-<input id="filter" class="form-control" type="text" placeholder="Suche">
 <table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 	<thead>
 		<tr>
