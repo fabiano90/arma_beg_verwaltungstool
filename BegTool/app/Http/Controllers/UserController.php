@@ -128,24 +128,31 @@ class UserController extends Controller
 	}
 
 	public function postEdituser ($user_id){	
+		$auth_user = Auth::user();
         $rules = User::$rules;
-        $rules['username'] = 'required|alpha|min:2|unique:users,username,'.$user_id;
+        //$rules['username'] = 'required|alpha|min:2|unique:users,username,'.$user_id;
+        $rules['username'] = '';
         $rules['password'] = '';
         $rules['password_confirmation'] = '';
         $rules['email'] = 'required|email|unique:users,email,'.$user_id;
+        $rules['permission'] = '';
         $rules['member_id'] = 'required|unique:users,member_id,'.$user_id;
         $validator = Validator::make(Request::all(), $rules);
  		
         if ($validator->passes()) 
         {
-            // validation has passed, save user in DB
+            // validation has passed, save user in DB            
             $user = User::find($user_id);
+            $member = Member::find($user->member_id);
             $user->member_id = Request::input('member_id');
-            $user->username = Request::input('username');
+            $member->lastname = Request::input('lastname');
+            //$user->username = Request::input('username');
 		    $user->email = Request::input('email');		   	
-		    $user->password = Hash::make(Request::input('password'));
-		    $user->permission = intval(Request::input('permission'));
-            $user->save();         
+		    if($auth_user->permission == 0){
+		    	$user->permission = intval(Request::input('permission'));
+		    }
+		    $member->save();
+            $user->save();
             return redirect('users/userlist')->with('message', 'success|Mitarbeiter erfolgreich bearbeitet!');
         }
         else 

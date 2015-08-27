@@ -13,7 +13,7 @@
 				<th>Name</th>
 				<th data-hide="phone">Bemerkung</th>				
 				<th data-hide="phone">Zuletzt gesungen</th>
-				<th data-hide="phone">Zuletzt gesungen</th>
+				<th data-hide="phone">Anzahl gesungen dieses Jahr</th>
 				<th data-hide="phone">Bearbeiten</th>
 			</tr>
 		</thead>
@@ -23,17 +23,18 @@
 				<td>{!! $song->number !!}</td>
 				<td>{!! $song->name !!}</td>				
 				<td>
-					<ul>
-			
-					</ul>
-				</td>
-				<td>		
-
-				</td>	
-				<td>{!! $song->annotation !!}</td>	
+					{!! $song->annotation !!}
+				</td>					
 				<td>
-					<div class="btn-group">						
-						{!! HTML::link('/songs/asdas/'.$song->id, 'Ansehen', array('class'=>'btn btn-default')) !!}
+					<ol>
+						<li>gestern</li>	
+						<li>der Tag davor</li>	
+						<li>1912</li>	
+					</ol>
+				</td>	
+				<td>3</td>
+				<td>
+					<div class="btn-group">										
 						{!! HTML::link('/songs/editsong/'.$song->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
 						{!! HTML::link('/songs/deletesong/'.$song->id, 'Löschen', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
 					</div>				

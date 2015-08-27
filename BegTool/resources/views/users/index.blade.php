@@ -2,7 +2,7 @@
 
 @section('content')
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
-<h2>Willkommen </h2>
+<h2>Willkommen {!! $user->username !!}</h2>
 <div class="table-responsive">
 	<input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable" data-filter="#filter">
