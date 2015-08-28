@@ -13,7 +13,7 @@
     	{!! Form::label('lastname', 'Nachname') !!}
     	{!! Form::text('lastname', $member->lastname, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}
 	    {!! Form::label('birthdate', 'Geburtsdatum') !!}
-	    {!! Form::text('birthdate', $member->birthdate, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}      
+	    {!! Form::text('birthdate', date('d.m.Y', $member->birthdate), array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}      
 
     	{!! Form::label('username', 'Benutzername') !!}
    	 	{!! Form::text('username', $member->firstname, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}

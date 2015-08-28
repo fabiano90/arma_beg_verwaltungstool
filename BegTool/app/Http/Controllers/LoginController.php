@@ -24,8 +24,8 @@ class LoginController extends Controller
 	public function postLogin(){
 		$username = Request::input('username');
 		$password = Request::input('password');
-		echo $username;
-		echo $password;
+		//echo $username;
+		//echo $password;
 		//exit;
 		if(Auth::attempt(
 			array(

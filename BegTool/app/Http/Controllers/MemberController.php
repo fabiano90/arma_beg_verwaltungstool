@@ -15,9 +15,10 @@ class MemberController extends Controller
 
 	public function getIndex()
 	{
+		$auth_user = Auth::user();
 		$users = User::all();
-		$members = Member::paginate(10);
-		return view('members.index')->with('members', $members)->with('users', $users);//->with('user', $persons);
+		$members = Member::all();
+		return view('members.index')->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
 	}
 
 	public function getRegister(){
@@ -87,8 +88,9 @@ class MemberController extends Controller
 	}
 
 	public function getEditmember($member_id){
+		$auth_user = Auth::user();
 		$member = Member::find($member_id);
-		return view('members.editmember')->with('member', $member);
+		return view('members.editmember')->with('member', $member)->with('auth_user', $auth_user);
 	}
 
 	public function postEditmember($member_id){

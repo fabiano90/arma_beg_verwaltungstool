@@ -22,9 +22,22 @@
 				<td data-type="numeric" data-value= '{!!$member->birthdate!!}'>{!! date('d.m.Y', $member->birthdate) !!}</td>
 				<td>
 					<div class="btn-group">
-						{!! HTML::link('/members/editmember/'.$member->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
-						{!! HTML::link('/nope'.$member->id, 'Eliminiern', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
-						{!! HTML::link('/members/adduser/'.$member->id, 'Als Mitarbeiter hinzufügen', array('class'=>'btn btn-default')) !!}						
+						@if($auth_user->permission == 0 || $auth_user->member_id == $member->id)
+							{!! HTML::link('/members/editmember/'.$member->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+							{!! HTML::link('/nope'.$member->id, 'Eliminiern', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+
+							{{-- Nur als Mitarbeiter hinzufügbar, wenn sie noch nicht sind --}}
+							{{-- HTML Kommentare nicht löschen! --}}
+								<!--{!! $temp = -1 !!}-->
+								@foreach ($users as $user)
+		    						@if($member->id == $user->member_id)
+		    							<!--{!! $temp = $user->id; !!}-->
+									@endif
+								@endforeach
+								@if($temp == -1)
+									{!! HTML::link('/members/adduser/'.$member->id, 'Als Mitarbeiter hinzufügen', array('class'=>'btn btn-default')) !!}						
+								@endif
+						@endif						
 					</div>
 				</td>				
 			</tr>
@@ -32,7 +45,6 @@
 		</tbody>
 	</table>
 </div>
-{!! str_replace('/?', '?', $members->render()) !!}
 <br/>
 
 

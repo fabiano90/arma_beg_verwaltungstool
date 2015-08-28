@@ -8,6 +8,10 @@
     {!! Form::label('scripture', 'Predigttext') !!}
 	{!! Form::text('scripture', null, array('class'=>'form-control', 'placeholder'=>'Predigttext')) !!}    
 
+	<ol>
+		{!! $sermon->subitem !!}
+	</ol>
+
 	{!! Form::label('topic0', 'Thema') !!}
  	<div class="input-group">
       <span class="input-group-btn">
