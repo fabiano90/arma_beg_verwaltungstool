@@ -24,7 +24,7 @@
 		<tbody>			
 			@foreach($kigos as $kigo)
 			<tr>
-				<td data-type="numeric" data-value='{!! strtotime($kigo->sundayservices->sermons->date)!!}'>{!! date('d.m.Y', strtotime($kigo->sundayservices->sermons->date)) !!}</td>
+				<td data-type="numeric" data-value='{!! $kigo->sundayservices->sermons->date !!}'>{!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!}</td>
 				<td>{!! $kigo->users->username !!}</td>
 				<td>{!! $kigo->lection_number !!}</td>				
 				<td>{!! $kigo->lection !!}</td>	
@@ -37,9 +37,8 @@
 					@endforeach	
 				</td>
 				<td>
-					<div class="btn-group">						
-						{!! HTML::link('/kigos/editkigo/'.$kigo->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
-						{!! HTML::link('/kigos/deletekigo/'.$kigo->id, 'Löschen', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+					<div class="btn-group">		
+						<a href="/public/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
 					</div>				
 				</td>		
 			</tr>

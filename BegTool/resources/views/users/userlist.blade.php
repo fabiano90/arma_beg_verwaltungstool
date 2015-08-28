@@ -30,9 +30,9 @@
 				<td>
 					<div class="btn-group">
 						{!! HTML::link('/messages/chat/'.$user->id, 'Nachricht schreiben', array('class'=>'btn btn-default')) !!}						
-						@if($auth_user->permission == 0 || $auth_user->id == $user->id)
-							{!! HTML::link('/users/edituser/'.$user->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+						@if($auth_user->permission == 0 || $auth_user->id == $user->id)							
 							{!! HTML::link('/users/editpassword/'.$user->id, 'Passwort ändern', array('class'=>'btn btn-default')) !!}
+							<a href="/public/users/edituser/{!! $user->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 							@if($auth_user->id != $user->id)
 								{!! HTML::link('/users/deleteuser/'.$user->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
 							@endif
