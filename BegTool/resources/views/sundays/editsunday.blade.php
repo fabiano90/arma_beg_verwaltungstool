@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
- Dienste tasuchen für den:  {!! date('d.m.Y',$sunday->sermons->date)!!}
+ Dienste tauschen für den:  {!! date('d.m.Y',$sunday->sermons->date)!!}
 @stop
 @section('content')
 

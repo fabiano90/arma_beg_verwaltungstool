@@ -40,9 +40,7 @@ class MemberController extends Controller
 		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
 		} 
 		else
-	 	{
-	 
-	 		
+	 	{	 
 	    	// validation has failed, display error messages   
 	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
 		}
@@ -113,5 +111,16 @@ class MemberController extends Controller
 	    	// validation has failed, display error messages   
 	    	return redirect('members/editmember/'. $member_id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
 		}
+	}
+
+	public function getDeletemember($member_id){
+		$auth_user = Auth::user();
+		if($auth_user->permission == 0 && $auth_user->member_id != $member_id){
+			User::where('member_id', '=', $member_id)->delete();
+			Member::destroy($member_id);			
+		}
+		$users = User::all();
+		$members = Member::all();
+		return view('members.index')->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
 	}
 }

@@ -80,7 +80,7 @@ class UserController extends Controller
 	{
 		$auth_user = Auth::user();
 		$users = User::all();		
-		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);//->with('jaja', $jaja);
+		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);
 	}
 
 	public function getRegister(){
@@ -192,5 +192,14 @@ class UserController extends Controller
             // validation has failed, display error messages   
             return redirect('users/editpassword/'.$user_id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
         }
+	}
+
+	public function getDeleteuser($user_id){
+		$auth_user = Auth::user();
+		if($auth_user->permission == 0 && $auth_user->id != $user_id){
+			User::destroy($user_id);	
+		}
+		$users = User::all();		
+		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);
 	}
 }

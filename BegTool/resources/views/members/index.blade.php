@@ -24,8 +24,9 @@
 					<div class="btn-group">
 						@if($auth_user->permission == 0 || $auth_user->member_id == $member->id)
 							{!! HTML::link('/members/editmember/'.$member->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
-							{!! HTML::link('/nope'.$member->id, 'Eliminiern', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
-
+							@if($auth_user->member_id != $member->id)
+								{!! HTML::link('/members/deletemember/'.$member->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+							@endif
 							{{-- Nur als Mitarbeiter hinzufügbar, wenn sie noch nicht sind --}}
 							{{-- HTML Kommentare nicht löschen! --}}
 								<!--{!! $temp = -1 !!}-->
