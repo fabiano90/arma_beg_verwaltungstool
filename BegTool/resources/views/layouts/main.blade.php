@@ -21,10 +21,10 @@
 {!!HTML::script('js/bootstrap.datetimepicker.js')!!}
 {!!HTML::script('js/bootstrap.datetimepicker-de.js')!!}
 {!!HTML::script('js/offcanvas.js')!!}
-{!!HTML::script('js/footable-plugin/footable.js')!!}
-{!!HTML::script('js/footable-plugin/footable.filter.js')!!}
-{!!HTML::script('js/footable-plugin/footable.sort.js')!!}
-{!!HTML::script('js/ScrollToFixed-master/jquery-scrolltofixed-min.js')!!}
+{!!HTML::script('js/jquery.ba-throttle-debounce.min.js')!!}
+
+{!!HTML::script('js/jquery.stickysort.js')!!}
+
 
 {!!HTML::script('js/useful.js')!!}
 

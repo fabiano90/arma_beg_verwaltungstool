@@ -32,7 +32,17 @@ Kalender
 				<th></th>
 			</tr>
 		</thead>
-
+		<tfoot>
+ 			<tr>
+				<th data-sort-initial="true">Sonntag</th>
+				<th>Kigo</th>
+				<th data-hide="phone">Nr.</th>
+				<th data-hide="phone">Lektion</th>
+				<th>Lektor</th>
+				<th>Prediger</th>
+				<th></th>
+			</tr>
+        </tfoot>
 		<tbody>
 			@foreach($sundayservices as $sundayservice)
 			<tr>				

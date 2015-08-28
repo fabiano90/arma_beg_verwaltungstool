@@ -22,6 +22,8 @@
 {!!Form::open(array('url'=>'sundays/newyear', 'class'=>'form-signup'))!!}
 
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
+<section class="section">
+  <div class="tablefixed">
 <table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 	<thead>
 		<tr>
@@ -36,7 +38,7 @@
 	</thead>
 	<tbody>	@foreach($sundays as$sunday)
 		<tr>
-			<td data-type="numeric" data-value= '$sunday'> {!! Form::text('date'.$sunday, date('d.m.Y', $sunday), array('class'=>'form-control btn-link')) !!}</td>
+			<td> {!! Form::text('date'.$sunday, date('d.m.Y', $sunday), array('class'=>'form-control btn-link')) !!}</td>
 			
 			<td> {!! Form::select('kigos_list'.$sunday, $kigos_list, null, array('class'=>'form-control', 'style'=> '')) !!}</td>
 			
@@ -53,6 +55,7 @@
 	
 	</tbody>
 </table>
+</div></section>
 <div class = 'hidden'>
 {!! Form::text('year', $year, array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}
 </div>
