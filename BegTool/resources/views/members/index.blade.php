@@ -22,9 +22,10 @@
 				<td data-type="numeric" data-value= '{!!$member->birthdate!!}'>{!! date('d.m.Y', $member->birthdate) !!}</td>
 				<td>
 					<div class="btn-group">
-						@if($auth_user->permission == 0 || $auth_user->member_id == $member->id)
-							{!! HTML::link('/members/editmember/'.$member->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
+						@if($auth_user->permission == 0 || $auth_user->member_id == $member->id)						
+							<a href="/public/members/editmember/{!! $member->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 							@if($auth_user->member_id != $member->id)
+								<a href="#" onClick="if(confirm('Wirklich löschen?') == true){window.location = '/public/members/deletemember/{!! $member->id !!}';}else{window.location = '/public/members';}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>			
 								{!! HTML::link('/members/deletemember/'.$member->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
 							@endif
 							{{-- Nur als Mitarbeiter hinzufügbar, wenn sie noch nicht sind --}}
