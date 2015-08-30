@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Request;
+use Auth;
 use App\Models\Sundayservice;
 use App\Models\Sermon;
 use App\Models\Song;
@@ -30,7 +31,7 @@ class SermonController extends Controller {
 			$sermon->topic = Request::input('topic0');
 			$tempString = '';
 			for($i = 1; $i < $count; $i++){				
-				 $tempString .= '<li>' . Request::input('subitem' . $i) . '</li>';
+				$tempString .= '<li>' . Request::input('subitem' . $i) . '</li>';
 			}
 			$sermon->subitem = $tempString;
 			$sermon->series = Request::input('series');
@@ -47,4 +48,15 @@ class SermonController extends Controller {
 	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
 		}*/
 	}
+
+    public function getDeletesermon($id)
+    {
+    	$auth_user = Auth::user();
+
+    	if($auth_user->permission == 0){
+	        $sermon = Sermon::find($id);
+	        $sermon->delete();
+	    }
+        return redirect('sermons')->with('message', 'success|Predigt wurde erfolgreich gelöscht!');
+    }    	
 }

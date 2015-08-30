@@ -37,7 +37,7 @@ class MemberController extends Controller
 		    $person->birthdate = strtotime(Request::input('birthdate'));  
 		    $person->onlinename = Request::input('onlinename');	   	
 			$person->save();
-		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('members')->with('message', 'success|Gemeindemitglied erfolgreich angelegt!');
 		} 
 		else
 	 	{	 
@@ -59,7 +59,7 @@ class MemberController extends Controller
 			}*/
 
 			$model = User::where('member_id', $member_id)->first();
-		//	echo var_dump($model);
+			//	echo var_dump($model);
 			//$flights = User::where('active', 0)
                //->orderBy('name', 'desc')
                //->take(10)

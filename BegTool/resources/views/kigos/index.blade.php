@@ -4,7 +4,7 @@
 
 
 <h2>Kigos</h2>
-
+{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
@@ -23,25 +23,28 @@
 		</thead>
 		<tbody>			
 			@foreach($kigos as $kigo)
-			<tr>
-				<td data-type="numeric" data-value='{!! $kigo->sundayservices->sermons->date !!}'>{!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!}</td>
-				<td>{!! $kigo->users->username !!}</td>
-				<td>{!! $kigo->lection_number !!}</td>				
-				<td>{!! $kigo->lection !!}</td>	
-				<td>{!! $kigo->conclusion !!}</td>	
-				<td>{!! $kigo->material !!}</td>
-				<td>{!! $kigo->crafting !!}</td>	
-				<td>
-					@foreach($kigo->songs as $song)	
-						{!! $song->name !!}<br/>
-					@endforeach	
-				</td>
-				<td>
-					<div class="btn-group">		
-						<a href="/public/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
-					</div>				
-				</td>		
-			</tr>
+				<tr>
+					<td data-type="numeric" data-value='{!! $kigo->sundayservices->sermons->date !!}'>{!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!}</td>
+					<td>{!! $kigo->users->username !!}</td>
+					<td>{!! $kigo->lection_number !!}</td>				
+					<td>{!! $kigo->lection !!}</td>	
+					<td>{!! $kigo->conclusion !!}</td>	
+					<td>{!! $kigo->material !!}</td>
+					<td>{!! $kigo->crafting !!}</td>	
+					<td>
+						@foreach($kigo->songs as $song)	
+							{!! $song->name !!}<br/>
+						@endforeach	
+					</td>
+					<td>
+						<div class="btn-group">		
+							@if($auth_user->permission <= 2)						
+								<a href="/public/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
+								{!! HTML::link('/kigos/deletekigo/'.$kigo->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+							@endif
+						</div>				
+					</td>		
+				</tr>
 			@endforeach
 		</tbody>
 	</table>

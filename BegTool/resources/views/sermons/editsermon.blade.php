@@ -8,16 +8,18 @@
     {!! Form::label('scripture', 'Predigttext') !!}
 	{!! Form::text('scripture', null, array('class'=>'form-control', 'placeholder'=>'Predigttext')) !!}    
 
-	<ol>
-		{!! $sermon->subitem !!}
-	</ol>
+	<div class="hidden">
+		<ol id="getSubitem">
+			{!! $sermon->subitem !!}
+		</ol>
+	</div>
 
 	{!! Form::label('topic0', 'Thema') !!}
  	<div class="input-group">
       <span class="input-group-btn">
         <button id="addSubItem" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Unterpunkt</button>
       </span>
-      {!! Form::text('topic0', null, array('class'=>'form-control', 'placeholder'=>'Thema')) !!}
+      {!! Form::text('topic0', $sermon->topic, array('class'=>'form-control', 'placeholder'=>'Thema')) !!}
     </div>
 
 	{!! Form::label('series', 'Series') !!}
@@ -30,7 +32,7 @@
 	{!! Form::text('info_text', null, array('class'=>'form-control', 'placeholder'=>'Infos')) !!}
 	{!! Form::label('link', 'MP3-Link') !!}
 	{!! Form::text('link', null, array('class'=>'form-control', 'placeholder'=>'MP3-Link')) !!}
-	{!! Form::submit('Weiter', array('class'=>'btn btn-large btn-primary btn-block', 'id' => 'submitButton'))!!}
+	{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block', 'id' => 'submitButton'))!!}
 	{!! Form::close() !!}
 
 @stop

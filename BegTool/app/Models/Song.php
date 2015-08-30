@@ -23,8 +23,8 @@ class Song extends Model {
 	}
 
 	public static $rules = array (
-			'number' => 'numeric',
-			'name' => 'required|alpha_num|min:2',
-			'annotation' => 'string' ,
+		'number' => 'numeric',
+		'name' => 'required|alpha_num|min:2',
+		'annotation' => 'string'
 	);
 }

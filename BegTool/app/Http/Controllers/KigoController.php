@@ -8,14 +8,17 @@ use App\Models\User;
 use App\Models\Kigo;
 use App\Models\Sermon;
 use App\Models\Song;
+use Validator;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
 class KigoController extends Controller {
 
 	public function getIndex() {
+		$auth_user = Auth::user();
 		$kigos = Kigo::all();
-		return view ('kigos.index')->with('kigos', $kigos);//->with('kigo_leader', $kigoAndLeader);
+		return view ('kigos.index')->with('auth_user', $auth_user)->with('kigos', $kigos);//->with('kigo_leader', $kigoAndLeader);
 	}
 
 	public function getEditkigo($kigo_id){
@@ -24,9 +27,9 @@ class KigoController extends Controller {
 	}
 
 	public function postEditkigo($kigo_id){
-		/*$validator = Validator::make(Request::all(), User::$rules);
+		$validator = Validator::make(Request::all(), Kigo::$rules);
 		if ($validator->passes()) 
-		{*/
+		{
 	    	// validation has passed, save user in DB
 			$kigo = Kigo::find($kigo_id);
 		    $kigo->lection_number = Request::input('lection_number');
@@ -36,12 +39,12 @@ class KigoController extends Controller {
 		    $kigo->crafting = Request::input('crafting');
 			$kigo->save();
 		    return redirect('kigos/addsong/'.$kigo_id)->with('message', 'success|Student erfolgreich angelegt!');
-		/*} 
+		} 
 		else
 	 	{
 	    	// validation has failed, display error messages   
-	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-		}*/
+	    	return redirect('kigos/editkigo/'.$kigo_id)->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+		}
 	}
 
 	public function getAddsong($kigo_id)
@@ -65,4 +68,11 @@ class KigoController extends Controller {
 		$kigo->save();
 		return redirect('kigos')->with('message', 'success|Kigo erfolgreich bearbeitet!');		
 	}	
+
+    public function getDeletekigo($id)
+    {
+        $kigo = Kigo::find($id);
+        $kigo->delete();
+        return redirect('kigos')->with('message', 'success|Kigo wurde erfolgreich gelöscht!');
+    }    
 }
