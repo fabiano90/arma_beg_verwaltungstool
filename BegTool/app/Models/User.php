@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * The attributes that should be mutated to dates.
      *
      * @var array
-     */
+     */    
     protected $dates = ['deleted_at'];
 
 	public function members()

@@ -270,6 +270,17 @@ class SundayController extends Controller {
 		return $sundays;
 	}
 
+	public function getDeletesunday($sundays_id){
+		$sunday = Sundayservice::find($sundays_id);
+		$sunday->songs()->detach();
+		$kigo = $sunday->kigos;
+		$kigo->songs()->detach();
+		$kigo->delete();
+		Sermon::destroy($sunday->sermon_id);
+		$sunday->delete();
+		return redirect('sundays')->with('message', 'success|Gottesdienst wurde erfolgreich gelöscht!');
+	}
+
 	public function getKigoslist(){
 		return User::all()->lists ( 'username', 'id' );
 	}
@@ -281,4 +292,5 @@ class SundayController extends Controller {
 	public function getPreacherslist(){
 		return Member::all()->lists ( 'onlinename', 'id' );
 	}
+
 }

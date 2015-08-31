@@ -15,25 +15,25 @@
 		</thead>
 		<tbody>
 			@foreach($kigos as $kigo)
-			<tr>
-				<td data-type="numeric" data-value='{!! $kigo->sermons->date !!}'>{!! date('d.m.Y', $kigo->sermons->date) !!}</td>
-				<td>Kigo</td>
-				<td>{!! $kigo->users->username !!}</td>
-			</tr>
-			@endforeach
-			@foreach($lektors as $lektor)
-			<tr>
-				<td data-type="numeric" data-value='{!! $lektor->sermons->date !!}'>{!! date('d.m.Y', $lektor->sermons->date) !!}</td>
-				<td>Leitung</td>
-				<td>{!! $lektor->users->username !!}</td>
-			</tr>
-			@endforeach
-			@foreach($sermons as $sermon)
-			<tr>
-				<td data-type="numeric" data-value='{!! $sermon->date !!}'>{!! date('d.m.Y', $sermon->date) !!}</td>
-				<td>Predigt</td>
-				<td>{!! $sermon->members->firstname !!}</td>
-			</tr>
+				<tr>
+					<td data-type="numeric" data-value='{!! $kigo->sermons->date !!}'>{!! date('d.m.Y', $kigo->sermons->date) !!}</td>
+					<td>Kigo</td>
+					<td>{!! $kigo->users->username !!}</td>
+				</tr>
+				@endforeach
+				@foreach($lektors as $lektor)
+				<tr>
+					<td data-type="numeric" data-value='{!! $lektor->sermons->date !!}'>{!! date('d.m.Y', $lektor->sermons->date) !!}</td>
+					<td>Leitung</td>
+					<td>{!! $lektor->users->username !!}</td>
+				</tr>
+				@endforeach
+				@foreach($sermons as $sermon)
+				<tr>
+					<td data-type="numeric" data-value='{!! $sermon->date !!}'>{!! date('d.m.Y', $sermon->date) !!}</td>
+					<td>Predigt</td>
+					<td>{!! $sermon->members->firstname !!}</td>
+				</tr>
 			@endforeach
 		</tbody>
 	</table>

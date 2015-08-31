@@ -49,13 +49,23 @@ class SermonController extends Controller {
 		}*/
 	}
 
-    public function getDeletesermon($id)
+    public function getDeletesermon($sermon_id)
     {
     	$auth_user = Auth::user();
 
     	if($auth_user->permission == 0){
-	        $sermon = Sermon::find($id);
-	        $sermon->delete();
+    		$sermon = Sermon::find($sermon_id);
+    		$sermon->preacher_id = 0;
+	        //$sermon->delete();			
+			$sermon->scripture = null;
+			$sermon->topic = null;
+			$sermon->subitem = null;
+			$sermon->series = null;
+			$sermon->book = null;
+			$sermon->occasion = null;
+			$sermon->info_text = null;
+			$sermon->link = null;
+			$sermon->save();
 	    }
         return redirect('sermons')->with('message', 'success|Predigt wurde erfolgreich gelöscht!');
     }    	

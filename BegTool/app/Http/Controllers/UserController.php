@@ -23,12 +23,12 @@ class UserController extends Controller
 	{
 		
 		$user = Auth::user();
-		$today=time();
+		$today = time();
 		//$kigos=$user->sundayservices->sermons->where('user_id','=',$user->id)->get();
 		//echo date('d.m.Y',time());exit;
-		$kigos=Kigo::where('user_id','=',$user->id)->get();
-		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
-		$lektors=Sundayservice::whereHas('sermons', function($q) use ($today)
+		$kigos = Kigo::where('user_id','=',$user->id)->get();
+		$predigten = Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
+		$lektors = Sundayservice::whereHas('sermons', function($q) use ($today)
 				{
 				    $q->where('date','>=',$today);
 
@@ -42,6 +42,16 @@ class UserController extends Controller
 
 				})->has('kigos')->where('user_id', '=', $user->id)->get();
 
+		/*echo var_dump($predigten);
+		foreach ($kigos as $k) {
+			echo '' . $k->lection. '<br>';
+		}
+		foreach ($predigten as $k) {
+			echo '' . $k->date. '<br>';
+		}
+		foreach ($lektors as $k) {
+			echo '' . $k->user_id. '<br>';
+		}exit;*/
 
 		/*->whereHas('kigos', function($q) use ($today)
 

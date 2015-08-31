@@ -20,20 +20,26 @@
 
 		<tbody>
 			@foreach($sundayservices as $sundayservice)
-			<tr>				
-				<td data-type="numeric" data-value='{!! $sundayservice->sermons->date!!}'>{!! date('d.m.Y', $sundayservice->sermons->date) !!}</td>
-				<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
-				<td>{!! $sundayservice->users->username !!}</td>
-				<td>{!! $sundayservice->psalm !!}</td>
-				<td>{!! $sundayservice->biblereading !!}</td>
-				<td>{!! $sundayservice->comments !!}</td>
-				<td>{!! $sundayservice->sacrament !!}</td>
-				<td>
-					@foreach($sundayservice->songs as $song)	
-						{!! $song->name !!}<br/>
-					@endforeach	
-				</td>
-				<td><a href="sundayservices/editservice/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>			</tr>
+				<tr>				
+					<td data-type="numeric" data-value='{!! $sundayservice->sermons->date!!}'>{!! date('d.m.Y', $sundayservice->sermons->date) !!}</td>
+					<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
+					<td>{!! $sundayservice->users->username !!}</td>
+					<td>{!! $sundayservice->psalm !!}</td>
+					<td>{!! $sundayservice->biblereading !!}</td>
+					<td>{!! $sundayservice->comments !!}</td>
+					<td>{!! $sundayservice->sacrament !!}</td>
+					<td>
+						@foreach($sundayservice->songs as $song)	
+							{!! $song->name !!}<br/>
+						@endforeach	
+					</td>
+					<td>						
+						<div class="btn-group">								
+							<a href="/public/sundayservices/editservice/{!! $sundayservice->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
+							{!! HTML::link('/sundayservices/deleteservice/'.$sundayservice->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieses Lektordienstes löschen?\');')) !!}
+						</div>	
+					</td>
+				</tr>
 			@endforeach
 		</tbody>
 	</table>	

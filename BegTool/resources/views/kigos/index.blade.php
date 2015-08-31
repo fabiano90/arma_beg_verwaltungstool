@@ -3,7 +3,7 @@
 @section('content')
 
 
-<h2>Kigos</h2>
+<h2>Kigo</h2>
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">
@@ -40,7 +40,7 @@
 						<div class="btn-group">		
 							@if($auth_user->permission <= 2)						
 								<a href="/public/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
-								{!! HTML::link('/kigos/deletekigo/'.$kigo->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+								{!! HTML::link('/kigos/deletekigo/'.$kigo->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieses Kigos löschen?\');')) !!}
 							@endif
 						</div>				
 					</td>		

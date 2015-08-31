@@ -52,8 +52,12 @@ Kalender
 				<td>{!! $sundayservice->kigos->lection !!}</td>
 				<td>{!! $sundayservice->users->username!!}</td>
 				<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
-				<td><a href="/public/sundays/editsunday/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-
+				<td>	
+					<div class="btn-group">							
+						<a href="/public/sundays/editsunday/{!! $sundayservice->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
+						{!! HTML::link('/sundays/deletesunday/'.$sundayservice->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+					</div>
+				</td>
 			</tr>
 			@endforeach
 		</tbody>

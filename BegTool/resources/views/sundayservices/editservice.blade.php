@@ -247,7 +247,7 @@ showMessageAndErrors(Session::get('message'), $errors->all()) !!}
         </table>
     </div> </div>
 
-{!! Form::submit('weiter', array('class'=>'btn btn-large btn-primary
+{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary
 btn-block'))!!} {!! Form::close() !!} {!! HTML::link('#', 'Zurück',
 array('class' => 'btn btn-default',
 'onClick="javascript:history.back();return false;"'))!!} @stop

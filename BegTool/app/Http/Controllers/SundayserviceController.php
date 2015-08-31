@@ -147,7 +147,18 @@ class SundayserviceController extends Controller {
 		return redirect('sundayservices')->with('message', 'success|Gottesdienst erfolgreich bearbeitet!');		
 	}	
 
-	
-
-
+	public function getDeleteservice($service_id){
+		$service = Sundayservice::find($service_id);
+		$service->user_id = 0;
+		$service->sermons->preacher_id = 0;
+		$service->songs()->detach();
+		//$service->vers_id = null;
+	    $service->psalm = null;
+	    $service->biblereading = null;
+	    $service->comments = null;
+	    $service->sacrament = null;
+	    $service->sermons->save();
+	    $service->save();
+	    return redirect('sundayservices')->with('message', 'success|Gottesdienst erfolgreich gelöscht!');		
+	}
 }

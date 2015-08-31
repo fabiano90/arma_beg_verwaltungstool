@@ -50,7 +50,7 @@
 						{!! cleverLink('/sundays', 'Kalender') !!}
 						{!! cleverLink('/kigos', 'Kigo') !!}
 		            	{!! cleverLink('/sundayservices', 'Leitung') !!} 
-		            	{!! cleverLink('/sermons', 'Predigten') !!}
+		            	{!! cleverLink('/sermons', 'Predigt') !!}
 		            	{!! cleverLink('/songs', 'Lieder') !!}
 		            	<li class="dropdown">
 					          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Gemeinde <span class="caret"></span></a>

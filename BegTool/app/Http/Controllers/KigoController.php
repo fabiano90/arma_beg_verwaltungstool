@@ -72,7 +72,16 @@ class KigoController extends Controller {
     public function getDeletekigo($id)
     {
         $kigo = Kigo::find($id);
-        $kigo->delete();
+        //$kigo->delete();
+		$kigo = Kigo::find($id);
+		$kigo->user_id = 0;
+	    $kigo->lection_number = null;
+	    $kigo->lection = null;
+	    $kigo->conclusion = null;
+	    $kigo->material = null;
+	    $kigo->crafting = null;
+		$kigo->save();
+
         return redirect('kigos')->with('message', 'success|Kigo wurde erfolgreich gelöscht!');
-    }    
+    }   
 }

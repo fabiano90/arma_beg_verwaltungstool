@@ -39,7 +39,7 @@
 				<td>
 					<div class="btn-group">		
 						<a href="/public/sermons/editsermon/{!! $sermon->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
-						{!! HTML::link('/sermons/deletesermon/'.$sermon->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+						{!! HTML::link('/sermons/deletesermon/'.$sermon->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieser Predikt löschen?\');')) !!}
 					</div>				
 				</td>		
 			</tr>
