@@ -196,10 +196,25 @@ class UserController extends Controller
 
 	public function getDeleteuser($user_id){
 		$auth_user = Auth::user();
+		$users = User::all();
 		if($auth_user->permission == 0 && $auth_user->id != $user_id){
-			User::destroy($user_id);	
-		}
-		$users = User::all();		
+			$user = User::find($user_id);
+			
+			//reset all foreign ids reffering to the user in kigo, sermon (member->sermon), sunday, 
+			foreach ($user->kigos as $kigo) {
+				$kigo->user_id = 0;
+				$kigo->save();
+			}
+			foreach ($user->sundayservices as $sunday) {
+				$sunday->user_id = 0;
+				$sunday->save(); 
+			}
+			foreach ($user->members->sermons as $sermon) {
+				$sermon->preacher_id = 0;
+				$sermon->save();
+			}
+			$user->delete();
+		}				
 		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);
 	}
 }

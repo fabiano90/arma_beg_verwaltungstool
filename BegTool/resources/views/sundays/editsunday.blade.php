@@ -14,10 +14,10 @@
     {!! Form::select('kigos_list', $kigos_list , [$sunday->kigos->user_id] ,array( 'class'=>'form-control', 'style'=> '')) !!}
 
     {!! Form::label('lection_number', 'Lektionsnummer') !!}
-    {!! Form::text('lection_number', null , array('class'=>'form-control ', 'placeholder'=>'Nummer')) !!}
+    {!! Form::text('lection_number', $kigo->lection_number , array('class'=>'form-control ', 'placeholder'=>'Nummer')) !!}
 
     {!! Form::label('lection', 'Lektion') !!}
-    {!! Form::text('lection', null , array('class'=>'form-control ', 'placeholder'=>'Thema')) !!}
+    {!! Form::text('lection', $kigo->lection , array('class'=>'form-control ', 'placeholder'=>'Thema')) !!}
 
     {!! Form::label('lectors_list', 'Lektor') !!}
     {!! Form::select('lectors_list', $lectors_list, [$sunday->user_id] , array('class'=>'form-control', 'style'=> '')) !!}

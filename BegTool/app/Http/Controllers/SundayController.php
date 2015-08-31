@@ -34,7 +34,8 @@ class SundayController extends Controller {
 		$preachers_list = $this->getPreacherslist();
 		$lectors_list = $this->getLectorslist();
 		
-		return view ( 'sundays.editsunday' )->with ( 'sunday', $sunday )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list );
+		$kigo = $sunday->kigos;
+		return view ( 'sundays.editsunday' )->with ( 'sunday', $sunday )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with('kigo', $kigo);
 	}
 
 	public function postEditsunday($actualSunday) {

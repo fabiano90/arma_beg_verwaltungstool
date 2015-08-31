@@ -3,7 +3,7 @@
 @section('content')
 
 
-<h2>Sermon</h2>
+<h2>Predigt</h2>
 
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">

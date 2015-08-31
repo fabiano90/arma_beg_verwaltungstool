@@ -3,7 +3,7 @@
 Kalender
 @stop
 @section('menu')
-	<li role="presentation" class="active"><a href='sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
+	<li role="presentation" class="active"><a href='/public/sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
 	<li role="presentation"><a href='{!! 'sundays/newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
 	<li role="presentation"><a href='{!! 'sundays/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{!!'Jahr '.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
 	<li role="presentation"><a href='{!!'sundays/edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date('Y')!!}</a></li>
@@ -52,7 +52,7 @@ Kalender
 				<td>{!! $sundayservice->kigos->lection !!}</td>
 				<td>{!! $sundayservice->users->username!!}</td>
 				<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
-				<td><a href="sundays/editsunday/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+				<td><a href="/public/sundays/editsunday/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
 
 			</tr>
 			@endforeach
