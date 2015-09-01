@@ -4,7 +4,6 @@
 
 
 <h2>Kigo</h2>
-{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
@@ -39,7 +38,7 @@
 					<td>
 						<div class="btn-group">		
 							@if($auth_user->permission <= 2)						
-								<a href="/public/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
+								<a href="/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
 								{!! HTML::link('/kigos/deletekigo/'.$kigo->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieses Kigos löschen?\');')) !!}
 							@endif
 						</div>				
@@ -51,5 +50,4 @@
 </div>
 
 <br/>
-{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 @stop			
