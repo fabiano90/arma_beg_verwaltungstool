@@ -24,33 +24,22 @@ class UserController extends Controller
 		
 		$user = Auth::user();
 		$today = time();
-	/*	//$kigos=$user->sundayservices->sermons->where('user_id','=',$user->id)->get();
-		//echo date('d.m.Y',time());exit;
-<<<<<<< HEAD
-		$kigos=Kigo::where('user_id','=',$user->id)->get();
-		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->has('sundayservices')->orwhere('user_id','=',$user->id)->get();
-		foreach ($predigten as $predigt) {
-			echo date("d.m.Y", $predigt->date)." member: ".$predigt->preacher_id;
-			echo "lector".$predigt->sundayservices->user_id.'<br/>';
-		}exit;
-		$lektors=Sundayservice::whereHas('sermons', function($q) use ($today)
-=======
-		$kigos = Kigo::where('user_id','=',$user->id)->get();
-		$predigten = Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
+		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
 		$lektors = Sundayservice::whereHas('sermons', function($q) use ($today)
->>>>>>> branch 'master' of https://github.com/fabiano90/arma_beg_verwaltungstool.git
 				{
 				    $q->where('date','>=',$today);
 
 				})->where('user_id','=',$user->id)->get();
 
-		$kigos2 = Kigo::has('sundayservices')->where('user_id','=', $user->id)->get();
+		$kigos=DB::table('kigos')
+			->select('date')
+			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
+			->join('sermons', 'sermons.id', '=', 'sundayservices.sermon_id')
+			->where('date','>=',$today)
+			->where('kigos.user_id','=', $user->id)
+			->get();
 
-		$kigos3=Sundayservice::whereHas('sermons', function($q) use ($today)
-				{
-				    $q->where('date','>=',$today);
 
-				})->has('kigos')->where('user_id', '=', $user->id)->get();
 
 		/*echo var_dump($predigten);
 		foreach ($kigos as $k) {
@@ -92,8 +81,7 @@ class UserController extends Controller
 			echo '<br>'	;
 		}
 		exit;*/
-
-		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos3)->with('lektors', $lektors);//->with('jaja', $jaja);
+		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors);//->with('jaja', $jaja);
 	}
 
 	public function getUserlist()
