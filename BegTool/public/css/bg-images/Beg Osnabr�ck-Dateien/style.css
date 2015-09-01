@@ -313,10 +313,3 @@ table, th, tr, td, thead, .footable{
 .jumbotron{
  background: rgba(0, 0, 0, 0) radial-gradient(ellipse farthest-corner at center center , rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%) repeat scroll 0 0;
 }
-.massage-content{
-  background: transparent !important;
-}
-.gedreht{
-  transform: rotate(90deg);
-  margin: -15px;
-  margin-top: -20px;

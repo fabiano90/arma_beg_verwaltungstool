@@ -69,21 +69,24 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <div class="content-shadow content-box text-center">
-                    <h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>  Nachrichten</h2>
-           
-        </div>
+        <a href="/messages/chat/0#end">
+            <div class="content-shadow content-box text-center">
+                    <h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>({!!$newMessages!!}) neue Nachrichten </h2>
+            </div>
+        </a>
     </div>
     <div class="col-md-4">
-        <div class="content-shadow content-box text-center">
+        <a href="/sundays">
+            <div class="content-shadow content-box text-center">
             <h2><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  Übersicht</h2>
-        </div>
+        </div></a>
     </div>
     <div class="col-md-4">
-      <div class="content-shadow content-box text-center">
+      <a href="/songs">
+        <div class="content-shadow content-box text-center">
                    <h2><span class="glyphicon glyphicon-music text-center" aria-hidden="true"></span>  Lieder</h2>
            
-        </div>
+        </div></a>
     </div>
 
 </div>

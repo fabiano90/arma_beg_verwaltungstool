@@ -20,13 +20,15 @@ class MessageController extends Controller
 		return view('messages.index')->with('messages', $reversed)->with('user', $user)->with('users', $users);
 	}
 
-	public function getChat($partner_id)
+	public function getChat($partner_id=0)
 	{
-		$users= User::orderBy('username')->get();
+		
 		$userLogin = Auth::user();
 		$user_id=$userLogin->id;
+		$users= User::where('id', "!=", $user_id)->orderBy('username')->get();
 		$user = User::find($user_id);
 		$partner = User::find($partner_id);
+		$allmessages=Message::all();
 		$messages = $user->chat($partner_id)->reverse();
 
 		foreach ($messages as $massage) {
@@ -36,7 +38,7 @@ class MessageController extends Controller
 			}
 		}
 	
-		return view('messages.index')->with('messages', $messages)->with('user', $user)->with('partner', $partner)->with('users', $users);
+		return view('messages.index')->with('allmessages', $allmessages)->with('messages', $messages)->with('user', $user)->with('partner', $partner)->with('users', $users);
 	}
 public function postNew($partner_id)
     {

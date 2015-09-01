@@ -23,6 +23,7 @@ class UserController extends Controller
 	{
 		
 		$user = Auth::user();
+		$newMessages=DB::table('messages')->where('receiver_id', $user->id)->sum('visited');
 		$today = time();
 		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
 		$lektors = Sundayservice::whereHas('sermons', function($q) use ($today)
@@ -40,48 +41,7 @@ class UserController extends Controller
 			->get();
 
 
-
-		/*echo var_dump($predigten);
-		foreach ($kigos as $k) {
-			echo '' . $k->lection. '<br>';
-		}
-		foreach ($predigten as $k) {
-			echo '' . $k->date. '<br>';
-		}
-		foreach ($lektors as $k) {
-			echo '' . $k->user_id. '<br>';
-		}exit;*/
-
-		/*->whereHas('kigos', function($q) use ($today)
-
-
-				{
-				    $q->where('date','>=',$today);
-
-				})->where('user_id','=',$user->id)->get();*/
-
-		/*echo $user.'<br>';
-			$user = 24;
-		//$services = Sundayservice::all();
-		//$services->kigos->where('user_id','=',$user->id)->get();
-
-		$services = Sundayservice::whereHas('kigos', function($q) use ($user)
-				{
-				    $q->where('user_id', 'like', $user);
-
-				})->orWhere('user_id', 'like', $user)
-				  ->get();
-		echo var_dump($services);
-
-		foreach ($services as $service) {
-			//echo $service->kigos()->where('user_id','=',$user->id)->get();
-			echo '('.$service->kigos->user_id.') ';	
-			echo date('d.m.Y',$service->sermons->date);
-			echo $service->users->username;
-			echo '<br>'	;
-		}
-		exit;*/
-		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors);//->with('jaja', $jaja);
+		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors)->with('newMessages', $newMessages);
 	}
 
 	public function getUserlist()
