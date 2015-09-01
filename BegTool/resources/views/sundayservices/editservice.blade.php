@@ -1,7 +1,6 @@
 @extends('layouts.main') @section('content')
-{!!HTML::script('js/addsong.js')!!} {!! Form::model($sunday, array('url'
-=> array('sundayservices/editservice', $sunday->id))) !!} {!!
-showMessageAndErrors(Session::get('message'), $errors->all()) !!}
+{!!HTML::script('js/addsong.js')!!} 
+{!! Form::model($sunday, array('url' => array('/sundayservices/editservice', $sunday->id))) !!} 
 
 <h2 class="form-signup-heading">Lektordienst für den: {!!
 	date('d.m.Y',$sunday->sermons->date)!!}</h2>
@@ -247,7 +246,6 @@ showMessageAndErrors(Session::get('message'), $errors->all()) !!}
         </table>
     </div> </div>
 
-{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary
-btn-block'))!!} {!! Form::close() !!} {!! HTML::link('#', 'Zurück',
-array('class' => 'btn btn-default',
-'onClick="javascript:history.back();return false;"'))!!} @stop
+{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!} 
+{!! Form::close() !!} 
+@stop

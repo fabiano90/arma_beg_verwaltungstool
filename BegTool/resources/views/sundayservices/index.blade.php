@@ -1,4 +1,6 @@
-@extends('layouts.main') @section('content')
+@extends('layouts.main') 
+
+@section('content')
 
 <h2 class='header'>Leitung</h2>
 <div class="table-responsive">
@@ -35,7 +37,7 @@
 					</td>
 					<td>						
 						<div class="btn-group">								
-							<a href="/public/sundayservices/editservice/{!! $sundayservice->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
+							<a href="/sundayservices/editservice/{!! $sundayservice->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 							{!! HTML::link('/sundayservices/deleteservice/'.$sundayservice->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieses Lektordienstes löschen?\');')) !!}
 						</div>	
 					</td>

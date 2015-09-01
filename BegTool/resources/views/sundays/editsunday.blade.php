@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Dienste tauschen für den:  {!! date('d.m.Y',$sunday->sermons->date)!!}</h2>
-{!! Form::model($sunday, array('url' => array('sundays/editsunday', $sunday->id))) !!}
+{!! Form::model($sunday, array('url' => array('/sundays/editsunday', $sunday->id))) !!}
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 
    

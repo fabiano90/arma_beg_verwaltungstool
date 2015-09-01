@@ -15,7 +15,7 @@
 <br/>
 
 
-{!! Form::model($sunday, array('url' => array('sundayservices/addsongtosunday', $sunday->id))) !!}
+{!! Form::model($sunday, array('url' => array('/sundayservices/addsongtosunday', $sunday->id))) !!}
 <div class="table-responsive">
 {!! Form::submit('Lieder hinzufügen und Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 <input id="filter" class="form-control" type="text" placeholder="Suche">

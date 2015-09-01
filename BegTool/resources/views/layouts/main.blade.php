@@ -48,7 +48,7 @@
 		<div class="container">
 
 			<div class="navbar-header">
-				<a id"title-menu" class="navbar-brand" href="/public/users">Logo</a>
+				<a id"title-menu" class="navbar-brand" href="/users">Logo</a>
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Navigation ein-/ausblenden</span>
 					<span class="icon-bar"></span>
@@ -60,9 +60,9 @@
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
 
-					<li><a href="sundays"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
-					<li><a href="songs"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></a></li>
-					<li><a href="login/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+					<li><a href="/sundays"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
+					<li><a href="/songs"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></a></li>
+					<li><a href="/login/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
 			
 	            	<li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bearbeiten <span class="caret"></span></a>
@@ -102,6 +102,7 @@
 					<button type="button" class="btn btn-primary btn-xs"
 						data-toggle="offcanvas">Menü ausklappen</button>
 				</p>
+		</div>
 				
 
 
