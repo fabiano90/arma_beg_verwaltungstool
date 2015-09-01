@@ -27,7 +27,11 @@ class UserController extends Controller
 		//$kigos=$user->sundayservices->sermons->where('user_id','=',$user->id)->get();
 		//echo date('d.m.Y',time());exit;
 		$kigos=Kigo::where('user_id','=',$user->id)->get();
-		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
+		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->has('sundayservices')->orwhere('user_id','=',$user->id)->get();
+		foreach ($predigten as $predigt) {
+			echo date("d.m.Y", $predigt->date)." member: ".$predigt->preacher_id;
+			echo "lector".$predigt->sundayservices->user_id.'<br/>';
+		}exit;
 		$lektors=Sundayservice::whereHas('sermons', function($q) use ($today)
 				{
 				    $q->where('date','>=',$today);

@@ -1,9 +1,13 @@
+
 body {
 	padding-top: 55px;
 	padding-bottom: 10px;
+  background-color: #f4f4f4;
+  color: #2b2b2d;
 }
 footer {
     padding: 0;
+    margin-top: 20px;
 }
 
 ul.form-error {
@@ -40,9 +44,7 @@ td.mealfield.mealfieldhovered {
 	background-color: #d9edf7 !important;
 	 
 }
-table {
-    margin-top: 13px;
-}
+
 .form-control {
     margin-bottom: 13px;
 }
@@ -58,21 +60,17 @@ table {
     color: #555;
     display: block;
     font-size: 14px;
-    height: 26px;
     line-height: 1.42857;
     padding: 6px 12px;
     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
     width: 100%;
-    margin-right: 15px;
-}
-.search-div{
 
+}
+.navbar-right{
 
-	margin-right: 10px;
+    margin-right: 0 !important;
 }
-.table-responsive {
-    border: medium none;
-}
+
 
 .section {
   position: relative;
@@ -117,4 +115,125 @@ th div{
 }
 th:first-child div{
   border: none;
+}
+
+
+.content-shadow {
+    background-image: url("bg-images/bgContent.png");
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    padding-bottom: 4px;
+}
+.content-box {
+    background-color: #ffffff;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 20px 14px 20px 14px;
+}
+
+/* Carousel base class */
+.carousel {
+  height: 500px;
+  margin-bottom: 10px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 500px;
+  
+}
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+}
+.carousel-control.left {
+    background-image: none;
+}.carousel-control.right {
+    background-image: none;
+}
+
+table, th, tr, td, thead, .footable{
+  border: none;
+  background-color: none;
+  background-image: none;
+}
+
+.footable > thead > tr > th, .footable > thead > tr > td {
+    background-color: #777;
+    background-image: none;
+    border-top: medium none;
+    box-shadow: none;
+    text-shadow: none;
+}
+.table-responsive {
+  border: none;
+}
+.save-button {
+    background-color: #777777;
+    
+    bottom: 30px;
+    color: #eeeeee;
+    height: 33px;
+    opacity: 100;
+    padding-top: 2px;
+    position: fixed;
+    right: 30px;
+    text-align: center;
+   
+    z-index: 99999999;
+}
+
+.navbar-default {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+.navbar-default .navbar-nav > li > a {
+    background: #333 none repeat scroll 0 0;
+    color: #fff;
+    margin-left: 5px;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+.navbar-nav >.navbar-right > nav{
+  margin-right: -45px;
+}
+.navbar-collapse {
+    padding-right: 0;
+}
+
+.container{
+
+  padding-left: 0;
+}
+.header{
+
+  padding-bottom: 15px;
+}
+.massage-date{
+  margin-bottom: 15px;
+  margin-top: -10px;
+  color: #777;
+  text-align: center;
+}
+.massage-head{
+   top: 0;
+    opacity: 50%;
+    position: fixed;
+    text-align: center;
+    padding: 0;
+    padding-top: -10px;
+    z-index: 99999999;
+}
+.massage-head > h2{
+  margin-top: 10px;
 }

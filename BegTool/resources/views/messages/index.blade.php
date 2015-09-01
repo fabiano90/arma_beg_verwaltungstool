@@ -8,42 +8,36 @@ window.onload = function(){
 }
 
 </script>
-<div class="row header">
+<div class="row">
 <div class="col-md-12">
-<h2>Nachricht an {!! $partner->username !!}
- </h2></div>
+    <div class="massage-head  container content-shadow content-box center-block" >
+<h2 >  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> {!! $partner->username !!}
+ </h2></div></div>
  </div>
 <div >
     @foreach($messages as $message)
 	
     <div class="row">
     	@if ($message->sender->id == $user->id)
-    	<div class="col-md-6"></div>
+     	   <div class="col-md-6"></div>
+           <div class="col-md-6" >
+            <div style="margin-left: 40px">
+        		<div class="content-shadow content-box">
+    		        
+    		        	{!! $message->content !!}
+    		        
+    		    </div><div class = "massage-date">{!! date('d.m.Y H:i:s', strtotime($message->updated_at)) !!}</div>
+             </div>   
+    	   </div>
 
-    	<div class="col-md-5" style="margin-left: 40px">
-    		<div class="panel panel-default">
-		        <div class="panel-heading">
-		            {!! $message->sender->username !!}: {!! date('d.m.Y H:i:s', strtotime($message->updated_at)) !!}
-		        </div>
-		        <div class="panel-body">
-		        	{!! $message->content !!}
-		        </div>
-		    </div>
-    	</div>
-    	<div class="col-md-6"></div>
     	
     	@endif
     	@if ($message->receiver->id == $user->id)
 
-    	<div class="col-md-6" style="margin-left: 40px">
-    		<div class="panel panel-default">
-		        <div class="panel-heading">
-		            Von: {!! $message->sender->username !!}: {!! date('d.m.Y H:i:s', strtotime($message->updated_at)) !!}
-		        </div>
-		        <div class="panel-body">
+    	<div class="col-md-6" style="margin-right: 40px">
+    		<div class="content-shadow content-box">
 		        	{!! $message->content !!}
-		        </div>
-		    </div>
+		    </div><div class = "massage-date">{!! date('d.m.Y H:i:s', strtotime($message->updated_at)) !!}</div>
     	</div>
     	<div class="col-md-6"></div>
     	@endif
@@ -56,8 +50,8 @@ window.onload = function(){
      
     {!! Form::open(array('url'=>'messages/new/'.$partner->id, 'class'=>'form-signup')) !!}
     {!! Form::label('content', 'Nachricht') !!}
-    {!! Form::text('content', null, array('class'=>'form-control', 'placeholder'=>'Nachricht')) !!}
+    {!! Form::textarea('content', null, array('class'=>'form-control', 'placeholder'=>'Nachricht')) !!}
     <br/>
-    {!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
+    {!! Form::submit('Senden', array('class'=>'btn btn-large btn-primary pull-right'))!!}
     {!! Form::close() !!}
 @stop

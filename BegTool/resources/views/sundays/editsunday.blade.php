@@ -1,9 +1,7 @@
 @extends('layouts.main')
-@section('title')
- Dienste tauschen für den:  {!! date('d.m.Y',$sunday->sermons->date)!!}
-@stop
-@section('content')
 
+@section('content')
+<h2>Dienste tauschen für den:  {!! date('d.m.Y',$sunday->sermons->date)!!}</h2>
 {!! Form::model($sunday, array('url' => array('sundays/editsunday', $sunday->id))) !!}
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 
@@ -25,10 +23,10 @@
     {!! Form::label('preachers_list', 'Prediger') !!}
     {!! Form::select('preachers_list', $preachers_list, [$sunday->sermons->preacher_id] , array('class'=>'form-control', 'style'=> '')) !!}    
 
-    {!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
+    {!! Form::submit('Speichern', array('class'=>'btn btn-large save-button'))!!}
     {!! Form::close() !!}
 
-    {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
+
 
 
 

@@ -1,24 +1,38 @@
 @extends('layouts.main') 
-@section('title')
-Kalender
-@stop
+
 @section('menu')
-	<li role="presentation" class="active"><a href='sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
-	<li role="presentation"><a href='{!! 'sundays/newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
-	<li role="presentation"><a href='{!! 'sundays/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{!!'Jahr '.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
-	<li role="presentation"><a href='{!!'sundays/edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date('Y')!!}</a></li>
-	<li role="presentation"><a href='{!! 'sundays/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+
+  		<ul class="nav nav-tabs">
 	
-	<form class="navbar-form navbar-right search-div" role="search">
- 		 <div class="form-group">
-   		 	<input id="filter" type="text" class="search-form" placeholder="Suchen">
-		 </div>
-  	</form>
+	  <li role="presentation" ><a href="#api" class="filter-api" title="Filter using the Filter API">{!! date("F   ") !!}</a></li>
+	  <li role="presentation" class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+	      Bearbeiten<span class="caret"></span>
+	    </a>
+	    <ul class="dropdown-menu">
+	      	<li role="presentation"><a href='sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
+			<li role="presentation"><a href='{!! 'sundays/newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
+			<li role="presentation"><a href='{!! 'sundays/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!'Jahr '.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+			<li role="presentation"><a href='{!!'sundays/edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {!!' Jahr '. date('Y')!!}</a></li>
+			<li role="presentation"><a href='{!! 'sundays/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+		
+	    </ul>
+	  </li>	  <li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
+
+	</ul>
+
+
+</div>
+
+	
+	
 
 @stop
 
 @section('content')
+<section class="section content-shadow content-box">
 
+<h2>Kalender</h2>
 <div class="table-responsive">
 	<table class="table table-striped table-hover footable" data-filter="#filter">
 		<thead>
@@ -59,4 +73,5 @@ Kalender
 		</tbody>
 	</table>	
 </div>
+</section>
 @stop

@@ -4,15 +4,38 @@ $(document).ready(function() {
 		pickTime : false,
 		format : 'yyyy-mm-DD'
 	});
-	//$('.footable').footable();
-    $('.footable').stickySort();
-  /*  $('.header').scrollToFixed();
+	$('.footable').stickySort();
+    $('.footable').footable().bind('footable_filtering', function (e) {
+      var selected = $('.filter-status').find(':selected').text();
+      if (selected && selected.length > 0) {
+        e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+        e.clear = !e.filter;
+      }
+    });
 
-    $('thead').scrollToFixed({
-        marginTop: 50,
-        zIndex: 999,
+    $('.clear-filter').click(function (e) {
+      e.preventDefault();
+      $('.filter-status').val('');
+      $('table.demo').trigger('footable_clear_filter');
+    });
 
-    });*/
+    $('.filter-status').change(function (e) {
+      e.preventDefault();
+      $('table.demo').trigger('footable_filter', {filter: $('#filter').val()});
+    });
+
+    $('.filter-api').click(function (e) {
+
+      e.preventDefault();
+
+      //get the footable filter object
+      var footableFilter = $('table').data('footable-filter');
+ 		
+      footableFilter.filter("08.2015");
+
+    });
+
+
         
 	
 

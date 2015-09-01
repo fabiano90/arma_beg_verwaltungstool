@@ -3,6 +3,8 @@
 {!!' Jahresplanung '.$year!!}
 @stop
 @section('menu')
+	<ul class="nav nav-tabs">
+
 	<li role="presentation" ><a href='/public/sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
 	@if($year == date('Y'))
 		<li role="presentation"class="active"><a href='{!! '/public/sundays/newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
@@ -13,7 +15,7 @@
 	@endif
 	<li role="presentation"><a href='{!!'/public/sundays/edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date('Y')!!}</a></li>
 	<li role="presentation"><a href='{!! '/public/sundays/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
-
+</ul>
   	
 
 @stop
@@ -22,7 +24,7 @@
 {!!Form::open(array('url'=>'sundays/newyear', 'class'=>'form-signup'))!!}
 
 {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
-<section class="section">
+<section class="section content-shadow content-box">
   <div class="tablefixed">
 <table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 	<thead>
@@ -59,5 +61,5 @@
 <div class = 'hidden'>
 {!! Form::text('year', $year, array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}
 </div>
-{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary
-btn-block'))!!} {!! Form::close() !!} @stop
+{!! Form::submit('Speichern', array('class'=>'btn btn-large save-button'))!!}
+ {!! Form::close() !!} @stop

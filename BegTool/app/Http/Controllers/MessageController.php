@@ -27,6 +27,13 @@ class MessageController extends Controller
 		$user = User::find($user_id);
 		$partner = User::find($partner_id);
 		$messages = $user->chat($partner_id)->reverse();
+
+		foreach ($messages as $massage) {
+			if($user_id ==$massage->receiver_id){
+				$massage->visited=0;
+				$massage->save();
+			}
+		}
 	
 		return view('messages.index')->with('messages', $messages)->with('user', $user)->with('partner', $partner);
 	}
@@ -40,6 +47,7 @@ public function postNew($partner_id)
 		    $post->sender_id = $user_id;
 			$post->receiver_id = $partner_id;
 			$post->content = Request::input('content');
+			$post->visited=1;
 			$post->save();
 		    
 		 
