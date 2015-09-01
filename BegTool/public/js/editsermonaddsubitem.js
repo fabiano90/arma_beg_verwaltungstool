@@ -1,6 +1,6 @@
 $(function() {
     //console.log( "ready!" );
-    var i = 1;    
+    var i = 1;     
 
     //für jedes gespeicherte <li>data</li>-Element vorgefülltes Inputfeld erzeugen
     $('#getSubitem').children().each(function(){

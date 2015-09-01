@@ -9,7 +9,7 @@ $(function() {
         toggleOnButtonClicked(2);
     });
     $('#searchButton3').click(function () {  
-        toggleOnButtonClicked(3);
+        toggleOnButtonClicked(3); 
     });
     $('#searchButton4').click(function () {  
         toggleOnButtonClicked(4); 
