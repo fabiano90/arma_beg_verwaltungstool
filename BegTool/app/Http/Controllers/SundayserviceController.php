@@ -117,7 +117,7 @@ class SundayserviceController extends Controller {
 
 
 			$service->save();
-		    return redirect('sundayservices')->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich bearbeitet!');
 		/*} 
 		else
 	 	{
