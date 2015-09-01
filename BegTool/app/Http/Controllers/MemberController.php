@@ -37,7 +37,7 @@ class MemberController extends Controller
 		    $person->birthdate = strtotime(Request::input('birthdate'));  
 		    $person->onlinename = Request::input('onlinename');	   	
 			$person->save();
-		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('members')->with('message', 'success|Gemeindemitglied erfolgreich angelegt!');
 		} 
 		else
 	 	{	 
@@ -59,7 +59,7 @@ class MemberController extends Controller
 			}*/
 
 			$model = User::where('member_id', $member_id)->first();
-		//	echo var_dump($model);
+			//	echo var_dump($model);
 			//$flights = User::where('active', 0)
                //->orderBy('name', 'desc')
                //->take(10)
@@ -115,9 +115,34 @@ class MemberController extends Controller
 
 	public function getDeletemember($member_id){
 		$auth_user = Auth::user();
-		if($auth_user->permission == 0 && $auth_user->member_id != $member_id){
-			User::where('member_id', '=', $member_id)->delete();
-			Member::destroy($member_id);			
+		$member = Member::find($member_id);
+		if($auth_user->permission == 0 && $auth_user->member_id != $member_id && $member != null){
+			$user = $member->users;			
+			
+			//if useraccount exists, reset all foreign ids referring to the user in kigo, sermon (member->sermon), sunday
+							//$user = User::where('member_id', '=', $member_id)->get();
+							//if(!$user->isEmpty()){//with query builder $user = User::where('member_id', '=', $member_id)->get(); needs additional foreach
+			if($user != null){				
+				foreach ($user->kigos as $kigo) {
+					$kigo->user_id = 0;
+					$kigo->save();
+				}
+				foreach ($user->sundayservices as $sunday) {
+					$sunday->user_id = 0;
+					$sunday->save(); 
+				}
+				foreach ($user->members->sermons as $sermon) {
+					$sermon->preacher_id = 0;
+					$sermon->save();
+				}
+				$user->delete();
+
+			}			
+			foreach ($member->sermons as $sermon) {
+				$sermon->preacher_id = 0;
+				$sermon->save();
+			}
+			$member->delete($member_id);				
 		}
 		$users = User::all();
 		$members = Member::all();

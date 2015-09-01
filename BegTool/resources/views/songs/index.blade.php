@@ -34,9 +34,9 @@
 				</td>	
 				<td>3</td>
 				<td>
-					<div class="btn-group">										
-						{!! HTML::link('/songs/editsong/'.$song->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
-						{!! HTML::link('/songs/deletesong/'.$song->id, 'Löschen', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+					<div class="btn-group">								
+						<a href="/public/songs/editsong/{!! $song->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
+						{!! HTML::link('/songs/deletesong/'.$song->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
 					</div>				
 				</td>		
 			</tr>

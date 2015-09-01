@@ -34,7 +34,8 @@ class SundayController extends Controller {
 		$preachers_list = $this->getPreacherslist();
 		$lectors_list = $this->getLectorslist();
 		
-		return view ( 'sundays.editsunday' )->with ( 'sunday', $sunday )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list );
+		$kigo = $sunday->kigos;
+		return view ( 'sundays.editsunday' )->with ( 'sunday', $sunday )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with('kigo', $kigo);
 	}
 
 	public function postEditsunday($actualSunday) {
@@ -269,6 +270,17 @@ class SundayController extends Controller {
 		return $sundays;
 	}
 
+	public function getDeletesunday($sundays_id){
+		$sunday = Sundayservice::find($sundays_id);
+		$sunday->songs()->detach();
+		$kigo = $sunday->kigos;
+		$kigo->songs()->detach();
+		$kigo->delete();
+		Sermon::destroy($sunday->sermon_id);
+		$sunday->delete();
+		return redirect('sundays')->with('message', 'success|Gottesdienst wurde erfolgreich gelöscht!');
+	}
+
 	public function getKigoslist(){
 		return User::all()->lists ( 'username', 'id' );
 	}
@@ -280,4 +292,5 @@ class SundayController extends Controller {
 	public function getPreacherslist(){
 		return Member::all()->lists ( 'onlinename', 'id' );
 	}
+
 }

@@ -2,17 +2,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sundayservice extends Model
 {
+    use SoftDeletes;    
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */    
+    protected $dates = ['deleted_at'];
+    
 	public function users()
 	{
 		return $this->belongsTo('App\Models\User', 'user_id');
 	}
-
-	//public function service_song() {
-	//	return $this->hasMany( 'App\Models\Service_song', 'service_id' );
-	//}
 
 	public function songs(){
 		return $this->belongsToMany('App\Models\Song', 'song_sundayservice', 'service_id', 'song_id' )->withPivot('order')->withPivot('songdate');//kigo_songs
@@ -36,10 +41,9 @@ class Sundayservice extends Model
 			'date' => 'date_format:d.m.Y|required' ,
 			'lection_number'=>'numeric'
 	);
-	public static $rulesedit = array(
-			
-			'lection_number'=>'numeric'
-	);
 	
+	public static $rulesedit = array(			
+			'lection_number'=>'numeric'
+	);	
 }
 

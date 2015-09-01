@@ -23,9 +23,10 @@ class UserController extends Controller
 	{
 		
 		$user = Auth::user();
-		$today=time();
-		//$kigos=$user->sundayservices->sermons->where('user_id','=',$user->id)->get();
+		$today = time();
+	/*	//$kigos=$user->sundayservices->sermons->where('user_id','=',$user->id)->get();
 		//echo date('d.m.Y',time());exit;
+<<<<<<< HEAD
 		$kigos=Kigo::where('user_id','=',$user->id)->get();
 		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->has('sundayservices')->orwhere('user_id','=',$user->id)->get();
 		foreach ($predigten as $predigt) {
@@ -33,6 +34,11 @@ class UserController extends Controller
 			echo "lector".$predigt->sundayservices->user_id.'<br/>';
 		}exit;
 		$lektors=Sundayservice::whereHas('sermons', function($q) use ($today)
+=======
+		$kigos = Kigo::where('user_id','=',$user->id)->get();
+		$predigten = Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
+		$lektors = Sundayservice::whereHas('sermons', function($q) use ($today)
+>>>>>>> branch 'master' of https://github.com/fabiano90/arma_beg_verwaltungstool.git
 				{
 				    $q->where('date','>=',$today);
 
@@ -46,6 +52,16 @@ class UserController extends Controller
 
 				})->has('kigos')->where('user_id', '=', $user->id)->get();
 
+		/*echo var_dump($predigten);
+		foreach ($kigos as $k) {
+			echo '' . $k->lection. '<br>';
+		}
+		foreach ($predigten as $k) {
+			echo '' . $k->date. '<br>';
+		}
+		foreach ($lektors as $k) {
+			echo '' . $k->user_id. '<br>';
+		}exit;*/
 
 		/*->whereHas('kigos', function($q) use ($today)
 
@@ -200,10 +216,25 @@ class UserController extends Controller
 
 	public function getDeleteuser($user_id){
 		$auth_user = Auth::user();
+		$users = User::all();
 		if($auth_user->permission == 0 && $auth_user->id != $user_id){
-			User::destroy($user_id);	
-		}
-		$users = User::all();		
+			$user = User::find($user_id);
+			
+			//reset all foreign ids reffering to the user in kigo, sermon (member->sermon), sunday, 
+			foreach ($user->kigos as $kigo) {
+				$kigo->user_id = 0;
+				$kigo->save();
+			}
+			foreach ($user->sundayservices as $sunday) {
+				$sunday->user_id = 0;
+				$sunday->save(); 
+			}
+			foreach ($user->members->sermons as $sermon) {
+				$sermon->preacher_id = 0;
+				$sermon->save();
+			}
+			$user->delete();
+		}				
 		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);
 	}
 }

@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * The attributes that should be mutated to dates.
      *
      * @var array
-     */
+     */    
     protected $dates = ['deleted_at'];
 
 	public function members()
@@ -31,15 +31,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		return $this->hasMany('App\Models\Absence', 'user_id');
 	}
+
 	public function kigos()
 	{
 		return $this->hasMany('App\Models\Kigo', 'user_id');
 	}
+
 	public function sundayservices()
 	{
 		return $this->hasMany('App\Models\Sundayservice', 'user_id');
-	}
-	
+	}	
 
 	public function posts()
 	{
@@ -79,9 +80,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->belongsToMany('App\Models\User', 'friend_user', 'user_id', 'friend_id');
 		//tabelle, im this eigener key kennt er ja weil aktuelles objekt, also parameter bei attach( $bla) fuer friend_id
 		//normalerweise immer 2 eintträge , reicht aber eine Eintrag, nur gucken ob in user id friend id drin steht.
-	}
-	
-	
+	}	
 
     /**
      * The attributes that are mass assignable.

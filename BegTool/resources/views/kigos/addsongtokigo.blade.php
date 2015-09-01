@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-<h2>Lied zu Kigo am {!!$kigo->sundayservices->sermons->date!!} hinzufügen</h2>
+<h2>Dem Kigo vom {!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!} Lieder hinzufügen</h2>
 <h4>Bereits zum Kigo hinzugefügte Lieder:</h4>
     @if($kigo->songs == '[]')
         Bisher keine Lieder hinzugefügt.

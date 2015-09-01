@@ -3,7 +3,7 @@
 @section('content')
 
 
-<h2>Sermon</h2>
+<h2>Predigt</h2>
 
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">
@@ -37,9 +37,9 @@
 				<td>{!! $sermon->info_text !!}</td>
 				<td>{!! $sermon->link !!}</td>
 				<td>
-					<div class="btn-group">						
-						{!! HTML::link('/sermons/editsermon/'.$sermon->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
-						{!! HTML::link('/sermons/deletesermon/'.$sermon->id, 'Löschen', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+					<div class="btn-group">		
+						<a href="/public/sermons/editsermon/{!! $sermon->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
+						{!! HTML::link('/sermons/deletesermon/'.$sermon->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieser Predikt löschen?\');')) !!}
 					</div>				
 				</td>		
 			</tr>

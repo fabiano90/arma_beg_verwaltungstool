@@ -1,8 +1,16 @@
 @extends('layouts.main') 
 
 @section('menu')
+<<<<<<< HEAD
 
   		<ul class="nav nav-tabs">
+=======
+	<li role="presentation" class="active"><a href='/public/sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
+	<li role="presentation"><a href='{!! 'sundays/newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
+	<li role="presentation"><a href='{!! 'sundays/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{!!'Jahr '.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+	<li role="presentation"><a href='{!!'sundays/edityear/'.date('Y')!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date('Y')!!}</a></li>
+	<li role="presentation"><a href='{!! 'sundays/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
+>>>>>>> branch 'master' of https://github.com/fabiano90/arma_beg_verwaltungstool.git
 	
 	  <li role="presentation" ><a href="#api" class="filter-api" title="Filter using the Filter API">{!! date("F   ") !!}</a></li>
 	  <li role="presentation" class="dropdown">
@@ -66,8 +74,12 @@
 				<td>{!! $sundayservice->kigos->lection !!}</td>
 				<td>{!! $sundayservice->users->username!!}</td>
 				<td>{!! $sundayservice->sermons->members->onlinename !!}</td>
-				<td><a href="sundays/editsunday/{!! $sundayservice->id!!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-
+				<td>	
+					<div class="btn-group">							
+						<a href="/public/sundays/editsunday/{!! $sundayservice->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
+						{!! HTML::link('/sundays/deletesunday/'.$sundayservice->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+					</div>
+				</td>
 			</tr>
 			@endforeach
 		</tbody>

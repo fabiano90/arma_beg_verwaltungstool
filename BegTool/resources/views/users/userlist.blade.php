@@ -15,31 +15,33 @@
 		</thead>
 		<tbody>
 			@foreach($users as $user)
-			<tr>
-				<td>{!! $user->username !!}</td>
-				<td>
-					@if($user->permission == 0)
-						Admin ({!! $user->permission !!})
-					@elseif($user->permission == 1)
-						Leitung & Kigo ({!! $user->permission !!})
-					@elseif($user->permission == 2)
-						Kigo anlegen ({!! $user->permission !!})
-					@endif
-				</td>
-				<td>{!! $user->email !!}</td>
-				<td>
-					<div class="btn-group">
-						{!! HTML::link('/messages/chat/'.$user->id, 'Nachricht schreiben', array('class'=>'btn btn-default')) !!}						
-						@if($auth_user->permission == 0 || $auth_user->id == $user->id)
-							{!! HTML::link('/users/edituser/'.$user->id, 'Bearbeiten', array('class'=>'btn btn-default')) !!}
-							{!! HTML::link('/users/editpassword/'.$user->id, 'Passwort ändern', array('class'=>'btn btn-default')) !!}
-							@if($auth_user->id != $user->id)
-								{!! HTML::link('/users/deleteuser/'.$user->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+				@if($user->id != 0)
+					<tr>
+						<td>{!! $user->username !!}</td>
+						<td>
+							@if($user->permission == 0)
+								Admin ({!! $user->permission !!})
+							@elseif($user->permission == 1)
+								Leitung & Kigo ({!! $user->permission !!})
+							@elseif($user->permission == 2)
+								Kigo anlegen ({!! $user->permission !!})
 							@endif
-						@endif						
-					</div>
-				</td>
-			</tr>
+						</td>
+						<td>{!! $user->email !!}</td>
+						<td>
+							<div class="btn-group">
+								{!! HTML::link('/messages/chat/'.$user->id, 'Nachricht schreiben', array('class'=>'btn btn-default')) !!}						
+								@if($auth_user->permission == 0 || $auth_user->id == $user->id)							
+									{!! HTML::link('/users/editpassword/'.$user->id, 'Passwort ändern', array('class'=>'btn btn-default')) !!}
+									<a href="/public/users/edituser/{!! $user->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
+									@if($auth_user->id != $user->id)
+										{!! HTML::link('/users/deleteuser/'.$user->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+									@endif
+								@endif						
+							</div>
+						</td>
+					</tr>
+				@endif
 			@endforeach
 		</tbody>
 	</table>
