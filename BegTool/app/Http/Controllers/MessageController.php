@@ -14,14 +14,15 @@ class MessageController extends Controller
 		$userLogin = Auth::user();
 		$user_id=$userLogin->id;
 		$user = User::find($user_id);
+		$users= User::all();
 		$messages = $user->messages();
 		$reversed = array_reverse($messages->toArray());
-		return view('messages.index')->with('messages', $reversed)->with('user', $user);
+		return view('messages.index')->with('messages', $reversed)->with('user', $user)->with('users', $users);
 	}
 
 	public function getChat($partner_id)
 	{
-	
+		$users= User::orderBy('username')->get();
 		$userLogin = Auth::user();
 		$user_id=$userLogin->id;
 		$user = User::find($user_id);
@@ -35,7 +36,7 @@ class MessageController extends Controller
 			}
 		}
 	
-		return view('messages.index')->with('messages', $messages)->with('user', $user)->with('partner', $partner);
+		return view('messages.index')->with('messages', $messages)->with('user', $user)->with('partner', $partner)->with('users', $users);
 	}
 public function postNew($partner_id)
     {

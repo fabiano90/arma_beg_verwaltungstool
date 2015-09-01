@@ -35,6 +35,7 @@
 {!!HTML::script('js/footable-plugin/footable.plugin.template.js')!!}
 {!!HTML::script('js/footable-plugin/footable.sort.js')!!}
 {!!HTML::script('js/footable-plugin/footable.filter.js')!!}
+{!!HTML::script('js/footable-plugin/footable.paginate.js')!!}
 {!!HTML::script('js/useful.js')!!}
 
 
@@ -95,14 +96,7 @@
 		
 	
 
-		<div class="row row-offcanvas row-offcanvas-right">
 
-			<div class="col-xs-12 col-sm-9">
-				<p class="pull-right visible-xs">
-					<button type="button" class="btn btn-primary btn-xs"
-						data-toggle="offcanvas">Menü ausklappen</button>
-				</p>
-		</div>
 				
 
 

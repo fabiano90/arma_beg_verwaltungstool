@@ -13,8 +13,10 @@
     <!-- Verpackung für die Elemente -->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
+            Hallo {!!$user->username!!}, hier sind deine nächsten Dienste:
             <div class="table-responsive">
-                <table class=" table-striped table-hover footable" data-filter="#filter">
+                <table data-page-size="5" class=" table-striped table-hover footable" data-filter="#filter">
+                     
                     <thead>
                         <tr>
                             <th data-sort-initial="true">Datum</th>
