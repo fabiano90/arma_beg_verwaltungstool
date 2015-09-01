@@ -23,7 +23,7 @@ class Song extends Model {
 
 	public static $rules = array (
 		'number' => 'numeric',
-		'name' => 'required|alpha_num|min:2',
+		'name' => 'required|string|min:2',
 		'annotation' => 'string'
 	);
 }

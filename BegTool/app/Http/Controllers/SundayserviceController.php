@@ -17,8 +17,9 @@ class SundayserviceController extends Controller {
 
 	
 	public function getIndex() {
-		$sundayservices = Sundayservice::all();		
-		return view ( 'sundayservices.index' )->with ( 'sundayservices', $sundayservices );
+		$sundayservices = Sundayservice::all();
+		//$order = DB::table('sundayservices')->has('song_sundayservice')
+		return view ( 'sundayservices.index' )->with( 'sundayservices', $sundayservices );
 	}
 
 	public function getEditservice($sundayId) {
@@ -144,7 +145,7 @@ class SundayserviceController extends Controller {
 			$service->songs()->attach(Request::input('id'.$song->id));
 		}
 		$service->save();
-		return redirect('sundayservices')->with('message', 'success|Gottesdienst erfolgreich bearbeitet!');		
+		return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich bearbeitet!');		
 	}	
 
 	public function getDeleteservice($service_id){
@@ -159,6 +160,6 @@ class SundayserviceController extends Controller {
 	    $service->sacrament = null;
 	    $service->sermons->save();
 	    $service->save();
-	    return redirect('sundayservices')->with('message', 'success|Gottesdienst erfolgreich gelöscht!');		
+	    return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich geleert!');		
 	}
 }

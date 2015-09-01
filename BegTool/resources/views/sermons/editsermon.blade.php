@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-	{!!HTML::script('js/sermonsaddsubitem.js')!!}
+	{!!HTML::script('js/editsermonaddsubitem.js')!!}
 
 	{!! Form::model($sermon, array('url' => array('sermons/editsermon', $sermon->id))) !!}
     <h2 class="form-signup-heading">Predigt vom {!! date('d.m.Y', $sermon->date) !!} bearbeiten</h2>

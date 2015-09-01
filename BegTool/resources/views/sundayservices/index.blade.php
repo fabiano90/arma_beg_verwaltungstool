@@ -31,9 +31,11 @@
 					<td>{!! $sundayservice->comments !!}</td>
 					<td>{!! $sundayservice->sacrament !!}</td>
 					<td>
-						@foreach($sundayservice->songs as $song)	
-							{!! $song->name !!}<br/>
-						@endforeach	
+						<ol>
+							@foreach($sundayservice->songs as $song)	
+								<li>{!! $song->name !!}<br/></li>
+							@endforeach	
+						</ol>
 					</td>
 					<td>						
 						<div class="btn-group">								
