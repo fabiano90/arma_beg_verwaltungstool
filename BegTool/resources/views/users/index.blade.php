@@ -1,5 +1,9 @@
 @extends('layouts.main') 
-
+@section('messages')
+    @if($newMessages>'0')
+        <span class="label label-danger message-cound">{!!$newMessages." neu"!!}</span>
+    @endif 
+@stop
 
 @section('mainslider')
 <div id="carousel-example-generic" class="carousel slide content-shadow content-box" data-ride="carousel">
@@ -71,7 +75,7 @@
     <div class="col-md-4">
         <a href="/messages/chat/0#end">
             <div class="content-shadow content-box text-center">
-                    <h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>({!!$newMessages!!}) neue Nachrichten </h2>
+                    <h2><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@yield('messages') Nachrichten </h2>
             </div>
         </a>
     </div>

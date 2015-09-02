@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Beg Osnabrück</title>
+<title>Beg Osnabr&uuml;ck</title>
 <!-- Latest compiled and minified CSS -->
 {!!HTML::style('css/footable/footable.standalone.css')!!}
 {!!HTML::style('css/footable/footable.core.css')!!}
@@ -60,22 +60,23 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
-
-					<li><a href="/sundays"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
-					<li><a href="/songs"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></a></li>
-					<li><a href="/login/logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
-			
-	            	<li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bearbeiten <span class="caret"></span></a>
+					<li><a href="/users"  title="Schreibe und empfange Nachrichten"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+					<li><a href="/messages/chat/0#end"  title="Schreibe und empfange Nachrichten"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@yield('messages')</a></li>
+					<li><a href="/sundays" title="Hier kannst du deine Dienste einsehen und tauschen"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
+					<li><a href="/songs" title="Informationen zu Liedern"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></a></li>
+					<li><a href="/members" title="Geburtstage, Emailadressen und Namen von Gemeindemitgliedern, Mitarbeitern und Freunden"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+	            	<li><a href="/login/logout" title="Auslogen"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
+	            	<li class="dropdown" title="Hier geht es zu den Listen Kigo, Leitung und Predigten. Trage deine Dienste ein.">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-pencil" aria-hidden="true"> <span class="caret"></span></a>
 				          <ul class="dropdown-menu" role="menu">
 				            {!! cleverLink('/kigos', 'Kigo') !!}
 	            			{!! cleverLink('/sundayservices', 'Leitung') !!} 
 	            			{!! cleverLink('/sermons', 'Predigten') !!}
-	            			{!! cleverLink('/users/userlist', 'Mitarbeiter') !!}  
-				            {!! cleverLink('/members', 'Geburtstage') !!}  
+				            {!! cleverLink('/members', 'Nutzer') !!}  
 				          </ul>
-				     </li>
+				    </li>
 	            	
+
 	            	
 				</ul>
 			</div>
@@ -103,7 +104,7 @@
 
 
 			<footer class"footer">
-				<p>© Firma 2014</p>
+				<p>&copy; Bekennende Evangelische Gemeinde Osnabr&uuml;ck </p>
 			</footer>
 
 		</div>

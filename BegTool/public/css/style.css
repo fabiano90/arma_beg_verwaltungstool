@@ -5,7 +5,6 @@ body {
 	padding-bottom: 10px;
   background-color: #f4f4f4;
   color: #2b2b2d;
-  background: rgba(0, 0, 0, 0) url("/css/bg-images/noisebg.png") repeat scroll 0 0;
 
 }
 footer {
@@ -311,8 +310,7 @@ table, th, tr, td, thead, .footable{
   margin-top: -26px;
 }
 .jumbotron{
- background: rgba(0, 0, 0, 0) radial-gradient(ellipse farthest-corner at center center , rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 70%) repeat scroll 0 0;
-}
+background: transparent;}
 .massage-content{
   background: transparent !important;
 }
@@ -320,3 +318,9 @@ table, th, tr, td, thead, .footable{
   transform: rotate(90deg);
   margin: -15px;
   margin-top: -20px;
+}
+.message-cound{
+
+  border-radius: 1em;
+  font-size: 8px;
+}
