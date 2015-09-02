@@ -117,8 +117,7 @@ class MemberController extends Controller
 		$auth_user = Auth::user();
 		$member = Member::find($member_id);
 		if($auth_user->permission == 0 && $auth_user->member_id != $member_id && $member != null){
-			$user = $member->users;			
-			
+			$user = $member->users;					
 			//if useraccount exists, reset all foreign ids referring to the user in kigo, sermon (member->sermon), sunday
 							//$user = User::where('member_id', '=', $member_id)->get();
 							//if(!$user->isEmpty()){//with query builder $user = User::where('member_id', '=', $member_id)->get(); needs additional foreach
@@ -136,13 +135,14 @@ class MemberController extends Controller
 					$sermon->save();
 				}
 				$user->delete();
-
 			}			
 			foreach ($member->sermons as $sermon) {
 				$sermon->preacher_id = 0;
 				$sermon->save();
 			}
-			$member->delete($member_id);				
+			$member->deleted = date('Y-m-d h:m:s');
+			$member->save();
+			//$member->delete($member_id);				
 		}
 		$users = User::all();
 		$members = Member::all();

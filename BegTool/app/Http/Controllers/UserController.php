@@ -63,6 +63,7 @@ class UserController extends Controller
     	if ($validator->passes()) 
     	{
         	// validation has passed, save user in DB
+        	$user->id = Request::input('member_id');
 		    $user->username = Request::input('username');
 		    $user->email = Request::input('email');		   	
 		    $user->password = Hash::make(Request::input('password'));

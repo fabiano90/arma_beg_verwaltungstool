@@ -26,23 +26,23 @@
 			data-filter="#song1">
 			<thead>
 				<tr>
+                    <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
 					<th>Nr</th>
 					<th>Name</th>
-					<th data-hide="phone">Bemerkung</th>
-					<th ><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+					<th data-hide="phone">Bemerkung</th>					
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($songs as $song)
 				<tr>
-					<td>{!! $song->number !!}</td>
-					<td>{!! $song->name !!}</td>
-					<td>{!! $song->annotation !!}</td>					
                     <td>
                         <label class="btn btn-primary">
                             <input class="radiosong1" type="radio" value="{!! $song->id !!}" songname="{!! $song->name !!}" name="song1" autocomplete="off"> Wählen
                         </label>
-                    </td>
+                    </td>                    
+					<td>{!! $song->number !!}</td>
+					<td>{!! $song->name !!}</td>
+					<td>{!! $song->annotation !!}</td>
 				</tr>
 				@endforeach
 			</tbody>
@@ -76,23 +76,23 @@
             data-filter="#song2">
             <thead>
                 <tr>
+                    <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
                     <th>Nr</th>
                     <th>Name</th>
-                    <th data-hide="phone">Bemerkung</th>
-                    <th ><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+                    <th data-hide="phone">Bemerkung</th>                    
                 </tr>
             </thead>
             <tbody>
                 @foreach($songs as $song)
                 <tr>
-                    <td>{!! $song->number !!}</td>
-                    <td>{!! $song->name !!}</td>
-                    <td>{!! $song->annotation !!}</td>
                     <td>
                         <label class="btn btn-primary">
                             <input class="radiosong2" type="radio" value="{!! $song->id !!}" songname="{!! $song->name !!}" name="song2" autocomplete="off"> Wählen
                         </label>
-                    </td>                    
+                    </td>                      
+                    <td>{!! $song->number !!}</td>
+                    <td>{!! $song->name !!}</td>
+                    <td>{!! $song->annotation !!}</td>                  
                 </tr>
                 @endforeach
             </tbody>
@@ -126,23 +126,23 @@
             data-filter="#song3">
             <thead>
                 <tr>
+                    <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
                     <th>Nr</th>
                     <th>Name</th>
-                    <th data-hide="phone">Bemerkung</th>
-                    <th ><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+                    <th data-hide="phone">Bemerkung</th>                    
                 </tr>
             </thead>
             <tbody>
                 @foreach($songs as $song)
                 <tr>
-                    <td>{!! $song->number !!}</td>
-                    <td>{!! $song->name !!}</td>
-                    <td>{!! $song->annotation !!}</td>
                     <td>
                         <label class="btn btn-primary">
                             <input class="radiosong3" type="radio" value="{!! $song->id !!}" songname="{!! $song->name !!}" name="song3" autocomplete="off"> Wählen
                         </label>
-                    </td>                    
+                    </td>                      
+                    <td>{!! $song->number !!}</td>
+                    <td>{!! $song->name !!}</td>
+                    <td>{!! $song->annotation !!}</td>                  
                 </tr>
                 @endforeach
             </tbody>
@@ -176,27 +176,25 @@
             data-filter="#song4">
             <thead>
                 <tr>
+                    <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
                     <th>Nr</th>
                     <th>Name</th>
-                    <th data-hide="phone">Bemerkung</th>
-                    <th ><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+                    <th data-hide="phone">Bemerkung</th>                    
                 </tr>
             </thead>
             <tbody>
-
                 @foreach($songs as $song)
                 <tr>
-                    <td>{!! $song->number !!}</td>
-                    <td>{!! $song->name !!}</td>
-                    <td>{!! $song->annotation !!}</td>
                     <td>
                         <label class="btn btn-primary">
                             <input class="radiosong4" type="radio" value="{!! $song->id !!}" songname="{!! $song->name !!}" name="song4" autocomplete="off"> Wählen
                         </label>
-                    </td>                
+                    </td>                      
+                    <td>{!! $song->number !!}</td>
+                    <td>{!! $song->name !!}</td>
+                    <td>{!! $song->annotation !!}</td>              
                 </tr>
                 @endforeach
-
             </tbody>
         </table>
     </div>
@@ -223,23 +221,23 @@
             data-filter="#song5">
             <thead>
                 <tr>
+                    <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
                     <th>Nr</th>
                     <th>Name</th>
-                    <th data-hide="phone">Bemerkung</th>
-                    <th ><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+                    <th data-hide="phone">Bemerkung</th>                    
                 </tr>
             </thead>
             <tbody>
                 @foreach($songs as $song)
                 <tr>
-                    <td>{!! $song->number !!}</td>
-                    <td>{!! $song->name !!}</td>
-                    <td>{!! $song->annotation !!}</td>
                     <td>
                         <label class="btn btn-primary">
                             <input class="radiosong5" type="radio" value="{!! $song->id !!}" songname="{!! $song->name !!}" name="song5" autocomplete="off"> Wählen
                         </label>
-                    </td>
+                    </td>                    
+                    <td>{!! $song->number !!}</td>
+                    <td>{!! $song->name !!}</td>
+                    <td>{!! $song->annotation !!}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -273,23 +271,23 @@
             data-filter="#song1">
             <thead>
                 <tr>
+                    <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
                     <th>Nr</th>
                     <th>Name</th>
-                    <th data-hide="phone">Bemerkung</th>
-                    <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
+                    <th data-hide="phone">Bemerkung</th>                    
                 </tr>
             </thead>
             <tbody>
                 @foreach($songs as $song)
                 <tr>
-                    <td>{!! $song->number !!}</td>
-                    <td>{!! $song->name !!}</td>
-                    <td>{!! $song->annotation !!}</td>
                     <td>
                         <label class="btn btn-primary">
                             <input class="radiosong6" type="radio" value="{!! $song->id !!}" songname="{!! $song->name !!}" name="song6" autocomplete="off"> Wählen
                         </label>
-                    </td>                    
+                    </td>                      
+                    <td>{!! $song->number !!}</td>
+                    <td>{!! $song->name !!}</td>
+                    <td>{!! $song->annotation !!}</td>                  
                 </tr>
                 @endforeach
             </tbody>
