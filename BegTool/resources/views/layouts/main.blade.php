@@ -93,8 +93,13 @@
 	</div>
 	<div class="container">
 		@yield('content')
+<div class="scroll-back-to-top-wrapper">
+<span class="scroll-back-to-top-inner">
+<i class="fa fa-lg fa-arrow-up"></i>
+</span>
+</div>
 	</div>
-		
+	
 	
 
 
