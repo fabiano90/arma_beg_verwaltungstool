@@ -25,7 +25,7 @@
 						<td>
 							@foreach ($users as $user)
 								@if($member->id == $user->id)
-									{!! $user->email !!}
+									{!! $user->email !!} 
 								@endif
 							@endforeach
 						</td>
