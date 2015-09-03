@@ -38,8 +38,8 @@
 					<td>
 						<div class="btn-group">		
 							@if($auth_user->permission <= 2)						
-								<a href="/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
-								{!! HTML::link('/kigos/deletekigo/'.$kigo->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieses Kigos löschen?\');')) !!}
+								<a href="/kigos/editkigo/{!! $kigo->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>																					
+								<a href=""  title="Inhalt leeren?" onClick="if(confirm('Inhalt leeren?') == true){window.location = '/kigos/deletekigo/{!!$kigo->id!!}';}else{window.location = '/kigos';}" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>								
 							@endif
 						</div>				
 					</td>		

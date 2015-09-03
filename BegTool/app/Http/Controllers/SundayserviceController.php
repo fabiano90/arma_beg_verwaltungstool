@@ -12,6 +12,7 @@ use App\Models\Song;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use DB;
+use Auth;
 
 class SundayserviceController extends Controller {
 
@@ -23,108 +24,103 @@ class SundayserviceController extends Controller {
 	}
 
 	public function getEditservice($sundayId) {
-		$sunday=Sundayservice::find($sundayId);
-		$songs = Song::all();
-		$songsOrder=array(1 => "",2 => "",3 => "",4 => "",5 => "",6 => "");
-		foreach ($sunday->songs as $song) {
-			$songsOrder[$song->pivot->order] =': '.$song->name;
+		$auth_user = Auth::user();
+		if($auth_user->permission <= 1){
+			$sunday = Sundayservice::find($sundayId);
+			$songs = Song::all();
+			$songsOrder = array(1 => "",2 => "",3 => "",4 => "",5 => "",6 => "");
+			foreach ($sunday->songs as $song) {
+				$songsOrder[$song->pivot->order] = ': '.$song->name;
+			}
+			return view ( 'sundayservices.editservice' )->with ( 'sunday', $sunday )->with('songs', $songs)->with('songsOrder', $songsOrder);
 		}
-		return view ( 'sundayservices.editservice' )->with ( 'sunday', $sunday )->with('songs', $songs)->with('songsOrder', $songsOrder);
+		return redirect('sundayservices');
 	}
 
 	public function postEditservice($service_id){
-		/*$validator = Validator::make(Request::all(), User::$rules);
-		if ($validator->passes()) 
-		{*/
-	    	// validation has passed, save user in DB
-			$service = Sundayservice::find($service_id);
-		    $service->psalm = Request::input('psalm');
-		    $service->biblereading = Request::input('biblereading');
-		    $service->comments = Request::input('comments');
-		    $service->sacrament = Request::input('sacrament');
-		    $song1 = Request::input('song1');
-		    $song2 = Request::input('song2');
-		    $song3 = Request::input('song3');
-		    $song4 = Request::input('song4');
-		    $song5 = Request::input('song5');
-		    $song6 = Request::input('song6');
-
-		   
-		   
-			if($song1){
-				$aktSong=0;
-				foreach ($service->songs as $song) {
-					if($song->pivot->order==1)	
-					$aktSong= $song->pivot->song_id;
+		$auth_user = Auth::user();		
+		if($auth_user->permission <= 1){
+			/*$validator = Validator::make(Request::all(), User::$rules);
+			if ($validator->passes()) 
+			{*/
+		    	// validation has passed, save user in DB
+				$service = Sundayservice::find($service_id);
+			    $service->psalm = Request::input('psalm');
+			    $service->biblereading = Request::input('biblereading');
+			    $service->comments = Request::input('comments');
+			    $service->sacrament = Request::input('sacrament');
+			    $song1 = Request::input('song1');
+			    $song2 = Request::input('song2');
+			    $song3 = Request::input('song3');
+			    $song4 = Request::input('song4');
+			    $song5 = Request::input('song5');
+			    $song6 = Request::input('song6');		   
+			   
+				if($song1){
+					$aktSong=0;
+					foreach ($service->songs as $song) {
+						if($song->pivot->order==1)	
+						$aktSong= $song->pivot->song_id;
+					}
+					$service->songs()->detach($aktSong);
+					$service->songs()->attach($song1,['order' => '1','songdate' => $service->sermons->date]);
 				}
-				$service->songs()->detach($aktSong);
-				$service->songs()->attach($song1,['order' => '1','songdate' => $service->sermons->date]);
-				
-
-			}
-
-			if($song2){
-				$aktSong=0;
-				foreach ($service->songs as $song) {
-					if($song->pivot->order==2)	
-					$aktSong= $song->pivot->song_id;
+				if($song2){
+					$aktSong=0;
+					foreach ($service->songs as $song) {
+						if($song->pivot->order==2)	
+						$aktSong= $song->pivot->song_id;
+					}
+					$service->songs()->detach($aktSong);
+					$service->songs()->attach($song2,['order' => '2','songdate' => $service->sermons->date]);
 				}
-				$service->songs()->detach($aktSong);
-				$service->songs()->attach($song2,['order' => '2','songdate' => $service->sermons->date]);
-			}
-
-			if($song3){
-				$aktSong=0;
-				foreach ($service->songs as $song) {
-					if($song->pivot->order==3)	
-					$aktSong= $song->pivot->song_id;
+				if($song3){
+					$aktSong=0;
+					foreach ($service->songs as $song) {
+						if($song->pivot->order==3)	
+						$aktSong= $song->pivot->song_id;
+					}
+					$service->songs()->detach($aktSong);
+					$service->songs()->attach($song3,['order' => '3','songdate' => $service->sermons->date]);
 				}
-				$service->songs()->detach($aktSong);
-				$service->songs()->attach($song3,['order' => '3','songdate' => $service->sermons->date]);
-			}
-
-			if($song4){
-				$aktSong=0;
-				foreach ($service->songs as $song) {
-					if($song->pivot->order==4)	
-					$aktSong= $song->pivot->song_id;
+				if($song4){
+					$aktSong=0;
+					foreach ($service->songs as $song) {
+						if($song->pivot->order==4)	
+						$aktSong= $song->pivot->song_id;
+					}
+					$service->songs()->detach($aktSong);
+					$service->songs()->attach($song4,['order' => '4','songdate' => $service->sermons->date]);
 				}
-				$service->songs()->detach($aktSong);
-				$service->songs()->attach($song4,['order' => '4','songdate' => $service->sermons->date]);
-			}
-
-			if($song5){
-				$aktSong=0;
-				foreach ($service->songs as $song) {
-					if($song->pivot->order==5)	
-					$aktSong= $song->pivot->song_id;
+				if($song5){
+					$aktSong=0;
+					foreach ($service->songs as $song) {
+						if($song->pivot->order==5)	
+						$aktSong= $song->pivot->song_id;
+					}
+					$service->songs()->detach($aktSong);				
+					$service->songs()->attach($song5,['order' => '5','songdate' => $service->sermons->date]);
 				}
-				$service->songs()->detach($aktSong);				
-				$service->songs()->attach($song5,['order' => '5','songdate' => $service->sermons->date]);
-			}
-
-
-			if($song6){
-				
-				$aktSong=0;
-				foreach ($service->songs as $song) {
-					if($song->pivot->order==6)	
-					$aktSong= $song->pivot->song_id;
+				if($song6){
+					
+					$aktSong=0;
+					foreach ($service->songs as $song) {
+						if($song->pivot->order==6)	
+						$aktSong= $song->pivot->song_id;
+					}
+					$service->songs()->detach($aktSong);
+					$service->songs()->attach($song6,['order' => '6','songdate' => $service->sermons->date]);
 				}
-				$service->songs()->detach($aktSong);
-				$service->songs()->attach($song6,['order' => '6','songdate' => $service->sermons->date]);
-			}
-		
 
-
-			$service->save();
-		    return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich bearbeitet!');
-		/*} 
-		else
-	 	{
-	    	// validation has failed, display error messages   
-	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-		}*/
+				$service->save();
+			    return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich bearbeitet!');
+			/*} 
+			else
+		 	{
+		    	// validation has failed, display error messages   
+		    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+			}*/
+		}
 	}
 
 	public function getAddsong($service_id)
@@ -137,11 +133,8 @@ class SundayserviceController extends Controller {
 	public function postAddsongtosunday($service_id)
 	{
 		$service = Sundayservice::find($service_id);
-
 		$songs = Song::all();
 		foreach ($songs as $song) {
-			//echo 'song id:' . $song->id;
-			//echo ' input req: ' . Request::input('id'.$song->id). '<br/>';
 			$service->songs()->attach(Request::input('id'.$song->id));
 		}
 		$service->save();
@@ -149,17 +142,19 @@ class SundayserviceController extends Controller {
 	}	
 
 	public function getDeleteservice($service_id){
-		$service = Sundayservice::find($service_id);
-		$service->user_id = 0;
-		$service->sermons->preacher_id = 0;
-		$service->songs()->detach();
-		//$service->vers_id = null;
-	    $service->psalm = null;
-	    $service->biblereading = null;
-	    $service->comments = null;
-	    $service->sacrament = null;
-	    $service->sermons->save();
-	    $service->save();
-	    return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich geleert!');		
+		$auth_user = Auth::user();
+		if($auth_user->permission <= 1){
+			$service = Sundayservice::find($service_id);
+			//$service->user_id = 0;		
+			$service->songs()->detach();
+			//$service->vers_id = null;
+		    $service->psalm = null;
+		    $service->biblereading = null;
+		    $service->comments = null;
+		    $service->sacrament = null;
+		    $service->sermons->save();
+		    $service->save();
+		    return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich geleert!');		
+		}
 	}
 }

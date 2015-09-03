@@ -22,8 +22,12 @@ class KigoController extends Controller {
 	}
 
 	public function getEditkigo($kigo_id){
-		$kigo = Kigo::find($kigo_id);
-		return view('kigos.editkigo')->with('kigo', $kigo);//->with('kigo_songs', $kigo_songs);
+		$auth_user = Auth::user();
+		if($auth_user->permission <= 2){
+			$kigo = Kigo::find($kigo_id);
+			return view('kigos.editkigo')->with('kigo', $kigo);//->with('kigo_songs', $kigo_songs);
+		}
+		return redirect('kigos');
 	}
 
 	public function postEditkigo($kigo_id){
@@ -71,17 +75,19 @@ class KigoController extends Controller {
 
     public function getDeletekigo($id)
     {
-        $kigo = Kigo::find($id);
-        //$kigo->delete();
-		$kigo = Kigo::find($id);
-		$kigo->user_id = 0;
-	    $kigo->lection_number = null;
-	    $kigo->lection = null;
-	    $kigo->conclusion = null;
-	    $kigo->material = null;
-	    $kigo->crafting = null;
-		$kigo->save();
-
+    	$auth_user = Auth::user();
+		if($auth_user->permission <= 2){
+	        $kigo = Kigo::find($id);
+	        //$kigo->user_id = 0;
+	        //$kigo->delete();		
+			$kigo->songs()->detach();
+		    $kigo->lection_number = null;
+		    $kigo->lection = null;
+		    $kigo->conclusion = null;
+		    $kigo->material = null;
+		    $kigo->crafting = null;
+			$kigo->save();
+		}
         return redirect('kigos')->with('message', 'success|Kigo wurde erfolgreich gelöscht!');
     }   
 }

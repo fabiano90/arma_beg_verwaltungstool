@@ -47,42 +47,12 @@ class MemberController extends Controller
 	}
 
 	public function getAdduser($member_id){
-		$user = Auth::user();		
-		if($user->permission == 0){	//permission == 0 => admin
-			/*$users = User::all();
-			$containsUser = false;
-			foreach ($users as $u) {
-				if($u->member_id == $member_id){
-					$containsUser = true;
-			    	echo $u->username;
-			    }
-			}*/
-
-			$model = User::where('member_id', $member_id)->first();
-			//	echo var_dump($model);
-			//$flights = User::where('active', 0)
-               //->orderBy('name', 'desc')
-               //->take(10)
-            //   ->get();exit;
-			//$user = User::contains();
-			//var_dump($user);exit;
-			//if ($user->contains($member_id)) {
-			//if($containsUser){
-			if($model != NULL){
-			//if(User::contains($member_id)){		
-				echo '<script>alert("zufügenButton nicht sichtbar, du aber üeber url...");</script>';	
-				echo 'asdas';	
-				return redirect('members');
-			}
-			else{	
-				$member = Member::find($member_id);			
-				return view('users.register')->with('member', $member);//->with('user', $persons);	
-			}
+		$auth_user = Auth::user();		
+		if($auth_user->permission == 0){	
+			$member = Member::find($member_id);			
+			return view('users.register')->with('member', $member);			
 		}
-		else{
-			echo '<script>alert("nope kein permission! gibts was schoeneres als alert??");</script>';
-			return redirect('members');
-		}
+		return redirect('members');		
 	}
 
 	public function getEditmember($member_id){
@@ -130,22 +100,22 @@ class MemberController extends Controller
 					$sunday->user_id = 0;
 					$sunday->save(); 
 				}
-				foreach ($user->members->sermons as $sermon) {
+				/*foreach ($user->members->sermons as $sermon) {
 					$sermon->preacher_id = 0;
 					$sermon->save();
-				}
+				}*/
 				$user->delete();
 			}			
-			foreach ($member->sermons as $sermon) {
+			/*foreach ($member->sermons as $sermon) {
 				$sermon->preacher_id = 0;
 				$sermon->save();
-			}
+			}*/
 			$member->deleted = date('Y-m-d h:m:s');
 			$member->save();
 			//$member->delete($member_id);				
 		}
 		$users = User::all();
 		$members = Member::all();
-		return redirect('members/index');//->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
+		return redirect('members');
 	}
 }
