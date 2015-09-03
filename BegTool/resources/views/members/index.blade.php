@@ -12,7 +12,7 @@
 
 @section('content')
 <section class="section content-shadow content-box">
-	<h2>Geburtstagsliste</h2>	
+	<h2>Mitgliederliste</h2>	
 	<div class="table-responsive">	
 		<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 			<thead>
@@ -61,7 +61,7 @@
 							<td>
 								<div class="btn-group">
 									@if($auth_user->permission == 0 || $auth_user->member_id == $member->id)						
-										<a href="/members/editmember/{!! $member->id !!}" title="Bearbeiten" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
+										
 
 										{{-- Nur als Mitarbeiter hinzufügbar, wenn sie noch nicht sind --}}
 										{{-- HTML Kommentare nicht löschen!!! --}}
@@ -71,10 +71,12 @@
 				    							<!--{!! $temp = $user->id; !!}-->
 											@endif
 											@if($member->id == $user->member_id && ($auth_user->permission == 0 || $auth_user->id == $user->id))
+												<a href="/users/edituser/{!! $member->id !!}" title="Bearbeiten" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 												<a href="/users/editpassword/{!! $user->id !!}" title="Passwort ändern" class="btn btn-default"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>			 												
 											@endif
 										@endforeach
 										@if($temp == -1)
+											<a href="/members/editmember/{!! $member->id !!}" title="Bearbeiten" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 											<a href="/members/adduser/{!! $member->id !!}" title="Nutzeraccount anlegen" class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>			 															
 										@endif
 										@if($auth_user->member_id != $member->id)
