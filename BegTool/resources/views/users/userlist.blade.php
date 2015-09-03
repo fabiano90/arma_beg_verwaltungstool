@@ -10,7 +10,7 @@
 				<th data-hide="phone">Berechtigungen</th>
 				<th data-hide="phone">E-Mail</th>
 
-				<th width="40%">Bearbeiten</th>
+				<th>Bearbeiten</th>
 			</tr>
 		</thead>
 		<tbody>

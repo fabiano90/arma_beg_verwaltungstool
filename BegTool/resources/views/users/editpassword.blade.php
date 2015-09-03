@@ -8,11 +8,7 @@
 	@else
     	<h2>Passwort ändern von Mitarbeiter {!! $user->username !!} ({!! $member->firstname!!} {!! $member->lastname!!}) bearbeiten</h2>
 
-		{!! Form::open(array('url'=>'users/editpassword/'.$user->id, 'class'=>'form-signup')) !!}
-		{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
-		<div class="hidden">
-			{!! Form::text('member_id', $member->id, array('class'=>'form-control ', 'placeholder'=>'Nachname'))!!}
-		</div>
+		{!! Form::open(array('url'=>'users/editpassword/'.$user->id, 'class'=>'form-signup')) !!}		
 
 		{!! Form::label('password', 'Passwort') !!}
 	    {!! Form::password('password', array('class'=>'form-control', 'placeholder'=>'')) !!}

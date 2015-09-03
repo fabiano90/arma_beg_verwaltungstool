@@ -9,25 +9,23 @@
 
 		{!! Form::open(array('url'=>'users/edituser/'.$user->id, 'class'=>'form-signup')) !!}
 		{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
-		<div class="hidden">
-			{!! Form::text('member_id', $member->id, array('class'=>'form-control ', 'placeholder'=>'Nachname'))!!}
-		</div>
+
 		{!! Form::label('firstname', 'Vorname') !!}
-		{!! Form::text('firstname', $member->firstname, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}
+		{!! Form::text('firstname', $member->firstname, array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}
     	{!! Form::label('lastname', 'Nachname') !!}
     	{!! Form::text('lastname', $member->lastname, array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}
     	{!! Form::label('onlinename', 'Onlinename') !!}
-    	{!! Form::text('onlinename', $member->lastname, array('class'=>'form-control ', 'placeholder'=>'Onlinename')) !!}
+    	{!! Form::text('onlinename', $member->onlinename, array('class'=>'form-control ', 'placeholder'=>'Onlinename')) !!}
 	    {!! Form::label('birthdate', 'Geburtsdatum') !!}
-	    {!! Form::text('birthdate', date('d.m.Y', $member->birthdate), array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}      
+	    {!! Form::text('birthdate', date('d.m.Y', $member->birthdate), array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}      
 
     	{!! Form::label('username', 'Benutzername') !!}
-   	 	{!! Form::text('username', $member->firstname, array('class'=>'form-control', 'placeholder'=>'Benutzername', 'disabled'=>'disabled')) !!}
+   	 	{!! Form::text('username', $member->firstname, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}
 
 		{!! Form::label('email', 'E-Mail') !!}
 	    {!! Form::text('email', $user->email, array('class'=>'form-control', 'placeholder'=>'E-Mail')) !!}
 
-	    @if($auth_user->permission == 0)
+	    @if($auth_user->permission == 0 && $auth_user->id != $user->id)
 			{!! Form::label('permission', 'Berechtigungen') !!}
 			<div class="form-inline">
 				@if($user->permission == 0)

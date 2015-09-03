@@ -80,7 +80,7 @@ class UserController extends Controller
 		    //exit;
 
 		    $user->save();
-		    return redirect('users/userlist')->with('message', 'success|'.$user->username.' erfolgreich angelegt!');
+		    return redirect('members')->with('message', 'success|'.$user->username.' erfolgreich als Mitarbeiter angelegt!');
     	} 
     	else
      	{
@@ -114,16 +114,16 @@ class UserController extends Controller
             // validation has passed, save user in DB            
             $user = User::find($user_id);
             $member = Member::find($user->member_id);
-            $user->member_id = Request::input('member_id');
+            //$user->member_id = Request::input('member_id');
             $member->lastname = Request::input('lastname');
-            //$user->username = Request::input('username');
+            $user->username = Request::input('username');
 		    $user->email = Request::input('email');		   	
-		    if($auth_user->permission == 0){
+		    if($auth_user->permission == 0 && $auth_user->id != $user->id){
 		    	$user->permission = intval(Request::input('permission'));
 		    }
 		    $member->save();
             $user->save();
-            return redirect('users/userlist')->with('message', 'success|Mitarbeiter erfolgreich bearbeitet!');
+            return redirect('members')->with('message', 'success|Mitarbeiter erfolgreich bearbeitet!');
         }
         else 
         {
@@ -155,7 +155,7 @@ class UserController extends Controller
             $user = User::find($user_id);
 		    $user->password = Hash::make(Request::input('password'));
             $user->save();         
-            return redirect('users/userlist')->with('message', 'success|Passwort erfolgreich geändert!');
+            return redirect('members')->with('message', 'success|Passwort erfolgreich geändert!');
         }
         else 
         {
@@ -185,6 +185,6 @@ class UserController extends Controller
 			}
 			$user->delete();
 		}				
-		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);
+		return redirect('members')->with('users', $users)->with('auth_user', $auth_user);
 	}
 }
