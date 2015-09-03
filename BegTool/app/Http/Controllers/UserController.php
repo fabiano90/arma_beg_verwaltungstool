@@ -23,6 +23,7 @@ class UserController extends Controller
 	{
 		
 		$user = Auth::user();
+		$birthdays =Member::all();
 		$newMessages=DB::table('messages')->where('receiver_id', $user->id)->sum('visited');
 		$today = time();
 		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
@@ -33,7 +34,7 @@ class UserController extends Controller
 				})->where('user_id','=',$user->id)->get();
 
 		$kigos=DB::table('kigos')
-			->select('date')
+			->select('date', 'kigos.id')
 			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
 			->join('sermons', 'sermons.id', '=', 'sundayservices.sermon_id')
 			->where('date','>=',$today)
@@ -41,7 +42,7 @@ class UserController extends Controller
 			->get();
 
 
-		return view('users.index')->with('user', $user)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors)->with('newMessages', $newMessages);
+		return view('users.index')->with('user', $user)->with('birthdays', $birthdays)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors)->with('newMessages', $newMessages);
 	}
 
 	public function getUserlist()
