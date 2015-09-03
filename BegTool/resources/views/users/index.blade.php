@@ -1,5 +1,11 @@
-@extends('layouts.main') @section('messages') @if($newMessages>'0')
-<span class="label label-danger message-cound">{!!$newMessages." neu"!!}</span> @endif @stop @section('mainslider')
+@extends('layouts.main') 
+@section('messages') 
+    @if($newMessages>'0')
+    <span class="label label-danger message-cound">
+        {!!$newMessages." neu"!!}</span> 
+    @endif 
+@stop 
+@section('mainslider')
 <div id="carousel-example-generic" class="carousel slide content-shadow content-box" data-ride="carousel">
     <!-- Positionsanzeiger -->
     <ol class="carousel-indicators">

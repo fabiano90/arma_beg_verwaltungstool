@@ -5,11 +5,15 @@
 
   		<ul class="nav nav-tabs">
 
-	
-	  <li role="presentation" ><a href="#api" class="filter-api" title="Filter using the Filter API">{!! date("F   ") !!}</a></li>
+	  <li role="presentation" class="active"><a href="/sundays/index/{!! strtotime('01.01.'.date('Y')) !!}" ><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {!! date("Y") !!}</a></li>
+	  <li role="presentation"><a href="" class="filter-api" value='{!! date("Y", strtotime(" + 1 year"))!!}' title=""><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {!! date("Y", strtotime(" + 1 year"))!!}</a></li>
+	  <li role="presentation" ><a href="" class="filter-api" value='{!! date("m.Y") !!}'  title="">{!! date("F") !!}</a></li>
+	  <li role="presentation" ><a href="" class="filter-api" value='{!! date("m.Y", strtotime("+ 1 month"))!!}' title="">{!! date("F", strtotime("+ 1 month"))!!}</a></li>
+	  @if($user->permission==0)
 	  <li role="presentation" class="dropdown">
 	    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 	      Bearbeiten<span class="caret"></span>
+
 	    </a>
 	    <ul class="dropdown-menu">
 	      	<li role="presentation"><a href='/sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
@@ -19,7 +23,9 @@
 			<li role="presentation"><a href='{!! '/sundays/edityear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> {!!' Jahr '. date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
 		
 	    </ul>
-	  </li>	  <li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
+	  </li>	
+	  @endif  
+	  <li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
 
 	</ul>
 

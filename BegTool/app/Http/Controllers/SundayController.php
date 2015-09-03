@@ -10,20 +10,33 @@ use App\Models\Sermon;
 use App\Models\Member;
 use App\Models\Song;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 use Validator;
 use DB;
 
 class SundayController extends Controller {
 
-	public function getIndex() {
-		$sundayservices=Sundayservice::all();
-// 		$thisyearangelegt=0;
-// 		foreach ($sundayservices as $sundayservice) {
-// 			if(date('Y',$sundayservice->sermon->date) = date(date('y'))
-// 				$thisyearangelegt++;
-// 		}
+	public function getIndex($filter=1) {
+		$user=Auth::user();
+		if($filter==1){
+			$datetime=time();
 			
-		return view ( 'sundays.index' )->with ( 'sundayservices', $sundayservices );
+		}else{
+			$datetime=$filter;
+		}
+		echo date('d.m.Y',$datetime);
+		
+		$sundayservices=Sundayservice::whereHas('sermons', function($q) use ($datetime)
+				{
+				    $q->where('date','>=',$datetime);
+				    echo ($datetime);
+
+				})->get();
+			
+		
+		
+			
+		return view ( 'sundays.index' )->with ( 'sundayservices', $sundayservices )->with ( 'user', $user );
 	}
 
 	

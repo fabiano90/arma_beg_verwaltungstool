@@ -39,7 +39,9 @@ class Sundayservice extends Model
 	public function kigos(){
 		return $this->belongsTo('App\Models\Kigo', 'kigo_id' );
 	}
-	
+
+
+
 	public static $rules = array(
 			'date' => 'date_format:d.m.Y|required' ,
 			'lection_number'=>'numeric'
@@ -47,6 +49,7 @@ class Sundayservice extends Model
 	
 	public static $rulesedit = array(			
 			'lection_number'=>'numeric'
-	);	
+	);
+
 }
 

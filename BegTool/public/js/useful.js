@@ -30,8 +30,10 @@ $(document).ready(function() {
 
       //get the footable filter object
       var footableFilter = $('table').data('footable-filter');
- 		
-      footableFilter.filter("08.2015");
+      $('.filter-api').parent().attr('class', '')
+ 	 $(this).parent().attr('class','active');
+ 	 
+      footableFilter.filter($(this).attr('value'));
 
     });
 
