@@ -17,8 +17,12 @@ class SermonController extends Controller {
 	}
 
 	public function getEditsermon($sermon_id){
-		$sermon = Sermon::find($sermon_id);
-		return view('sermons.editsermon')->with('sermon', $sermon);//->with('kigo_songs', $kigo_songs);
+		$auth_user = Auth::user();
+		if($auth_user->permission <= 1){
+			$sermon = Sermon::find($sermon_id);
+			return view('sermons.editsermon')->with('sermon', $sermon);//->with('kigo_songs', $kigo_songs);
+		}
+		return redirect('sermons');
 	}
 
 	public function postEditsermon($sermon_id, $count){
@@ -45,17 +49,16 @@ class SermonController extends Controller {
 		else
 	 	{
 	    	// validation has failed, display error messages   
-	    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
+	    	return redirect('sermons/editsermon')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
 		}*/
 	}
 
     public function getDeletesermon($sermon_id)
     {
     	$auth_user = Auth::user();
-
-    	if($auth_user->permission == 0){
+    	if($auth_user->permission <= 1){
     		$sermon = Sermon::find($sermon_id);
-    		$sermon->preacher_id = 0;
+    		//$sermon->preacher_id = 0;
 	        //$sermon->delete();			
 			$sermon->scripture = null;
 			$sermon->topic = null;

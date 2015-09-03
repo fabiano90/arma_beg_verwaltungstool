@@ -2,8 +2,7 @@
 
 @section('content')
 	{!! Form::model($kigo, array('url' => array('kigos/editkigo', $kigo->id))) !!}
-    <h2 class="form-signup-heading">Kigo vom {!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!} bearbeiten</h2>
-    {!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
+    <h2 class="form-signup-heading">Kigo vom {!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!} bearbeiten</h2>    
     {!! Form::label('lection_number', 'Nummer') !!}
 	{!! Form::text('lection_number', null, array('class'=>'form-control', 'placeholder'=>'Nummer')) !!}    
 	{!! Form::label('lection', 'Thema') !!}

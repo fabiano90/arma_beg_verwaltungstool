@@ -2,10 +2,7 @@
 
 @section('content')
     <h2>{!! $member->firstname!!} {!! $member->lastname!!} als Mitarbeiter anlegen</h2>
-		{!! Form::open(array('url'=>'users/register', 'class'=>'form-signup')) !!}		
-		<div class="hidden">
-			{!! Form::text('member_id', $member->id, array('class'=>'form-control ', 'placeholder'=>'Nachname'))!!}
-		</div>
+		{!! Form::open(array('url'=>'users/register/'.$member->id, 'class'=>'form-signup')) !!}		
 		{!! Form::label('firstname', 'Vorname') !!}
 		{!! Form::text('firstname', $member->firstname, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}
     	{!! Form::label('lastname', 'Nachname') !!}

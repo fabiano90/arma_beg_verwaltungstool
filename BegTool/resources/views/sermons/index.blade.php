@@ -39,7 +39,7 @@
 				<td>
 					<div class="btn-group">		
 						<a href="/sermons/editsermon/{!! $sermon->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>													
-						{!! HTML::link('/sermons/deletesermon/'.$sermon->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Inhalt dieser Predikt löschen?\');')) !!}
+						<a href=""  title="Inhalt leeren?" onClick="if(confirm('Inhalt leeren?') == true){window.location = '/sermons/deletesermon/{!!$sermon->id!!}';}else{window.location = '/sermons';}" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>														
 					</div>				
 				</td>		
 			</tr>

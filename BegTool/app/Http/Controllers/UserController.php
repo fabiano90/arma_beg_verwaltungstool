@@ -23,17 +23,17 @@ class UserController extends Controller
 	{
 		
 		$user = Auth::user();
-		$birthdays =Member::all();
-		$newMessages=DB::table('messages')->where('receiver_id', $user->id)->sum('visited');
+		$birthdays = Member::all();
+		$newMessages = DB::table('messages')->where('receiver_id', $user->id)->sum('visited');
 		$today = time();
-		$predigten=Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
+		$predigten = Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
 		$lektors = Sundayservice::whereHas('sermons', function($q) use ($today)
 				{
 				    $q->where('date','>=',$today);
 
 				})->where('user_id','=',$user->id)->get();
 
-		$kigos=DB::table('kigos')
+		$kigos = DB::table('kigos')
 			->select('date', 'kigos.id')
 			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
 			->join('sermons', 'sermons.id', '=', 'sundayservices.sermon_id')
@@ -57,10 +57,10 @@ class UserController extends Controller
 		return view('users.register')->with('user', $user);
 	}
 
-	public function postRegister(){
+	public function postRegister($member_id){
 		$validator = Validator::make(Request::all(), User::$rules);
     	$user = new User;
-		$user->member_id = Request::input('member_id');
+		$user->member_id = $member_id;
     	if ($validator->passes()) 
     	{
         	// validation has passed, save user in DB
@@ -68,17 +68,7 @@ class UserController extends Controller
 		    $user->username = Request::input('username');
 		    $user->email = Request::input('email');		   	
 		    $user->password = Hash::make(Request::input('password'));
-		    $user->permission = intval(Request::input('permission'));
-		   
-
-		   /*echo 
-		    "member_id: " . $user->member_id.
-		    " username: ". $user->username.
-		    " email: " . $user->email.
-		    " pass: " . $user->password.
-		    " permission: " . $user->permission;*/
-		    //exit;
-
+		    $user->permission = intval(Request::input('permission'));		
 		    $user->save();
 		    return redirect('members')->with('message', 'success|'.$user->username.' erfolgreich als Mitarbeiter angelegt!');
     	} 
@@ -99,20 +89,26 @@ class UserController extends Controller
 
 	public function postEdituser ($user_id){	
 		$auth_user = Auth::user();
+		$user = User::find($user_id);
         $rules = User::$rules;
         //$rules['username'] = 'required|alpha|min:2|unique:users,username,'.$user_id;
-        $rules['username'] = '';
+        $rules['firstname'] = 'required|alpha|min:2';
+		$rules['lastname'] = 'required|alpha|min:2';
+		$rules['onlinename'] = 'required|unique:members,onlinename,'.$user->member_id;
+		$rules['birthdate'] = 'date_format:d.m.Y';
+        $rules['username'] = 'required|alpha|min:2|unique:users,username,'.$user_id;        
         $rules['password'] = '';
         $rules['password_confirmation'] = '';
         $rules['email'] = 'required|email|unique:users,email,'.$user_id;
-        $rules['permission'] = '';
-        $rules['member_id'] = 'required|unique:users,member_id,'.$user_id;
+        if(!($auth_user->permission == 0 && $auth_user->id != $user->id)){
+        	$rules['permission'] = '';
+        }        
         $validator = Validator::make(Request::all(), $rules);
  		
         if ($validator->passes()) 
         {
             // validation has passed, save user in DB            
-            $user = User::find($user_id);
+            
             $member = Member::find($user->member_id);
             //$user->member_id = Request::input('member_id');
             $member->lastname = Request::input('lastname');
@@ -179,10 +175,10 @@ class UserController extends Controller
 				$sunday->user_id = 0;
 				$sunday->save(); 
 			}
-			foreach ($user->members->sermons as $sermon) {
-				$sermon->preacher_id = 0;
-				$sermon->save();
-			}
+			//foreach ($user->members->sermons as $sermon) {
+				//$sermon->preacher_id = 0;
+				//$sermon->save();
+			//}
 			$user->delete();
 		}				
 		return redirect('members')->with('users', $users)->with('auth_user', $auth_user);

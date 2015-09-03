@@ -102,7 +102,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	    'password'=>'required|alpha_num|between:6,12|confirmed',
 	    'password_confirmation'=>'required|alpha_num|between:6,12',
 	    'password_confirmation'=>'required|alpha_num',
-		'permission' => 'required',
-		'member_id' => 'required|unique:users'
+		'permission' => 'required'
     );
 }

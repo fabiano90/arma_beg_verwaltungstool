@@ -1,6 +1,5 @@
 @extends('layouts.main') 
 @section('content')
-{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
 <h2>Mitarbeiter</h2>
 <div class="table-responsive">
 	<table class="table table-striped table-hover footable toggle-medium">

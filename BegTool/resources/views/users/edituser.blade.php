@@ -7,8 +7,7 @@
 	@else
     	<h2>Mitarbeiter {!! $user->username !!} ({!! $member->firstname!!} {!! $member->lastname!!}) bearbeiten</h2>
 
-		{!! Form::open(array('url'=>'users/edituser/'.$user->id, 'class'=>'form-signup')) !!}
-		{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
+		{!! Form::open(array('url'=>'users/edituser/'.$user->id, 'class'=>'form-signup')) !!}		
 
 		{!! Form::label('firstname', 'Vorname') !!}
 		{!! Form::text('firstname', $member->firstname, array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}
