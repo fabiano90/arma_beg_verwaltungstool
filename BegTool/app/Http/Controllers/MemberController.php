@@ -104,7 +104,7 @@ class MemberController extends Controller
 		    $member->onlinename = Request::input('onlinename');
 		    $member->birthdate = strtotime(Request::input('birthdate')); 
 			$member->save();
-		    return redirect('members')->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('members')->with('message', 'success|Mitglied erfolgreich bearbeitet!');
 		} 
 		else
 	 	{
@@ -146,6 +146,6 @@ class MemberController extends Controller
 		}
 		$users = User::all();
 		$members = Member::all();
-		return view('members.index')->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
+		return redirect('members/index');//->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
 	}
 }

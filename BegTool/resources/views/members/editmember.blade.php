@@ -4,8 +4,7 @@
 	@if( !($auth_user->permission == 0 || $auth_user->member_id == $member->id) )
 		<h2>Sie sind nicht berechtigt Mitglied {!! $member->firstname !!} {!! $member->lastname !!} zu bearbeiten</h2>
 	@else
-		{!! Form::model($member, array('url' => array('members/editmember', $member->id))) !!}
-		{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
+		{!! Form::model($member, array('url' => array('members/editmember', $member->id))) !!}		
 		<h2 class="form-signup-heading">Mitglied {!! $member->firstname !!}{!! $member->lastname !!} bearbeiten</h2>
 			
 		{!! Form::label('firstname', 'Vorname') !!}

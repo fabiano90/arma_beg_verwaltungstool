@@ -1,9 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-
-		{!! Form::open(array('url'=>'members/register', 'class'=>'form-signup')) !!}
-		{!! showMessageAndErrors(Session::get('message'), $errors->all()) !!}
+		{!! Form::open(array('url'=>'members/register', 'class'=>'form-signup')) !!}		
         <h2 class="form-signup-heading">Registrierung</h2>
 		{!! Form::label('firstname', 'Vorname') !!}
 		{!! Form::text('firstname', null, array('id'=>'firstname', 'class'=>'form-control', 'placeholder'=>'Vorname')) !!}
