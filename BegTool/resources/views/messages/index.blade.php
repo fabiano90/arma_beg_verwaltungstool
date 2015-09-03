@@ -22,7 +22,7 @@
                                 @endif
                         @endforeach
                         @if($i!=0)
-                            ({!!$i!!})
+                            <span class="label label-danger message-cound">{!!$i!!}</span>
                         @endif
                     </a>
                 @endif
