@@ -25,7 +25,7 @@ class SundayController extends Controller {
 		}else{
 			$datetime=$filter;
 		}
-		
+		$newMessages = $user->newMessages($user);
 		
 		$sundayservices=Sundayservice::whereHas('sermons', function($q) use ($datetime)
 				{
@@ -37,7 +37,7 @@ class SundayController extends Controller {
 		
 		
 			
-		return view ( 'sundays.index' )->with ( 'sundayservices', $sundayservices )->with ( 'user', $user )->with ( 'filter', $filter );
+		return view ( 'sundays.index' )->with('newMessages', $newMessages)->with ( 'sundayservices', $sundayservices )->with ( 'user', $user )->with ( 'filter', $filter );
 	}
 
 	
@@ -85,14 +85,24 @@ class SundayController extends Controller {
 				$post = new Message();
 		    	$post->sender_id = 0;
 				$post->receiver_id = $old_sleader->id;
-				$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigt Dienst</h4>'.$new_sleader->onlinename.' hat für dich übernommen.';
+				if($new_sleader->id != 0){
+					$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigtdienst</h4>'.$new_sleader->onlinename.' hat für dich übernommen.';
+				}
+				else{
+					$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigtdienst</h4>, denn du wurdest ausgetragen.';
+				}
 				$post->visited=1;
 				$post->save();
 
 				$post = new Message();
 		    	$post->sender_id = $new_sleader->id;
 				$post->receiver_id = 0;
-				$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigt Dienst</h4>'.$old_sleader->onlinename.' hat mit dir getauscht..';
+				if($old_sleader->id != 0){
+					$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigtdienst</h4>'.$old_sleader->onlinename.' hat mit dir getauscht.';
+				}
+				else{
+					$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigtdienst</h4>';
+				}
 				$post->visited=1;
 				$post->save();
 				
@@ -355,14 +365,24 @@ class SundayController extends Controller {
 				$post = new Message();
 		    	$post->sender_id = 0;
 				$post->receiver_id = $old->id;
-				$post->content = date('d.m.Y',$date).'<h4>Kein '.$task.' Dienst</h4>'.$new->username.' hat für dich übernommen.';
+				if($new->id != 0){
+					$post->content = date('d.m.Y', $date).'<h4>Kein '.$task.'dienst</h4>'.$new->username.' hat für dich übernommen.';
+				}
+				else{
+					$post->content = date('d.m.Y', $date).'<h4>Kein '.$task.'dienst</h4>, denn du wurdest ausgetragen.';
+				}
 				$post->visited=1;
 				$post->save();
 
 				$post = new Message();
 		    	$post->sender_id = $new->id;
 				$post->receiver_id = 0;
-				$post->content = date('d.m.Y',$date).'<h4>Neuer '.$task.'Dienst</h4>'.$old->username.' hat mit dir getauscht.';
+				if($old->id != 0){
+					$post->content = date('d.m.Y', $date).'<h4>Neuer '.$task.'dienst</h4>'.$old->username.' hat mit dir getauscht.';
+				}
+				else{
+					$post->content = date('d.m.Y', $date).'<h4>Neuer '.$task.'dienst</h4>';
+				}
 				$post->visited=1;
 				$post->save();
 

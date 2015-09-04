@@ -77,15 +77,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 	public function newMessages($user) {
 		$systemMessage = ['receiver_id' => '0', 'sender_id' => $user->id];
-		return DB::table('messages')->where('receiver_id', $user->id)->orWhere($systemMessage)->sum('visited');
+		return Message::where('receiver_id', $user->id)
+					->orWhere($systemMessage)
+					->sum('visited');
 	}
-
-	public function friends()
-	{
-		return $this->belongsToMany('App\Models\User', 'friend_user', 'user_id', 'friend_id');
-		//tabelle, im this eigener key kennt er ja weil aktuelles objekt, also parameter bei attach( $bla) fuer friend_id
-		//normalerweise immer 2 eintträge , reicht aber eine Eintrag, nur gucken ob in user id friend id drin steht.
-	}	
 
     /**
      * The attributes that are mass assignable.

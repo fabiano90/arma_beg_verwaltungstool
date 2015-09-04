@@ -1,5 +1,10 @@
 @extends('layouts.main') 
-
+@section('messages') 
+    @if($newMessages>'0')
+    <span class="label label-danger message-cound">
+        {!!$newMessages." neu"!!}</span> 
+    @endif 
+@stop 
 @section('menu')
 
 

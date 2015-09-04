@@ -20,11 +20,9 @@ class UserController extends Controller
 {
 
 	public function getIndex()
-	{
-		
+	{		
 		$user = Auth::user();
-		$birthdays = Member::all();
-		
+		$birthdays = Member::all();		
 
 		$newMessages = $user->newMessages($user);
 		
