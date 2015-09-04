@@ -24,7 +24,10 @@ class UserController extends Controller
 		
 		$user = Auth::user();
 		$birthdays = Member::all();
-		$newMessages = DB::table('messages')->where('receiver_id', $user->id)->sum('visited');
+		
+
+		$newMessages = $user->newMessages($user);
+		
 		$today = time();
 		$predigten = Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
 		$lektors = Sundayservice::whereHas('sermons', function($q) use ($today)

@@ -32,7 +32,7 @@ class MessageController extends Controller
 		$messages = $user->chat($partner_id)->reverse();
 
 		foreach ($messages as $massage) {
-			if($user_id ==$massage->receiver_id){
+			if($user_id ==$massage->receiver_id || $massage->receiver_id==0){
 				$massage->visited=0;
 				$massage->save();
 			}

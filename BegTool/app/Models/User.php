@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use DB;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -73,6 +74,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	    			->where('receiver_id', '=', $this->id)
 	    			->orderBy('updated_at', 'DESC')
 	    			->get();
+	}
+	public function newMessages($user) {
+		$systemMessage = ['receiver_id' => '0', 'sender_id' => $user->id];
+		return DB::table('messages')->where('receiver_id', $user->id)->orWhere($systemMessage)->sum('visited');
 	}
 
 	public function friends()

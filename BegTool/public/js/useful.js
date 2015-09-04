@@ -30,7 +30,7 @@ $(document).ready(function() {
 
       //get the footable filter object
       var footableFilter = $('table').data('footable-filter');
-      $('.filter-api').parent().attr('class', '')
+      $('.set_aktive').parent().attr('class', '')
  	 $(this).parent().attr('class','active');
  	 
       footableFilter.filter($(this).attr('value'));

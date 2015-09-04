@@ -9,6 +9,7 @@ use App\Models\Kigo;
 use App\Models\Sermon;
 use App\Models\Member;
 use App\Models\Song;
+use App\Models\Message;
 use Illuminate\Database\Eloquent\Model;
 use Auth;
 use Validator;
@@ -24,19 +25,19 @@ class SundayController extends Controller {
 		}else{
 			$datetime=$filter;
 		}
-		echo date('d.m.Y',$datetime);
+		
 		
 		$sundayservices=Sundayservice::whereHas('sermons', function($q) use ($datetime)
 				{
 				    $q->where('date','>=',$datetime);
-				    echo ($datetime);
+				   
 
 				})->get();
 			
 		
 		
 			
-		return view ( 'sundays.index' )->with ( 'sundayservices', $sundayservices )->with ( 'user', $user );
+		return view ( 'sundays.index' )->with ( 'sundayservices', $sundayservices )->with ( 'user', $user )->with ( 'filter', $filter );
 	}
 
 	
@@ -58,14 +59,55 @@ class SundayController extends Controller {
 		$validator = Validator::make ( Request::all (), Sundayservice::$rulesedit );
 		if ($validator->passes ()) {
 			/**
-			 * ** Kigo id suchen und speichern ***
+			 *** Benachrichtigunen ***
+			 */
+			$old_kleader=User::find($kigo->user_id);
+			$new_kleader=User::find(Request::input ( 'kigos_list' ));
+			if($old_kleader->id!=$new_kleader->id){
+
+				$this->sendMessage($old_kleader,$new_kleader,$sermon->date,'Kigo');
+
+			}
+
+			
+			$old_lleader=User::find($sundayservice->user_id);
+			$new_lleader=User::find(Request::input ( 'lectors_list' ));
+			
+
+			if($old_lleader->id!=$new_lleader->id){
+				$this->sendMessage($old_lleader,$new_lleader,$sermon->date,'Leitungs');
+				
+			}
+
+			$old_sleader=Member::find($sermon->preacher_id);
+			$new_sleader=Member::find(Request::input ( 'preachers_list'));
+			if($old_sleader->id!=$new_sleader->id){
+				$post = new Message();
+		    	$post->sender_id = 0;
+				$post->receiver_id = $old_sleader->id;
+				$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigt Dienst</h4>'.$new_sleader->onlinename.' hat für dich übernommen.';
+				$post->visited=1;
+				$post->save();
+
+				$post = new Message();
+		    	$post->sender_id = $new_sleader->id;
+				$post->receiver_id = 0;
+				$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigt Dienst</h4>'.$old_sleader->onlinename.' hat mit dir getauscht..';
+				$post->visited=1;
+				$post->save();
+				
+			}
+			/**
+			 *** Kigo id suchen und speichern ***
 			 */
 			$kigoleader_id = Request::input ( 'kigos_list' );
 			$kigo->user_id = $kigoleader_id;
 			$kigo->lection = Request::input ( 'lection' );
 			$kigo->lection_number = Request::input ( 'lection_number' );
-			$kigo->save ();
 			
+			
+			$kigo->save ();
+			echo $kigo->users->username;
 			/**
 			 * ** Preacher id + date suchen und speichern ***
 			 */
@@ -85,6 +127,8 @@ class SundayController extends Controller {
 			$sermon_id = Sermon::orderBy ( 'created_at', 'DESC' )->first ();
 			$sundayservice->user_id = $lector_id;
 			$sundayservice->save ();
+
+
 			
 			return redirect ( 'sundays/index' )->with ( 'message', 'success|Sonntag erfolgreich angelegt!' );
 		} else {
@@ -304,6 +348,25 @@ class SundayController extends Controller {
 
 	public function getPreacherslist(){
 		return Member::all()->lists ( 'onlinename', 'id' );
+	}
+
+	public function sendMessage($old,$new,$date,$task){
+
+				$post = new Message();
+		    	$post->sender_id = 0;
+				$post->receiver_id = $old->id;
+				$post->content = date('d.m.Y',$date).'<h4>Kein '.$task.' Dienst</h4>'.$new->username.' hat für dich übernommen.';
+				$post->visited=1;
+				$post->save();
+
+				$post = new Message();
+		    	$post->sender_id = $new->id;
+				$post->receiver_id = 0;
+				$post->content = date('d.m.Y',$date).'<h4>Neuer '.$task.'Dienst</h4>'.$old->username.' hat mit dir getauscht.';
+				$post->visited=1;
+				$post->save();
+
+			
 	}
 
 }
