@@ -6,8 +6,6 @@
     @endif 
 @stop 
 @section('menu')
-
-
   	<ul class="nav nav-tabs">
   	 @if($filter==1)
 	<li role="presentation" ><a href="/sundays/index/{!! strtotime('01.01.'.date('Y')) !!} " class="set_aktive"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {!! date("Y") !!}</a></li>
@@ -35,15 +33,8 @@
 	  </li>	
 	  @endif  
 	  <li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
-
 	</ul>
-
-
 </div>
-
-	
-	
-
 @stop
 
 @section('content')

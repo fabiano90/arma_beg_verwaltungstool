@@ -2,7 +2,7 @@
 
 @section('content')
 	{!!HTML::script('js/editsermonaddsubitem.js')!!}
-
+<section class="section content-shadow content-box">
 	{!! Form::model($sermon, array('url' => array('sermons/editsermon', $sermon->id))) !!}
     <h2 class="form-signup-heading">Predigt vom {!! date('d.m.Y', $sermon->date) !!} bearbeiten</h2>
     {!! Form::label('scripture', 'Predigttext') !!}
@@ -34,5 +34,7 @@
 	{!! Form::text('link', null, array('class'=>'form-control', 'placeholder'=>'MP3-Link')) !!}
 	{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block', 'id' => 'submitButton'))!!}
 	{!! Form::close() !!}
+<section class="section content-shadow content-box"></section>
+
 
 @stop

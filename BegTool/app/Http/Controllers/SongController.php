@@ -19,15 +19,18 @@ class SongController extends Controller
 {
 	public function getIndex()
 	{	
-		//$songs = Sundayservice::has('songs')->has('sermons')->orderBy('date', 'DESC')->get();
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
 		$songs = Song::all();
-		return view('songs.index')->with('songs', $songs);//->with('song_dates', $song_dates)->with('song_count', $song_count);
+		return view('songs.index')->with('songs', $songs)->with('newMessages', $newMessages)->with('user', $user);
 	}
 
 	public function getAddsong()
-	{
+	{	
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
 		$songs = Song::all();
-		return view('songs.addsong')->with('songs', $songs);
+		return view('songs.addsong')->with('songs', $songs)->with('newMessages', $newMessages);
 	}
 
 	public function postAddsong(){
@@ -50,8 +53,10 @@ class SongController extends Controller
 	}
 
 	public function getEditsong($song_id){
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
 		$song = Song::find($song_id);
-		return view('songs.editsong')->with('song', $song);
+		return view('songs.editsong')->with('song', $song)->with('newMessages', $newMessages);
 	}
 
 	public function postEditsong($song_id){

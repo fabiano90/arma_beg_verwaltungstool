@@ -1,6 +1,13 @@
 @extends('layouts.main')
+@section('messages') 
+    @if($newMessages>'0')
+    <span class="label label-danger message-cound">
+        {!!$newMessages." neu"!!}</span> 
+    @endif 
+@stop
 @section('menu')
     <ul class="nav nav-tabs">
+        <li role="presentation" ><a href='/sundays'><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
         <li role="presentation"class="active" ><a href='/sundays/newsunday'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Gottesdienst</a></li>
         <li role="presentation"><a href='{!! '/sundays/newyear/'.date('Y')!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {!!' Jahr '.date('Y')!!}</a></li>
         <li role="presentation"><a href='{!! '/sundays/newyear/'.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{!!'Jahr '.date("Y", strtotime(date("Y", strtotime(date("Y"))) . " + 1 year"))!!}</a></li>
@@ -35,7 +42,7 @@
     {!! Form::label('lectors_list', 'Lektor') !!}
     {!! Form::select('lectors_list', $lectors_list, null, array('class'=>'form-control', 'style'=> '')) !!}
   
-    {!! Form::submit('Speichern', array('class'=>'btn btn-large save-button'))!!}
+    {!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block', 'id' => 'submitButton'))!!}
 {!! Form::close() !!}
 <br/>
 </section>

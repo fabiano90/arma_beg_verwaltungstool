@@ -19,37 +19,27 @@ class SundayController extends Controller {
 
 	public function getIndex($filter=1) {
 		$user=Auth::user();
-		if($filter==1){
-			$datetime=time();
-			
-		}else{
-			$datetime=$filter;
-		}
 		$newMessages = $user->newMessages($user);
 		
-		$sundayservices=Sundayservice::whereHas('sermons', function($q) use ($datetime)
-				{
-				    $q->where('date','>=',$datetime);
-				   
+		$sundayservices= new Sundayservice();
+		$sundayservicesAfterDate=$sundayservices->sundayservicesAfterDate($filter);
 
-				})->get();
-			
-		
-		
-			
-		return view ( 'sundays.index' )->with('newMessages', $newMessages)->with ( 'sundayservices', $sundayservices )->with ( 'user', $user )->with ( 'filter', $filter );
+		return view ( 'sundays.index' )->with('newMessages', $newMessages)->with ( 'sundayservices', $sundayservicesAfterDate)->with ( 'user', $user )->with ( 'filter', $filter );
 	}
 
 	
 	public function getEditsunday($sundayId) {
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
+
 		$sunday=Sundayservice::find($sundayId);
 
-		$kigos_list = $this->getKigoslist();
-		$preachers_list = $this->getPreacherslist();
-		$lectors_list = $this->getLectorslist();
-		
+		$kigos_list = User::getKigoslist();
+		$preachers_list = Member::getPreacherslist();
+		$lectors_list = User::getLectorslist();
+
 		$kigo = $sunday->kigos;
-		return view ( 'sundays.editsunday' )->with ( 'sunday', $sunday )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with('kigo', $kigo);
+		return view ( 'sundays.editsunday' )->with('newMessages', $newMessages)->with ( 'sunday', $sunday )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with('kigo', $kigo);
 	}
 
 	public function postEditsunday($actualSunday) {
@@ -148,11 +138,14 @@ class SundayController extends Controller {
 	}
 
 	public function getNewsunday() {
-		$kigos_list = $this->getKigoslist();
-		$preachers_list = $this->getPreacherslist();
-		$lectors_list = $this->getLectorslist();
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
+
+		$kigos_list = User::getKigoslist();
+		$preachers_list = Member::getPreacherslist();
+		$lectors_list = User::getLectorslist();
 		
-		return view ( 'sundays.newsunday' )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list );
+		return view ( 'sundays.newsunday' )->with('newMessages', $newMessages)->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list );
 	}
 
 	public function postNewsunday() {
@@ -160,7 +153,11 @@ class SundayController extends Controller {
 		$kigo = new Kigo ();
 		$sermon = new Sermon ();
 		$validator = Validator::make ( Request::all (), Sundayservice::$rules );
+		
 		if ($validator->passes ()) {
+			$date=['date' => strtotime(Request::input ( 'date' ))];
+			$datevalidator = Validator::make ($date , Sundayservice::$rulesdate );
+			if($datevalidator->passes ()){
 			/**
 			 * ** Kigo id suchen und speichern ***
 			 */
@@ -194,6 +191,10 @@ class SundayController extends Controller {
 			$sundayservice->save ();
 			
 			return redirect ( 'sundays/index' )->with ( 'message', 'success|Sonntag erfolgreich angelegt!' );
+		}else {
+			// validation has failed, display error messages
+			return redirect ( 'sundays/newsunday' )->with ( 'message', 'danger|Sonntag schon vorhanden' )->withErrors ( $validator )->withInput ();
+		}
 		} else {
 			// validation has failed, display error messages
 			return redirect ( 'sundays/newsunday' )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
@@ -201,17 +202,16 @@ class SundayController extends Controller {
 	}
 
 	public function getEdityear($year) {
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
 		
-		 $lastyear = $year-"1 year";
-		 $lastyear = strtotime("31.12.".$lastyear);
-		 $nextyear = $year+"1 year";
-		 $nextyear = strtotime("01.01.".$nextyear);
+		$sundays=Sundayservice::sundaysOfYear($year);
 
-		$sundays=Sermon::where('date', '<', $nextyear )->where('date', '>', $lastyear )->get();
-		$kigos_list =$this-> getKigoslist();
-		$preachers_list =$this-> getPreacherslist();
-		$lectors_list = $this->getLectorslist();
-		return view ( 'sundays.editYear' )->with ( 'sundays', $sundays )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with ( 'year', $year );
+		$kigos_list = User::getKigoslist();
+		$preachers_list = Member::getPreacherslist();
+		$lectors_list = User::getLectorslist();
+
+		return view ( 'sundays.editYear' )->with('newMessages', $newMessages)->with ( 'sundays', $sundays )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with ( 'year', $year );
 	}
 
 	public function postEdityear() {
@@ -219,12 +219,11 @@ class SundayController extends Controller {
 			
 		$validator = Validator::make ( Request::all (), Sundayservice::$rulesedit );
 		if ($validator->passes ()) {
-
 			
-			
+				
 			$sundays=Sundayservice::all();
 			foreach ($sundays as $sunday) {
-			
+				
 				$sundayservice = Sundayservice::find($sunday->id);
 				$kigo = Kigo::find($sunday->kigo_id);
 				$sermon = Sermon::find($sunday->sermon_id);
@@ -248,10 +247,10 @@ class SundayController extends Controller {
 				 */
 				$sundayservice->user_id = Request::input ( 'lectors_list' . $sunday->id );
 				$sundayservice->save ();
-				 
+				
 				
 			}
-			return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
+			return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr erfolgreich bearbeitet!');
 		} else {
 			// validation has failed, display error messages
 			return redirect ( 'sundays.edityear/2015' )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
@@ -259,61 +258,74 @@ class SundayController extends Controller {
 	}
 
 	public function getNewyear($year) {
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
 		$sundays = $this->sundaysYear ( $year );
-		$kigos_list =$this-> getKigoslist();
-		$preachers_list =$this-> getPreacherslist();
-		$lectors_list = $this->getLectorslist();
-		return view ( 'sundays.newYear' )->with ( 'sundays', $sundays )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with ( 'year', $year );
+
+		$kigos_list = User::getKigoslist();
+		$preachers_list = Member::getPreacherslist();
+		$lectors_list = User::getLectorslist();
+
+		return view ( 'sundays.newYear' )->with('newMessages', $newMessages)->with ( 'sundays', $sundays )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with ( 'year', $year );
 	}
 
 	public function postNewyear() {
 		$year = Request::input ( 'year' );
 		$sundays = $this->sundaysYear ( $year );
-		
+		$count=0;
 		$validator = Validator::make ( Request::all (), Sundayservice::$rulesedit );
 		if ($validator->passes ()) {
 			
 			for($i = 0; $i < 52; $i ++) {
-				
-				$sundayservice = new Sundayservice ();
-				$kigo = new Kigo ();
-				$sermon = new Sermon ();
-				
-				/**
-				 * ** Kigo suchen und speichern ***
-				 */
-				$kigoleader_id = Request::input ( 'kigos_list' . $sundays [$i] );
-				$kigo->user_id = $kigoleader_id;
-				$kigo->lection = Request::input ( 'lection' . $sundays [$i] );
-				$kigo->lection_number = Request::input ( 'lection_number' . $sundays [$i] );
-				
-				/**
-				 * ** Preacher id + date suchen und speichern ***
-				 */
-				$preacher_id = Request::input ( 'preachers_list' . $sundays [$i] );
-				$sermon->preacher_id = $preacher_id;
-				$date = Request::input ( 'date' . $sundays [$i] );
-				$sermon->date=strtotime($date);
-				echo $sermon->date;
-				/**
-				 * ** Lector id suchen***
-				 */
-				$lector_id = Request::input ( 'lectors_list' . $sundays [$i] );
-				$sundayservice->user_id = $lector_id;
-				
-				$sermon->save ();
-				$kigo->save ();
-				/**
-				 * ** Kigo und Sermon id suchen und Speichern***
-				 */
-				$kigo_id = Kigo::orderBy ( 'id', 'DESC' )->first ();
-				$sermon_id = Sermon::orderBy ( 'id', 'DESC' )->first ();
-				$sundayservice->user_id = $lector_id;
-				$sundayservice->kigo_id = $kigo_id->id;
-				$sundayservice->sermon_id = $sermon_id->id;
-				$sundayservice->save ();
+				$date=['date' => strtotime(Request::input ( 'date' . $sundays [$i] ))];
+				$datevalidator = Validator::make ($date , Sundayservice::$rulesdate );
+				if($datevalidator->passes ()){
+					$sundayservice = new Sundayservice ();
+					$kigo = new Kigo ();
+					$sermon = new Sermon ();
+					
+					/**
+					 * ** Kigo suchen und speichern ***
+					 */
+					$kigoleader_id = Request::input ( 'kigos_list' . $sundays [$i] );
+					$kigo->user_id = $kigoleader_id;
+					$kigo->lection = Request::input ( 'lection' . $sundays [$i] );
+					$kigo->lection_number = Request::input ( 'lection_number' . $sundays [$i] );
+					
+					/**
+					 * ** Preacher id + date suchen und speichern ***
+					 */
+					$preacher_id = Request::input ( 'preachers_list' . $sundays [$i] );
+					$sermon->preacher_id = $preacher_id;
+					$date = Request::input ( 'date' . $sundays [$i] );
+					$sermon->date=strtotime($date);
+					echo $sermon->date;
+					/**
+					 * ** Lector id suchen***
+					 */
+					$lector_id = Request::input ( 'lectors_list' . $sundays [$i] );
+					$sundayservice->user_id = $lector_id;
+					
+					$sermon->save ();
+					$kigo->save ();
+					/**
+					 * ** Kigo und Sermon id suchen und Speichern***
+					 */
+					$kigo_id = Kigo::orderBy ( 'id', 'DESC' )->first ();
+					$sermon_id = Sermon::orderBy ( 'id', 'DESC' )->first ();
+					$sundayservice->user_id = $lector_id;
+					$sundayservice->kigo_id = $kigo_id->id;
+					$sundayservice->sermon_id = $sermon_id->id;
+					$sundayservice->save ();
+				} else{
+					$count++;
+				}
 			}
-			return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr erfolgreich angelegt!' );
+			if($count==0){
+				return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr erfolgreich angelegt!(');
+			}else{
+				return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr nur teilweise angelegt! <br/>'.$count.' doppelte Sonntage wurden nicht gespeichert. ');
+			}
 		} else {
 			// validation has failed, display error messages
 			return redirect ( 'sundays/newyear/' . $year )->with ( 'message', 'danger|Die folgenden Fehler sind aufgetreten:' )->withErrors ( $validator )->withInput ();
@@ -348,18 +360,6 @@ class SundayController extends Controller {
 		return redirect('sundays')->with('message', 'success|Gottesdienst wurde erfolgreich gelöscht!');
 	}
 
-	public function getKigoslist(){
-		return User::all()->lists ( 'username', 'id' );
-	}
-
-	public function getLectorslist(){
-		return User::where ( 'permission', '<=', 1 )->lists ( 'username', 'id' );
-	}
-
-	public function getPreacherslist(){
-		return Member::all()->lists ( 'onlinename', 'id' );
-	}
-
 	public function sendMessage($old,$new,$date,$task){
 
 				$post = new Message();
@@ -386,7 +386,6 @@ class SundayController extends Controller {
 				$post->visited=1;
 				$post->save();
 
-			
 	}
 
 }

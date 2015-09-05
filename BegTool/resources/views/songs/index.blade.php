@@ -1,11 +1,24 @@
 @extends('layouts.main')
+@section('messages') 
+    @if($newMessages>'0')
+    <span class="label label-danger message-cound">
+        {!!$newMessages." neu"!!}</span> 
+    @endif 
+@stop 
+@section('menu')
+  	<ul class="nav nav-tabs">
+
+		<li role="presentation"><a href='/songs/addsong'><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> neues Lied</a></li>
+
+	  <li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
+	</ul>
+</div>
+@stop
 
 @section('content')
-
-
+<section class="section content-shadow content-box">
 <h2>Lieder</h2>
 <div class="table-responsive">
-<input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 		<thead>
 			<tr>
@@ -24,19 +37,27 @@
 				<td>{!! $song->name !!}</td>				
 				<td>
 					{!! $song->annotation !!}
-				</td>					
-				<td>
-					<ol>
-						<li>gestern</li>	
-						<li>der Tag davor</li>	
-						<li>1912</li>	
-					</ol>
+				</td>
+				@if ($song->sundayservices->count()==0)
+						<td data-type="numeric" data-value='0'>noch nicht gesungen</td>
+					@else
+				@foreach($song->sundayservices->reverse()->take(1) as $songdate)
+				<td	data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}' >
+				@endforeach		
+
+					
+						@foreach($song->sundayservices->reverse()->take(3) as $songdate)
+						{!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}  <br/>
+						@endforeach	
+					@endif 
 				</td>	
-				<td>3</td>
+				<td>{!!$song->sundayservices->count()!!}</td>
 				<td>
 					<div class="btn-group">								
 						<a href="/songs/editsong/{!! $song->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
-						{!! HTML::link('/songs/deletesong/'.$song->id, 'X', array('class'=>'btn btn-default', 'onClick'=>'return confirm(\'Wirklich löschen?\');')) !!}
+						@if ($user->permission==0)	
+							<a href=""  title="Inhalt leeren?" onClick="if(confirm('Sontag wirklich löschen?') == true){window.location = '/sundays/deletesunday/'.$sundayservice->id';}else{window.location = '/sundays';}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>								
+						@endif
 					</div>				
 				</td>		
 			</tr>
@@ -45,8 +66,5 @@
 	</table>
 </div>
 <br/>
-
-
-{!! HTML::link('songs/addsong', 'Hinzufügen', array('class' => 'btn btn-default'))!!}
-{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
+</section>
 @stop			

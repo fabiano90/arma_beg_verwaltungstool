@@ -23,9 +23,6 @@ class Message extends Model
 	{
 	    return $this->belongsTo('App\Models\User', 'receiver_id');
 	}
-	public function newMessages($user) {
-		$systemMessage = ['receiver_id' => '0', 'sender_id' => $user->id];
-		return DB::table('messages')->where('receiver_id', $user->id)->orWhere($systemMessage)->sum('visited');
-	}
+
 }
 

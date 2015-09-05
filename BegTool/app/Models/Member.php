@@ -11,6 +11,9 @@ class Member extends Model {
 		return $this->hasMany ( 'App\Models\sermon', 'preacher_id' );
 	}
 
+	public static function getPreacherslist(){
+		return Member::all()->lists ( 'onlinename', 'id' );
+	}
 	public static $rules = array (
 			'firstname' => 'required|alpha|min:2',
 			'lastname' => 'required|alpha|min:2',

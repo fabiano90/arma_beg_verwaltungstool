@@ -81,6 +81,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 					->orWhere($systemMessage)
 					->sum('visited');
 	}
+	public static function getKigoslist(){
+		return User::all()->lists ( 'username', 'id' );
+	}
+
+	public static function getLectorslist(){
+		return User::where ( 'permission', '<=', 1 )->lists ( 'username', 'id' );
+	}
+
+
+
 
     /**
      * The attributes that are mass assignable.

@@ -30,17 +30,43 @@ class Sundayservice extends Model
 	{
 		return $this->belongsTo('App\Models\Vers', 'vers_id');
 	}
-
-	public function sermons()
-	{
-		return $this->belongsTo('App\Models\Sermon', 'sermon_id');
+	public function sermons(){
+			return $this->belongsTo('App\Models\Sermon', 'sermon_id');
 	}
-	
+		
 	public function kigos(){
-		return $this->belongsTo('App\Models\Kigo', 'kigo_id' );
+			return $this->belongsTo('App\Models\Kigo', 'kigo_id' );
+	}
+
+	public static function sundaysOfYear($year){
+
+		$lastyear = $year-"1 year";
+		$lastyear = strtotime("31.12.".$lastyear);
+		$nextyear = $year+"1 year";
+		$nextyear = strtotime("01.01.".$nextyear);
+
+		return Sermon::where('date', '<', $nextyear )->where('date', '>', $lastyear )->get();
+
 	}
 
 
+
+	public function sundayservicesAfterDate($filter){
+		if($filter==1){
+			$datetime=time();	
+		}else{
+			$datetime=$filter;
+		}
+		return Sundayservice::whereHas('sermons', function($q) use ($datetime)
+				{
+				    $q->where('date','>=',$datetime);
+				})->get();
+	}
+
+	public static $rulesdate = array(
+			'date' => 'unique:sermons'
+			
+	);
 
 	public static $rules = array(
 			'date' => 'date_format:d.m.Y|required' ,

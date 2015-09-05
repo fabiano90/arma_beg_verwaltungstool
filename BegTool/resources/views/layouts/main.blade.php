@@ -14,12 +14,7 @@
 {!!HTML::style('css/stickysort-css/normalize.css')!!}
 {!!HTML::style('css/stickysort-css/stickysort.css')!!}
 {!!HTML::style('css/stickysort-css/styles.css')!!}
-
-
-
 <!-- JavaScript -->
-
-
 {!!HTML::script('js/moment.js')!!}
 {!!HTML::script('js/jquery.min.js')!!}
 {!!HTML::script('js/jquery.js')!!}
@@ -30,7 +25,6 @@
 {!!HTML::script('js/offcanvas.js')!!}
 {!!HTML::script('js/jquery.ba-throttle-debounce.min.js')!!}
 {!!HTML::script('js/ScrollToFixed-master/jquery-scrolltofixed.js')!!}
-
 {!!HTML::script('js/footable-plugin/footable.js')!!}
 {!!HTML::script('js/footable-plugin/footable.plugin.template.js')!!}
 {!!HTML::script('js/footable-plugin/footable.sort.js')!!}
@@ -61,9 +55,9 @@
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/users"  title="Schreibe und empfange Nachrichten"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
-					<li><a href="/messages/chat/0#end"  title="Schreibe und empfange Nachrichten"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@yield('messages')</a></li>
 					<li><a href="/sundays" title="Hier kannst du deine Dienste einsehen und tauschen"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></a></li>
 					<li><a href="/songs" title="Informationen zu Liedern"><span class="glyphicon glyphicon-music" aria-hidden="true"></span></a></li>
+					<li><a href="/messages/chat/0#end"  title="Schreibe und empfange Nachrichten"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@yield('messages')</a></li>
 					<li><a href="/members" title="Geburtstage, Emailadressen und Namen von Gemeindemitgliedern, Mitarbeitern und Freunden"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
 	            	<li><a href="/login/logout" title="Auslogen"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></a></li>
 	            	<li class="dropdown" title="Hier geht es zu den Listen Kigo, Leitung und Predigten. Trage deine Dienste ein.">
