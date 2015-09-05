@@ -1,6 +1,19 @@
 @extends('layouts.main')
+@section('messages') 
+    @if($newMessages>'0')
+    <span class="label label-danger message-cound">
+        {!!$newMessages." neu"!!}</span> 
+    @endif 
+@stop
+
+@section('menu')
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href='/members'><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+    </ul>
+@stop
 
 @section('content')
+<section class="section content-shadow content-box">
 		{!! Form::open(array('url'=>'members/register', 'class'=>'form-signup')) !!}		
         <h2 class="form-signup-heading">Registrierung</h2>
 		{!! Form::label('firstname', 'Vorname') !!}
@@ -15,4 +28,5 @@
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div>
 		{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 		{!! Form::close() !!}
+</section>
 @stop

@@ -1,11 +1,25 @@
 @extends('layouts.main')
+@section('messages') 
+    @if($newMessages>'0')
+    <span class="label label-danger message-cound">
+        {!!$newMessages." neu"!!}</span> 
+    @endif 
+@stop
+
+@section('menu')
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href='/members'><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+    </ul>
+@stop
 
 @section('content')
+<section class="section content-shadow content-box">
 	@if( !($auth_user->permission == 0 || $auth_user->member_id == $member->id) )
-		<h2>Sie sind nicht berechtigt Mitglied {!! $member->firstname !!} {!! $member->lastname !!} zu bearbeiten</h2>
+		<h2>Sie sind nicht berechtigt Mitglied {!! $member->onlinename !!} zu bearbeiten</h2>
 	@else
 		{!! Form::model($member, array('url' => array('members/editmember', $member->id))) !!}		
-		<h2 class="form-signup-heading">Mitglied {!! $member->firstname !!}{!! $member->lastname !!} bearbeiten</h2>
+		
+		<h2 class="form-signup-heading">{!! $member->onlinename !!} bearbeiten</h2>
 			
 		{!! Form::label('firstname', 'Vorname') !!}
 		{!! Form::text('firstname', null, array('id'=>'firstname', 'class'=>'form-control', 'placeholder'=>'Vorname')) !!}
@@ -20,5 +34,6 @@
 		{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 		{!! Form::close() !!}
 	@endif
+</section>
 
 @stop

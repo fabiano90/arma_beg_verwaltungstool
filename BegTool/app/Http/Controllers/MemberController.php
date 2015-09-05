@@ -16,14 +16,18 @@ class MemberController extends Controller
 	public function getIndex()
 	{
 		$auth_user = Auth::user();
+		$newMessages = $auth_user->newMessages($auth_user);
+		
 		$users = User::all();
 		$members = Member::all();
-		return view('members.index')->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
+		return view('members.index')->with('newMessages', $newMessages)->with('members', $members)->with('users', $users)->with('auth_user', $auth_user);//->with('user', $persons);
 	}
 
 	public function getRegister(){
 		$members = new Member();
-		return view('members.register');//->with('member', $members);
+		$user=Auth::user();
+		$newMessages = $user->newMessages($user);
+		return view('members.register')->with('newMessages', $newMessages);
 	}
 
 	public function postRegister(){
@@ -47,18 +51,20 @@ class MemberController extends Controller
 	}
 
 	public function getAdduser($member_id){
-		$auth_user = Auth::user();		
+		$auth_user=Auth::user();
+		$newMessages = $auth_user->newMessages($auth_user);	
 		if($auth_user->permission == 0){	
 			$member = Member::find($member_id);			
-			return view('users.register')->with('member', $member);			
+			return view('users.register')->with('newMessages', $newMessages)->with('member', $member);			
 		}
 		return redirect('members');		
 	}
 
 	public function getEditmember($member_id){
 		$auth_user = Auth::user();
+		$newMessages = $auth_user->newMessages($auth_user);
 		$member = Member::find($member_id);
-		return view('members.editmember')->with('member', $member)->with('auth_user', $auth_user);
+		return view('members.editmember')->with('newMessages', $newMessages)->with('member', $member)->with('auth_user', $auth_user);
 	}
 
 	public function postEditmember($member_id){

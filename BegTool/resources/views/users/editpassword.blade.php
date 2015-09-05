@@ -1,6 +1,12 @@
 @extends('layouts.main')
+@section('menu')
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href='/members'><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+    </ul>
+@stop
 
 @section('content')
+<section class="section content-shadow content-box">
 	@if( !($auth_user->permission == 0 || $auth_user->id == $user->id) )
 		<h2>Sie sind nicht berechtigt das Passwort von Mitarbeiter 
 			{!! $user->username !!} ({!! $member->firstname!!} {!! $member->lastname!!}) zu ändern</h2>
@@ -19,4 +25,5 @@
 		{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 		{!! Form::close() !!}
 	@endif
+</section>
 @stop

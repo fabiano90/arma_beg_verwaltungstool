@@ -1,11 +1,17 @@
 @extends('layouts.main')
+@section('menu')
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href='/members'><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+    </ul>
+@stop
 
 @section('content')
+<section class="section content-shadow content-box">
 	@if( !($auth_user->permission == 0 || $auth_user->id == $user->id) )
 		<h2>Sie sind nicht berechtigt Mitarbeiter {!! $user->username !!} ({!! $member->firstname!!} {!! $member->lastname!!}) zu bearbeiten</h2>
 		{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 	@else
-    	<h2>Mitarbeiter {!! $user->username !!} ({!! $member->firstname!!} {!! $member->lastname!!}) bearbeiten</h2>
+    	<h2>{!! $user->username !!} bearbeiten</h2>
 
 		{!! Form::open(array('url'=>'users/edituser/'.$user->id, 'class'=>'form-signup')) !!}		
 
@@ -50,6 +56,7 @@
 
 		{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 		{!! Form::close() !!}
-		{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
+		
 	@endif
+</section>
 @stop

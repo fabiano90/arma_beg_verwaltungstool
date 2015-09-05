@@ -1,10 +1,23 @@
 @extends('layouts.main') 
+@section('menu')
+  	<ul class="nav nav-tabs">
+  	 
+	<li role="presentation" ><a href="" class="filter-api set_aktive" value='{!! date("Y")!!}' title=""><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {!! date("Y")!!}</a></li>
+	<li role="presentation" ><a href="" class="filter-api set_aktive" value='{!! date("m.Y") !!}'  title=""><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {!! date("F") !!}</a></li>
+	<li role="presentation" ><a href="" class="filter-api set_aktive" value='{!! date("m.Y", strtotime("+ 1 month"))!!}' title=""><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {!! date("F", strtotime("+ 1 month"))!!}</a></li>
+	<li role="presentation" ><a href="" class="filter-api set_aktive" value='{!! date("Y", strtotime(" + 1 year"))!!}' title=""><span class="glyphicon glyphicon-filter" aria-hidden="true"></span> {!! date("Y", strtotime(" + 1 year"))!!}</a></li>
+
+	 
+	  <li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
+	</ul>
+</div>
+@stop
 
 @section('content')
+<section class="section content-shadow content-box">
 
 <h2 class='header'>Leitung</h2>
 <div class="table-responsive">
-<input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable" data-filter="#filter">
 		<thead id='summary'>
 			<tr>
@@ -48,4 +61,5 @@
 		</tbody>
 	</table>	
 </div>
+</section>
 @stop

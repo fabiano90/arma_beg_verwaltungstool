@@ -66,7 +66,6 @@
 				            {!! cleverLink('/kigos', 'Kigo') !!}
 	            			{!! cleverLink('/sundayservices', 'Leitung') !!} 
 	            			{!! cleverLink('/sermons', 'Predigten') !!}
-				            {!! cleverLink('/members', 'Nutzer') !!}  
 				          </ul>
 				    </li>
 	            	

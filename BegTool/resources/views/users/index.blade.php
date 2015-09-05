@@ -39,7 +39,9 @@
                                 @foreach($kigos as $kigo)
                                 <tr>
                                     <td data-type="numeric" data-value='{!! $kigo->date !!}'>
-                                        <a class="pull-right" href="/kigos/editkigo/{!! $kigo->id !!}" class=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> {!! date('d.m.Y', $kigo->date) !!}
+                                        <a class="pull-right" href="/kigos/editkigo/{!! $kigo->id !!}" class=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> 
+                                        <a class="pull-right" href="/sundays/editsunday/{!! $kigo->id !!}" title="Dienste tauschen, Lektion hinzufügen"class="btn btn-default"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></a>
+                                        {!! date('d.m.Y', $kigo->date) !!}
                                         <h3>Kigo </h3>
                                     </td>
                                     
@@ -49,6 +51,7 @@
                                 <tr>
                                     <td data-type="numeric" data-value='{!! $lektor->sermons->date !!}'>
                                         <a class="pull-right"href="/sundayservices/editservice/{!! $lektor->id !!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> {!! date('d.m.Y', $lektor->sermons->date) !!}
+                                        <a class="pull-right" href="/sundays/editsunday/{!! $lektor->id !!}" title="Dienste tauschen, Lektion hinzufügen"class="btn btn-default"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></a>
                                         <h3>Leitung </h3>
                                     </td
                                 </tr>
@@ -57,6 +60,7 @@
                                 <tr>
                                     <td data-type="numeric" data-value='{!! $sermon->date !!}'>
                                         {!! date('d.m.Y', $sermon->date) !!} <a class="pull-right" href="/sermons/editsermon/{!! $sermon->preacher_id !!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> 
+                                        <a class="pull-right" href="/sundays/editsunday/{!! $sermon->id !!}" title="Dienste tauschen, Lektion hinzufügen"class="btn btn-default"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></a>
                                         <h3>Predigt</h3>
                                   </td>
                                 </tr>

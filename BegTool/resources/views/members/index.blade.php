@@ -1,5 +1,10 @@
 @extends('layouts.main')
-
+@section('messages') 
+    @if($newMessages>'0')
+    <span class="label label-danger message-cound">
+        {!!$newMessages." neu"!!}</span> 
+    @endif 
+@stop
 @section('menu')
 
 
@@ -46,16 +51,19 @@
 		    						@if($member->id == $user->member_id)
 		    							<!--{!! $temp = $user->id; !!}-->										
 										@if($user->permission == 0)
-											<td>Admin ({!! $user->permission !!})</td>
+											<td>Admin</td>
 										@elseif($user->permission == 1)
-											<td>Leitung & Kigo ({!! $user->permission !!})</td>
+											<td>Leitung & Kigo</td>
 										@elseif($user->permission == 2)
-											<td>Kigo anlegen ({!! $user->permission !!})</td>
-										@endif										
+											<td>Kigo anlegen</td>
+										@endif
+									@else
+
 									@endif
 								@endforeach
 								@if($temp == -1)
-									<td></td>
+									<td><a href="/members/adduser/{!! $member->id !!}" title="Nutzeraccount anlegen" class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> als Mitarbeiter hinzufügen</a>			 															
+										</td>
 								@endif
 							@endif
 							<td>
@@ -77,7 +85,6 @@
 										@endforeach
 										@if($temp == -1)
 											<a href="/members/editmember/{!! $member->id !!}" title="Bearbeiten" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
-											<a href="/members/adduser/{!! $member->id !!}" title="Nutzeraccount anlegen" class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>			 															
 										@endif
 										@if($auth_user->member_id != $member->id)
 											<a href=""  title="Mitglied löschen" onClick="if(confirm('Wirklich löschen?') == true){window.location = '/members/deletemember/{!! $member->id !!}';}else{window.location = '/members';}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>			

@@ -1,6 +1,12 @@
 @extends('layouts.main')
+@section('menu')
+    <ul class="nav nav-tabs">
+        <li role="presentation" ><a href='/members'><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>
+    </ul>
+@stop
 
 @section('content')
+<section class="section content-shadow content-box">
     <h2>{!! $member->firstname!!} {!! $member->lastname!!} als Mitarbeiter anlegen</h2>
 		{!! Form::open(array('url'=>'users/register/'.$member->id, 'class'=>'form-signup')) !!}		
 		{!! Form::label('firstname', 'Vorname') !!}
@@ -32,4 +38,5 @@
 
 		{!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 		{!! Form::close() !!}
+</section>
 @stop

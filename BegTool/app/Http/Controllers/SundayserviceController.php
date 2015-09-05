@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 use DB;
 use Auth;
+use ..\plugins\dompdf\dompdf_config.inc.php;
 
 class SundayserviceController extends Controller {
 
@@ -32,9 +33,25 @@ class SundayserviceController extends Controller {
 			foreach ($sunday->songs as $song) {
 				$songsOrder[$song->pivot->order] = ': '.$song->name;
 			}
-			return view ( 'sundayservices.editservice' )->with ( 'sunday', $sunday )->with('songs', $songs)->with('songsOrder', $songsOrder);
+			return view ( 'sundayservices.editservice' )->with ( 'user', $auth_user )->with ( 'sunday', $sunday )->with('songs', $songs)->with('songsOrder', $songsOrder);
 		}
 		return redirect('sundayservices');
+	}
+	public function getPdf(){
+			require_once("plugins/dompdf/dompdf_config.inc.php");
+	spl_autoload_register('DOMPDF_autoload');
+	function pdf_create($html, $filename, $paper, $orientation, $stream=TRUE)
+	{
+		$dompdf = new DOMPDF();
+		$dompdf->set_paper($paper,$orientation);
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$dompdf->stream($filename.".pdf");
+	}
+	$filename = 'sonntag';
+	$dompdf = new DOMPDF();
+	$html = 'haloo'; 
+	pdf_create($html,$filename,'A4','portrait');
 	}
 
 	public function postEditservice($service_id){

@@ -5,6 +5,7 @@
 
 <h2>Predigt</h2>
 
+
 <div class="table-responsive">
 <input id="filter" class="form-control" type="text" placeholder="Suche">
 	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
@@ -12,6 +13,7 @@
 			<tr>
 				<th data-sort-initial="true">Datum</th>
 				<th>Prediger</th>
+				<th>Lektor</th>
 				<th data-hide="phone">Predigttext</th>	
 				<th data-hide="phone">Thema</th>					
 				<th data-hide="phone">Unterpunkte</th>	
@@ -27,7 +29,10 @@
 			@foreach($sermons as $sermon)
 			<tr>
 				<td data-type="numeric" data-value='{!! $sermon->date!!}'>{!! date('d.m.Y', $sermon->date) !!}</td>
-				<td>{!! $sermon->members->onlinename !!}</td>
+				<td>{!! $sermon->preacher_id !!}
+					{!! $sermon->members->onlinename !!}</td>
+				<td>{!! $sermon->sundayservices->users->username!!}</td>
+				
 				<td>{!! $sermon->scripture !!}</td>
 				<td>{!! $sermon->topic !!}</td>
 				<td><ol>{!! $sermon->subitem !!}</ol></td>
