@@ -28,3 +28,13 @@ Route::controller('sundays', 'SundayController');
 Route::resource('rest/users', 'UserRESTController');
 Route::resource('rest/posts', 'PostRESTController');
 
+Route::get('/emails', function(){
+	$data= ['user'=>'Fabian'];
+	Mail::send('users.index',$data, function($message)
+	{
+	    $message->to('fabian.brammer@outlook.com', 'John Smith')->subject('Welcome!');
+	});
+
+	
+
+});

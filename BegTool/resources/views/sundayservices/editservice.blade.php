@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-12">
                 <section class="section content-shadow content-box">
-                    {!! Form::label('song1', 'Lied 1: Kein Lied gewählt'.$songsOrder[1], array('id' => 'song1')) !!}
+                    {!! Form::label('song1', 'Lied 1: '.$songsOrder[1], array('id' => 'song1')) !!}
                     <div class="table-responsive">
                         <div class="input-group">
                             <span class="input-group-btn">
@@ -76,7 +76,7 @@
             <div class="col-md-12">
                 <section class="section content-shadow content-box">
 
-                    {!! Form::label('song2', 'Lied 2: Kein Lied gewählt'.$songsOrder[2], array('id' => 'song2')) !!}
+                    {!! Form::label('song2', 'Lied 2: '.$songsOrder[2], array('id' => 'song2')) !!}
                     <div class="table-responsive">
 
                         <div class="input-group">
@@ -131,7 +131,7 @@
 
             <div class="col-md-12">
                 <section class="section content-shadow content-box">
-                    {!! Form::label('song3', 'Lied 3: Kein Lied gewählt'.$songsOrder[3], array('id' => 'song3')) !!}
+                    {!! Form::label('song3', 'Lied 3: '.$songsOrder[3], array('id' => 'song3')) !!}
                     <div class="table-responsive">
 
                         <div class="input-group">
@@ -188,7 +188,7 @@
 
             <div class="col-md-12">
                 <section class="section content-shadow content-box">
-                    {!! Form::label('song4', 'Lied 4 (Predigtlied): Kein Lied gewählt'.$songsOrder[4], array('id' => 'song4')) !!}
+                    {!! Form::label('song4', 'Lied 4 (Predigtlied): '.$songsOrder[4], array('id' => 'song4')) !!}
                     <div class="table-responsive">
 
                         <div class="input-group">
@@ -244,7 +244,7 @@
             </div>
             <div class="col-md-12">
                 <section class="section content-shadow content-box">
-                    {!! Form::label('song5', 'Lied 5: Kein Lied gewählt'.$songsOrder[5], array('id' => 'song5')) !!}
+                    {!! Form::label('song5', 'Lied 5: '.$songsOrder[5], array('id' => 'song5')) !!}
                     <div class="table-responsive">
 
                         <div class="input-group">
@@ -301,7 +301,7 @@
 
             <div class="col-md-12">
                 <section class="section content-shadow content-box">
-                    {!! Form::label('song6', 'Lied 6: Kein Lied gewählt'.$songsOrder[6], array('id' => 'song6')) !!}
+                    {!! Form::label('song6', 'Lied 6: '.$songsOrder[6], array('id' => 'song6')) !!}
                     <div class="table-responsive">
 
                         <div class="input-group">

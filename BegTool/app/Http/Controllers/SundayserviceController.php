@@ -12,8 +12,8 @@ use App\Models\Song;
 use Illuminate\Database\Eloquent\Model;
 use Validator;
 use DB;
+use App;
 use Auth;
-use ..\plugins\dompdf\dompdf_config.inc.php;
 
 class SundayserviceController extends Controller {
 
@@ -29,29 +29,123 @@ class SundayserviceController extends Controller {
 		if($auth_user->permission <= 1){
 			$sunday = Sundayservice::find($sundayId);
 			$songs = Song::all();
-			$songsOrder = array(1 => "",2 => "",3 => "",4 => "",5 => "",6 => "");
-			foreach ($sunday->songs as $song) {
-				$songsOrder[$song->pivot->order] = ': '.$song->name;
-			}
+			$songsOrder=Song::songsOrder($songs,$sunday);
 			return view ( 'sundayservices.editservice' )->with ( 'user', $auth_user )->with ( 'sunday', $sunday )->with('songs', $songs)->with('songsOrder', $songsOrder);
 		}
 		return redirect('sundayservices');
 	}
-	public function getPdf(){
-			require_once("plugins/dompdf/dompdf_config.inc.php");
-	spl_autoload_register('DOMPDF_autoload');
-	function pdf_create($html, $filename, $paper, $orientation, $stream=TRUE)
-	{
-		$dompdf = new DOMPDF();
-		$dompdf->set_paper($paper,$orientation);
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$dompdf->stream($filename.".pdf");
-	}
-	$filename = 'sonntag';
-	$dompdf = new DOMPDF();
-	$html = 'haloo'; 
-	pdf_create($html,$filename,'A4','portrait');
+	public function getPdf($sundayservie_id){
+
+		$sundayservice=Sundayservice::find($sundayservie_id);
+		$songs = Song::all();
+		$songsOrder=Song::songsOrder($songs,$sundayservice);
+
+		$pdf = App::make('dompdf.wrapper');
+		$pdf->loadHTML('Gottesdienstzettel für den '.date('d.m.Y',$sundayservice->sermons->date).'
+							<style>
+								table, th, td {
+								   border: 1px solid black;
+								   border-spacing: 0px; 
+								   vertical-align:top;
+								   
+								}
+								th, td {
+								    padding-left: 5px;
+								}
+								th {
+								    text-align: left;
+								}
+							</style>
+							<table> 
+								<tr> 
+									<th>Was</th>
+									<th>Anmerkung </th>  
+								</tr>
+								<tr> 
+									<td>Vorspiel</td>
+									<td>beginnt nach Signal durch den Lektor um 10.15 Uhr </td>  
+								</tr>
+								<tr> 
+									<td>Begrüßung</td>
+									<td>Lektor steht auf, geht hinter das Pult, begrüßt die Gemeinde und Gäste zum Gottesdienst =>  Eröffnung des Gottesdienstes: <br/>
+										<ul>
+											<li><b>Aufforderung an die Gemeinde aufzustehen</b></li>
+											<li>„Wir feiern diesen Gottesdienst im Namen des dreieinigen Gottes, im Namen des Vaters, des Sohnes und des Heiligen Geistes.“</li>
+											<li>Ankündigung des ersten Liedes (die Gemeinde setzt sich wieder).</li>
+										</ul>
+									</td>  
+								</tr>
+								<tr>
+									<td><b>1. Lied</td>
+									<td><b>'.$songsOrder[1].'</b></td>
+								</tr> 
+								<tr>
+									<td>Psalm, Gebet</td>
+									<td><b>Psalm '.$sundayservice->psalm.'</b></td>
+								</tr>
+								<tr>
+									<td>2. Lied</td>
+									<td><b>'.$songsOrder[2].'</b></td>
+								</tr>  
+								<tr>
+									<td>Schriftlesung<br/><b> Glaubensbekenntnis</b></td>
+									<td><b>'.$sundayservice->biblereading.'</b>
+									<br> Ich glaube an Gott, den Vater,den Allmächtigen, den Schöpfer des Himmels und der Erde. Und an Jesus Christus, seinen eingeborenen Sohn, unsern Herrn, empfangen durch den Heiligen Geist, geboren von der Jungfrau Maria, gelitten unter Pontius Pilatus, gekreuzigt, gestorben und begraben, hinabgestiegen in das Reich des Todes, am dritten Tage auferstanden von den Toten, aufgefahren in den Himmel; er sitzt zur Rechten Gottes, des allmächtigen Vaters; von dort wird er kommen, zu richten die Lebenden und die Toten. Ich glaube an den Heiligen Geist, die heilige christliche Kirche, Gemeinschaft der Heiligen, Vergebung der Sünden, Auferstehung der Totenund das ewige Leben. Amen. </td>
+								</tr>
+								<tr>
+									<td>3. Lied</td>
+									<td><b>'.$songsOrder[3].'</b></td>
+								</tr>
+								<tr>
+									<td>Lernvers </td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Predigt</td>
+									<td>Der Prediger sollte nach der Predigt das nächste Lied ansagen.
+									<br/>
+									<br/>
+									<b>!! Aufnahmegerät ausschalten !!</b>
+									</td>
+								</tr>
+								<tr>
+									<td>4. Lied</td>
+									<td><b>'.$songsOrder[4].'</b></td>
+								</tr>
+								<tr>
+									<td>Abkündigungen</td>
+									<td>
+										<ul>
+											<li> Dank für Kollekte und Zweck der heutigen Kollekte</li>
+											<li>Bibelstunde oder Gebetskreis – Mittwoch, 20.30 Uhr (vor dem Gottesdienst klären, wo der Abend stattfinden wird) </li>
+											<li> Junge Erwachsene am Donnerstag um 19.30 Uhr bei Brammers, Parkstraße </li>
+											<li>Einladung zum nächsten Gottesdienst u. Katechismus 9.30 h
+											<li><b>'.$sundayservice->comments.'</b></li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>Gemeinsames Gebet</td>
+									<td>Vater unser im Himmel Geheiligt werde dein Name. Dein Reich komme. Dein Wille geschehe, wie im Himmel, so auf Erden. Unser tägliches Brot gib uns heute.
+									Und vergib uns unsere Schuld, wie auch wir vergeben unsern Schuldigern. Und führe uns nicht in Versuchung, sondern erlöse uns von dem Bösen. Denn dein ist das Reich und die Kraft und die Herrlichkeit in Ewigkeit. Amen. </td>
+								</tr>
+								<tr>
+									<td>Aaronitischer Segen</td>
+									<td>„Der Herr segne und behüte dich, er lasse sein Angesicht leuchten über dir  und sei dir gnädig.  Der Herr erhebe sein Angesicht auf dich und schenke dir seinen Frieden. Amen.“  
+									 <b>(Gemeinde setzt sich wieder)</b> </td>
+								</tr>
+								<tr>
+									<td>5. Lied</td>
+									<td><b>'.$songsOrder[5].'</b></td>
+								</tr>
+								<tr>
+									<td>Nachspiel</td>
+									<td></td>
+								</tr>
+
+							</table>
+						');
+		return $pdf->stream();
 	}
 
 	public function postEditservice($service_id){

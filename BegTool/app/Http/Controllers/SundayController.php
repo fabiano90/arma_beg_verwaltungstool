@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Auth;
 use Validator;
 use DB;
+use Mail;
 
 class SundayController extends Controller {
 
@@ -37,6 +38,8 @@ class SundayController extends Controller {
 		$kigos_list = User::getKigoslist();
 		$preachers_list = Member::getPreacherslist();
 		$lectors_list = User::getLectorslist();
+
+
 
 		$kigo = $sunday->kigos;
 		return view ( 'sundays.editsunday' )->with('newMessages', $newMessages)->with ( 'sunday', $sunday )->with ( 'kigos_list', $kigos_list )->with ( 'preachers_list', $preachers_list )->with ( 'lectors_list', $lectors_list )->with('kigo', $kigo);
@@ -77,9 +80,13 @@ class SundayController extends Controller {
 				$post->receiver_id = $old_sleader->id;
 				if($new_sleader->id != 0){
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigtdienst</h4>'.$new_sleader->onlinename.' hat für dich übernommen.';
+					$data = ['content'=> $post->content, 'receiver' => $new_sleader, 'sender' => $old_sleader, 'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigtdienst</h4>, denn du wurdest ausgetragen.';
+					$data = ['content'=> $post->content, 'receiver' => $new_sleader, 'sender' => $old_sleader, 'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
 				$post->visited=1;
 				$post->save();
@@ -89,9 +96,13 @@ class SundayController extends Controller {
 				$post->receiver_id = 0;
 				if($old_sleader->id != 0){
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigtdienst</h4>'.$old_sleader->onlinename.' hat mit dir getauscht.';
+					$data = ['content'=> $post->content, 'receiver' => $old_sleader, 'sender' => $new_sleader, 'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigtdienst</h4>';
+					$data = ['content'=> $post->content, 'receiver' => $old_sleader, 'sender' => $new_sleader, 'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
 				$post->visited=1;
 				$post->save();
@@ -361,15 +372,18 @@ class SundayController extends Controller {
 	}
 
 	public function sendMessage($old,$new,$date,$task){
-
 				$post = new Message();
 		    	$post->sender_id = 0;
 				$post->receiver_id = $old->id;
 				if($new->id != 0){
 					$post->content = date('d.m.Y', $date).'<h4>Kein '.$task.'dienst</h4>'.$new->username.' hat für dich übernommen.';
+					$data = ['content'=> $post->content, 'receiver' => $old, 'sender' => $old,'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y', $date).'<h4>Kein '.$task.'dienst</h4>, denn du wurdest ausgetragen.';
+					$data = ['content'=> $post->content, 'receiver' => $old,'sender' => $old, 'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
 				$post->visited=1;
 				$post->save();
@@ -379,13 +393,32 @@ class SundayController extends Controller {
 				$post->receiver_id = 0;
 				if($old->id != 0){
 					$post->content = date('d.m.Y', $date).'<h4>Neuer '.$task.'dienst</h4>'.$old->username.' hat mit dir getauscht.';
+					$data = ['content'=> $post->content, 'receiver' => $new, 'sender' => $new,'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y', $date).'<h4>Neuer '.$task.'dienst</h4>';
+					$data = ['content'=> $post->content, 'receiver' => $new, 'sender' => $new, 'subject' => 'Änderung bei den Diensten'];
+					$this->sendEmail($data);
 				}
+
+
 				$post->visited=1;
 				$post->save();
 
+
+
+				
+				
+
 	}
+	public function sendEmail($data){
+			Mail::send('messages.email',$data, function($message) use ($data)
+				{
+				    $message->to($data['receiver']->email, $data['receiver']->username)->subject($data['subject']);
+				});
+return redirect ( 'messages/email' )->with('data',$data);
+	}
+
 
 }

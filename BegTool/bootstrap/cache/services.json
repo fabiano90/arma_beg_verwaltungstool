@@ -1,5 +1,6 @@
 {
     "providers": [
+        "Barryvdh\\DomPDF\\ServiceProvider",
         "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
         "Illuminate\\Auth\\AuthServiceProvider",
         "Illuminate\\Broadcasting\\BroadcastServiceProvider",
@@ -29,6 +30,7 @@
         "App\\Providers\\RouteServiceProvider"
     ],
     "eager": [
+        "Barryvdh\\DomPDF\\ServiceProvider",
         "Illuminate\\Auth\\AuthServiceProvider",
         "Illuminate\\Routing\\ControllerServiceProvider",
         "Illuminate\\Cookie\\CookieServiceProvider",
@@ -62,6 +64,7 @@
         "command.listener.make": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
         "command.model.make": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
         "command.optimize": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
+        "command.policy.make": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
         "command.provider.make": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
         "command.request.make": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
         "command.route.cache": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",
@@ -131,44 +134,18 @@
         "form": "Illuminate\\Html\\HtmlServiceProvider"
     },
     "when": {
-        "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider": [
-
-        ],
-        "Illuminate\\Broadcasting\\BroadcastServiceProvider": [
-
-        ],
-        "Illuminate\\Bus\\BusServiceProvider": [
-
-        ],
-        "Illuminate\\Cache\\CacheServiceProvider": [
-
-        ],
-        "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider": [
-
-        ],
-        "Illuminate\\Hashing\\HashServiceProvider": [
-
-        ],
-        "Illuminate\\Mail\\MailServiceProvider": [
-
-        ],
-        "Illuminate\\Pipeline\\PipelineServiceProvider": [
-
-        ],
-        "Illuminate\\Queue\\QueueServiceProvider": [
-
-        ],
-        "Illuminate\\Redis\\RedisServiceProvider": [
-
-        ],
-        "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider": [
-
-        ],
-        "Illuminate\\Translation\\TranslationServiceProvider": [
-
-        ],
-        "Illuminate\\Html\\HtmlServiceProvider": [
-
-        ]
+        "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider": [],
+        "Illuminate\\Broadcasting\\BroadcastServiceProvider": [],
+        "Illuminate\\Bus\\BusServiceProvider": [],
+        "Illuminate\\Cache\\CacheServiceProvider": [],
+        "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider": [],
+        "Illuminate\\Hashing\\HashServiceProvider": [],
+        "Illuminate\\Mail\\MailServiceProvider": [],
+        "Illuminate\\Pipeline\\PipelineServiceProvider": [],
+        "Illuminate\\Queue\\QueueServiceProvider": [],
+        "Illuminate\\Redis\\RedisServiceProvider": [],
+        "Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider": [],
+        "Illuminate\\Translation\\TranslationServiceProvider": [],
+        "Illuminate\\Html\\HtmlServiceProvider": []
     }
 }
