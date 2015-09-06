@@ -7,11 +7,12 @@
 @stop
 @section('menu')
 
-
-	<ul class="nav nav-tabs">	
-  		<li role="presentation"><a title="Neues Mitglied hinzufügen" href="/members/register"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Hinzufügen</a></li>
-  		<li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
-	</ul>
+	@if($auth_user->permission == 0)
+		<ul class="nav nav-tabs">	
+	  		<li role="presentation"><a title="Neues Mitglied hinzufügen" href="/members/register"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Hinzufügen</a></li>
+	  		<li role="presentation" class="navbar-right"><input id="filter" type="text" class="search-form" placeholder="Suchen"></li>
+		</ul>
+	@endif
 </div>
 @stop
 
@@ -37,13 +38,7 @@
 						<tr>
 							<td>{!! $member->onlinename !!}</td>
 							<td data-type="numeric" data-value= '{!!$member->birthdate!!}'>{!! date('d.m.Y', $member->birthdate) !!}</td>
-							<td>
-								@foreach ($users as $user)
-									@if($member->id == $user->member_id)
-										{!! $user->email !!} 
-									@endif
-								@endforeach
-							</td>
+							<td>{!! $member->email !!}</td>
 							@if($auth_user->permission == 0)
 								{{-- HTML Kommentare nicht löschen!!! --}}
 								<!--{!! $temp = -1 !!}-->

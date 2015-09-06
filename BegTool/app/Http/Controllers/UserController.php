@@ -46,18 +46,6 @@ class UserController extends Controller
 		return view('users.index')->with('user', $user)->with('birthdays', $birthdays)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors)->with('newMessages', $newMessages);
 	}
 
-	public function getUserlist()
-	{
-		$auth_user = Auth::user();
-		$users = User::all();		
-		return view('users.userlist')->with('users', $users)->with('auth_user', $auth_user);
-	}
-
-	public function getRegister(){
-		$user = new User();
-		return view('users.register')->with('user', $user);
-	}
-
 	public function postRegister($member_id){
 		$validator = Validator::make(Request::all(), User::$rules);
     	$user = new User;
@@ -65,9 +53,8 @@ class UserController extends Controller
     	if ($validator->passes()) 
     	{
         	// validation has passed, save user in DB
-        	$user->id = Request::input('member_id');
-		    $user->username = Request::input('username');
-		    $user->email = Request::input('email');		   	
+        	$user->id = $member_id;
+		    $user->username = Request::input('username');   	
 		    $user->password = Hash::make(Request::input('password'));
 		    $user->permission = intval(Request::input('permission'));		
 		    $user->save();
@@ -100,7 +87,7 @@ class UserController extends Controller
         $rules['username'] = 'required|alpha|min:2|unique:users,username,'.$user_id;        
         $rules['password'] = '';
         $rules['password_confirmation'] = '';
-        $rules['email'] = 'required|email|unique:users,email,'.$user_id;
+        $rules['email'] = 'required|email|unique:members,email,'.$user_id;
         if(!($auth_user->permission == 0 && $auth_user->id != $user->id)){
         	$rules['permission'] = '';
         }        
@@ -108,13 +95,15 @@ class UserController extends Controller
  		
         if ($validator->passes()) 
         {
-            // validation has passed, save user in DB            
-            
+            // validation has passed, save user in DB    
             $member = Member::find($user->member_id);
             //$user->member_id = Request::input('member_id');
+            $member->firstname = Request::input('firstname');
             $member->lastname = Request::input('lastname');
-            $user->username = Request::input('username');
-		    $user->email = Request::input('email');		   	
+            $member->onlinename = Request::input('onlinename');
+            $member->birthdate = strtotime(Request::input('birthdate'));  
+            $member->email = Request::input('email');	
+            $user->username = Request::input('username');		       	
 		    if($auth_user->permission == 0 && $auth_user->id != $user->id){
 		    	$user->permission = intval(Request::input('permission'));
 		    }

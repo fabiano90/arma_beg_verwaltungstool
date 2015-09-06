@@ -22,13 +22,16 @@
     	{!! Form::label('onlinename', 'Onlinename') !!}
     	{!! Form::text('onlinename', $member->onlinename, array('class'=>'form-control ', 'placeholder'=>'Onlinename')) !!}
 	    {!! Form::label('birthdate', 'Geburtsdatum') !!}
-	    {!! Form::text('birthdate', date('d.m.Y', $member->birthdate), array('class'=>'form-control ', 'placeholder'=>'Nachname')) !!}      
+	    
+	    <div class="input-group date datetimepicker"  data-date-format="DD.MM.YYYY">
+        {!! Form::text('birthdate', date('d.m.Y', $member->birthdate), array('class'=>'form-control', 'placeholder'=>'Geburtsdatum JJJJ-MM-TT')) !!}          
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span></div>
+
+		{!! Form::label('email', 'E-Mail') !!}
+	    {!! Form::text('email', $member->email, array('class'=>'form-control', 'placeholder'=>'E-Mail')) !!}
 
     	{!! Form::label('username', 'Benutzername') !!}
    	 	{!! Form::text('username', $member->firstname, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}
-
-		{!! Form::label('email', 'E-Mail') !!}
-	    {!! Form::text('email', $user->email, array('class'=>'form-control', 'placeholder'=>'E-Mail')) !!}
 
 	    @if($auth_user->permission == 0 && $auth_user->id != $user->id)
 			{!! Form::label('permission', 'Berechtigungen') !!}

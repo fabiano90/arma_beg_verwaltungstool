@@ -18,6 +18,7 @@ class Member extends Model {
 			'firstname' => 'required|alpha|min:2',
 			'lastname' => 'required|alpha|min:2',
 			'birthdate' => 'date_format:d.m.Y' ,
-			'onlinename' => 'required|unique:members'
+			'onlinename' => 'required|unique:members',
+			'email'=>'email|unique:members'
 	);
 }

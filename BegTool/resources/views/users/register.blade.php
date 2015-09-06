@@ -15,12 +15,12 @@
     	{!! Form::text('lastname', $member->lastname, array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}
 	    {!! Form::label('birthdate', 'Geburtsdatum') !!}
 	    {!! Form::text('birthdate', date('d.m.Y', $member->birthdate), array('class'=>'form-control ', 'placeholder'=>'Nachname', 'disabled'=>'disabled')) !!}      
+		{!! Form::label('email', 'E-Mail') !!}
+	    {!! Form::text('email', $member->email, array('class'=>'form-control', 'placeholder'=>'E-Mail', 'disabled'=>'disabled')) !!}
 
     	{!! Form::label('username', 'Benutzername') !!}
    	 	{!! Form::text('username', $member->firstname, array('class'=>'form-control', 'placeholder'=>'Benutzername')) !!}
-
-		{!! Form::label('email', 'E-Mail') !!}
-	    {!! Form::text('email', null, array('class'=>'form-control', 'placeholder'=>'E-Mail')) !!}
+		
 	    {!! Form::label('password', 'Passwort') !!}
 	    {!! Form::password('password', array('class'=>'form-control', 'placeholder'=>'')) !!}
 	    {!! Form::label('password_confirmation', 'Passwort wiederholen') !!}
