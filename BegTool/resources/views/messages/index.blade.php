@@ -10,9 +10,18 @@
         <div class="list-group">
             @foreach($users as $userlist)
                 @if ($userlist->id == $partner->id)
-                    <a href='{!!"/messages/chat/".$userlist->id."#end"!!}' class="list-group-item active">{!!$userlist->username!!}</a>
+                    @if($userlist->id==0)
+                        <a href='{!!"/messages/chat/".$userlist->id."#end"!!}' class=" active list-group-item">Systemnachrichten</a>
+                    @else
+                        <a href='{!!"/messages/chat/".$userlist->id."#end"!!}' class=" active list-group-item">{!!$userlist->username!!}</a>
+                    @endif
                 @else
-                    <a href='{!!"/messages/chat/".$userlist->id."#end"!!}' class="list-group-item">{!!$userlist->username!!}
+
+                    @if($userlist->id==0)
+                        <a href='{!!"/messages/chat/".$userlist->id."#end"!!}' class="list-group-item">Systemnachrichten
+                    @else
+                        <a href='{!!"/messages/chat/".$userlist->id."#end"!!}' class="list-group-item">{!!$userlist->username!!}
+                    @endif
                         <!--{!!$i=0!!}-->
                         @foreach($allmessages as $message)
                                 @if ($message->receiver_id == $user->id)

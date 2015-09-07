@@ -29,8 +29,8 @@ class SongController extends Controller
 	{	
 		$user=Auth::user();
 		$newMessages = $user->newMessages($user);
-		$songs = Song::all();
-		return view('songs.addsong')->with('songs', $songs)->with('newMessages', $newMessages);
+		
+		return view('songs.addsong')->with('newMessages', $newMessages);
 	}
 
 	public function postAddsong(){

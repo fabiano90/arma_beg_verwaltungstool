@@ -47,7 +47,7 @@
 
 					
 						@foreach($song->sundayservices->reverse()->take(3) as $songdate)
-						{!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}  <br/>
+						{!! date('d.m.Y',$songdate->sermons->date)!!} {!! $songdate->users->username !!}  <br/>
 						@endforeach	
 					@endif 
 				</td>	
