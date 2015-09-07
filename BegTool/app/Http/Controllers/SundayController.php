@@ -372,7 +372,7 @@ class SundayController extends Controller {
 				}
 			}
 			if($count==0){
-				return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr erfolgreich angelegt!(');
+				return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr erfolgreich angelegt!');
 			}else{
 				return redirect ( 'sundays/index' )->with ( 'message', 'success|Jahr nur teilweise angelegt! <br/>'.$count.' doppelte Sonntage wurden nicht gespeichert. ');
 			}
