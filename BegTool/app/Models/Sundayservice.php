@@ -22,7 +22,6 @@ class Sundayservice extends Model
 	public function songs(){
 		return $this->belongsToMany('App\Models\Song', 'song_sundayservice', 'service_id', 'song_id' )
 		->withPivot('order')
-		->withPivot('songdate')
 		->orderBy('order');//kigo_songs
 	}
 
