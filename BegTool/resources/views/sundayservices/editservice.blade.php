@@ -58,8 +58,8 @@
                                         @if ($song->sundayservices->count()==0)
                                         <td data-type="numeric" data-value='0'>noch nicht gesungen</td>
                                         @else @foreach($song->sundayservices->reverse()->take(1) as $songdate)
-                                        <td data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}'>
-                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}
+                                        <td data-type="numeric" data-value='{!! $songdate->sermons->date !!}'>
+                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->sermons->date)!!} {!! $songdate->users->username !!}
                                             <br/> @endforeach @endif
                                         </td>
                                         <td>{!!$song->sundayservices->count()!!}</td>
@@ -113,8 +113,8 @@
                                          @if ($song->sundayservices->count()==0)
                                         <td data-type="numeric" data-value='0'>noch nicht gesungen</td>
                                         @else @foreach($song->sundayservices->reverse()->take(1) as $songdate)
-                                        <td data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}'>
-                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}
+                                        <td data-type="numeric" data-value='{!! $songdate->sermons->date !!}'>
+                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->sermons->date)!!} {!! $songdate->users->username !!}
                                             <br/> @endforeach @endif
                                         </td>
                                         <td>{!!$song->sundayservices->count()!!}</td>
@@ -170,8 +170,8 @@
                                          @if ($song->sundayservices->count()==0)
                                         <td data-type="numeric" data-value='0'>noch nicht gesungen</td>
                                         @else @foreach($song->sundayservices->reverse()->take(1) as $songdate)
-                                        <td data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}'>
-                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}
+                                        <td data-type="numeric" data-value='{!! $songdate->sermons->date !!}'>
+                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->sermons->date)!!} {!! $songdate->users->username !!}
                                             <br/> @endforeach @endif
                                         </td>
                                         <td>{!!$song->sundayservices->count()!!}</td>
@@ -227,8 +227,8 @@
                                          @if ($song->sundayservices->count()==0)
                                         <td data-type="numeric" data-value='0'>noch nicht gesungen</td>
                                         @else @foreach($song->sundayservices->reverse()->take(1) as $songdate)
-                                        <td data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}'>
-                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}
+                                        <td data-type="numeric" data-value='{!! $songdate->sermons->date !!}'>
+                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->sermons->date)!!} {!! $songdate->users->username !!}
                                             <br/> @endforeach @endif
                                         </td>
                                         <td>{!!$song->sundayservices->count()!!}</td>
@@ -283,8 +283,8 @@
                                          @if ($song->sundayservices->count()==0)
                                         <td data-type="numeric" data-value='0'>noch nicht gesungen</td>
                                         @else @foreach($song->sundayservices->reverse()->take(1) as $songdate)
-                                        <td data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}'>
-                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}
+                                        <td data-type="numeric" data-value='{!! $songdate->sermons->date !!}'>
+                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->sermons->date)!!} {!! $songdate->users->username !!}
                                             <br/> @endforeach @endif
                                         </td>
                                         <td>{!!$song->sundayservices->count()!!}</td>
@@ -316,7 +316,7 @@
                         </div>
 
                         <div id="tableSong6" class="collapse">
-                            <table class="table table-striped table-hover footable toggle-default " data-filter="#song1">
+                            <table class="table table-striped table-hover footable toggle-default " data-filter="#song6">
                                 <thead>
                                     <tr>
                                         <th><span class="glyphicon glyphicon-check" aria-hidden="true"></span></th>
@@ -340,8 +340,8 @@
                                          @if ($song->sundayservices->count()==0)
                                         <td data-type="numeric" data-value='0'>noch nicht gesungen</td>
                                         @else @foreach($song->sundayservices->reverse()->take(1) as $songdate)
-                                        <td data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}'>
-                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->pivot->songdate)!!} {!! $songdate->users->username !!}
+                                        <td data-type="numeric" data-value='{!! $songdate->sermons->date !!}'>
+                                            @endforeach @foreach($song->sundayservices->reverse()->take(3) as $songdate) {!! date('d.m.Y',$songdate->sermons->date)!!} {!! $songdate->users->username !!}
                                             <br/> @endforeach @endif
                                         </td>
                                         <td>{!!$song->sundayservices->count()!!}</td>

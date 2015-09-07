@@ -42,7 +42,7 @@
 						<td data-type="numeric" data-value='0'>noch nicht gesungen</td>
 					@else
 				@foreach($song->sundayservices->reverse()->take(1) as $songdate)
-				<td	data-type="numeric" data-value='{!! $songdate->pivot->songdate !!}' >
+				<td	data-type="numeric" data-value='{!! $songdate->sermons->date !!}' >
 				@endforeach		
 
 					
