@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <h2>Registrierung</h2>
+    <h2>PERSONSOPERMSONSORNSOPERSONSOPERMSONSORNSORegistrierung PERSONSOPERMSONSORNSOPERSONSOPERMSONSORNSOPERSONSOPERMSONSORNSO</h2>
 		{!! Form::open(array('url'=>'persons/register', 'class'=>'form-signup')) !!}
 
 		{!! Form::label('firstname', 'Vorname') !!}

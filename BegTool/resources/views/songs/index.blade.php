@@ -33,7 +33,7 @@
 		<tbody>
 			@foreach($songs as $song)
 			<tr>
-				<td>{!! $song->number !!}</td>
+				<td data-type="numeric" data-value='{!! $song->number !!}' >{!! $song->number !!}</td>
 				<td>{!! $song->name !!}</td>				
 				<td>
 					{!! $song->annotation !!}
@@ -56,7 +56,7 @@
 					<div class="btn-group">								
 						<a href="/songs/editsong/{!! $song->id !!}" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 						@if ($user->permission==0)	
-							<a href=""  title="Inhalt leeren?" onClick="if(confirm('Sontag wirklich löschen?') == true){window.location = '/sundays/deletesunday/'.$sundayservice->id';}else{window.location = '/sundays';}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>								
+							<a href=""  title="Inhalt leeren?" onClick="if(confirm('Sontag wirklich löschen?') == true){window.location = '/songs/deletesong/{!!$song->id!!}';}else{window.location = '/songs';}" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>								
 						@endif
 					</div>				
 				</td>		
