@@ -6,7 +6,6 @@
     @endif 
 @stop
 @section('menu')
-
 	@if($auth_user->permission == 0)
 		<ul class="nav nav-tabs">	
 	  		<li role="presentation"><a title="Neues Mitglied hinzufügen" href="/members/register"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Hinzufügen</a></li>
@@ -41,10 +40,10 @@
 							<td>{!! $member->email !!}</td>
 							@if($auth_user->permission == 0)
 								{{-- HTML Kommentare nicht löschen!!! --}}
-								<!--{!! $temp = -1 !!}-->
+								<!--{!! $hasUser = -1 !!}-->
 								@foreach ($users as $user)
 		    						@if($member->id == $user->member_id)
-		    							<!--{!! $temp = $user->id; !!}-->										
+		    							<!--{!! $hasUser = $user->id; !!}-->										
 										@if($user->permission == 0)
 											<td>Admin</td>
 										@elseif($user->permission == 1)
@@ -56,9 +55,8 @@
 
 									@endif
 								@endforeach
-								@if($temp == -1)
-									<td><a href="/members/adduser/{!! $member->id !!}" title="Nutzeraccount anlegen" class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> als Mitarbeiter hinzufügen</a>			 															
-										</td>
+								@if($hasUser == -1)
+									<td><a href="/members/adduser/{!! $member->id !!}" title="Nutzeraccount anlegen" class="btn btn-default"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> als Mitarbeiter hinzufügen</a></td>
 								@endif
 							@endif
 							<td>
@@ -68,17 +66,17 @@
 
 										{{-- Nur als Mitarbeiter hinzufügbar, wenn sie noch nicht sind --}}
 										{{-- HTML Kommentare nicht löschen!!! --}}
-										<!--{!! $temp = -1 !!}-->
+										<!--{!! $hasUser = -1 !!}-->
 										@foreach ($users as $user)
 				    						@if($member->id == $user->member_id)
-				    							<!--{!! $temp = $user->id; !!}-->
+				    							<!--{!! $hasUser = $user->id; !!}-->
 											@endif
 											@if($member->id == $user->member_id && ($auth_user->permission == 0 || $auth_user->id == $user->id))
 												<a href="/users/edituser/{!! $member->id !!}" title="Bearbeiten" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 												<a href="/users/editpassword/{!! $user->id !!}" title="Passwort ändern" class="btn btn-default"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>			 												
 											@endif
 										@endforeach
-										@if($temp == -1)
+										@if($hasUser == -1)
 											<a href="/members/editmember/{!! $member->id !!}" title="Bearbeiten" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>			
 										@endif
 										@if($auth_user->member_id != $member->id)

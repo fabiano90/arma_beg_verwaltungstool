@@ -9,10 +9,10 @@
 <section class="section content-shadow content-box">
 	@if( !($auth_user->permission == 0 || $auth_user->id == $user->id) )
 		<h2>Sie sind nicht berechtigt das Passwort von Mitarbeiter 
-			{!! $user->username !!} ({!! $member->firstname!!} {!! $member->lastname!!}) zu ändern</h2>
+			{!! $user->username !!} zu ändern</h2>
 		{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 	@else
-    	<h2>Passwort ändern von Mitarbeiter {!! $user->username !!} ({!! $member->firstname!!} {!! $member->lastname!!}) bearbeiten</h2>
+    	<h2>Passwort ändern von Mitarbeiter {!! $user->username !!}</h2>
 
 		{!! Form::open(array('url'=>'users/editpassword/'.$user->id, 'class'=>'form-signup')) !!}		
 
