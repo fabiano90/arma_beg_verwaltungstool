@@ -29,8 +29,7 @@
 			@foreach($sermons as $sermon)
 			<tr>
 				<td data-type="numeric" data-value='{!! $sermon->date!!}'>{!! date('d.m.Y', $sermon->date) !!}</td>
-				<td>{!! $sermon->preacher_id !!}
-					{!! $sermon->members->onlinename !!}</td>
+				<td>{!! $sermon->members->onlinename !!}</td>
 				<td>{!! $sermon->sundayservices->users->username!!}</td>
 				
 				<td>{!! $sermon->scripture !!}</td>
