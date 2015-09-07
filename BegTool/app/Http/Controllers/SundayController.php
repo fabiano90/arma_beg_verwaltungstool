@@ -494,7 +494,7 @@ class SundayController extends Controller {
 				    	$message->to($data['email_receiver'], $data['receiver']->username)->subject($data['subject']);
 				    }
 				});
-return redirect ( 'messages/email' )->with('data',$data);
+			return redirect ( 'messages/email' )->with('data',$data);
 	}
 
 
