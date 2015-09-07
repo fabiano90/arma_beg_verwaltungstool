@@ -22,10 +22,10 @@ class SundayController extends Controller {
 		$user=Auth::user();
 		$newMessages = $user->newMessages($user);
 		
-		$sundayservices= new Sundayservice();
-		$sundayservicesAfterDate=$sundayservices->sundayservicesAfterDate($filter);
+		
+		$sundayservicesFromDate=Sundayservice::sundayservicesFromDate($filter);
 
-		return view ( 'sundays.index' )->with('newMessages', $newMessages)->with ( 'sundayservices', $sundayservicesAfterDate)->with ( 'user', $user )->with ( 'filter', $filter );
+		return view ( 'sundays.index' )->with('newMessages', $newMessages)->with ( 'sundayservices', $sundayservicesFromDate)->with ( 'user', $user )->with ( 'filter', $filter );
 	}
 
 	
@@ -80,12 +80,31 @@ class SundayController extends Controller {
 				$post->receiver_id = $old_sleader->id;
 				if($new_sleader->id != 0){
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigtdienst</h4>'.$new_sleader->onlinename.' hat für dich übernommen.';
-					$data = ['content'=> $post->content, 'receiver' => $new_sleader, 'sender' => $old_sleader, 'subject' => 'Änderung bei den Diensten'];
+
+					$data = [
+								'date'			=> date('d.m.Y',$sermon->date),
+								'title'			=> 'Kein Predigtdienst',
+								'content'		=> $new_sleader->onlinename.' hat für dich übernommen.',
+								'email_receiver'=> $new_sleader->email,
+								'receiver' 		=> $new_sleader, 
+								'sender' 		=> $old_sleader, 
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
+					
 					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Kein Predigtdienst</h4>, denn du wurdest ausgetragen.';
-					$data = ['content'=> $post->content, 'receiver' => $new_sleader, 'sender' => $old_sleader, 'subject' => 'Änderung bei den Diensten'];
+					$data = [
+								'date'			=> date('d.m.Y',$sermon->date),
+								'title'			=> 'Kein Predigtdienst',
+								'content'		=> 'Dein Predigtdienst für den'.date('d.m.Y',$sermon->date).'entfällt.',
+								'email_receiver'=> $new_sleader->email,
+								'receiver' 		=> $new_sleader, 
+								'sender' 		=> $old_sleader, 
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
+
 					$this->sendEmail($data);
 				}
 				$post->visited=1;
@@ -96,12 +115,32 @@ class SundayController extends Controller {
 				$post->receiver_id = 0;
 				if($old_sleader->id != 0){
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigtdienst</h4>'.$old_sleader->onlinename.' hat mit dir getauscht.';
-					$data = ['content'=> $post->content, 'receiver' => $old_sleader, 'sender' => $new_sleader, 'subject' => 'Änderung bei den Diensten'];
+			
+					$data = [
+								'date'			=> date('d.m.Y',$sermon->date),
+								'title'			=> 'Neuer Predigtdienst',
+								'content'		=> $old_sleader->onlinename.' hat mit dir getauscht.',
+								'email_receiver'=> $old_sleader->email,
+								'receiver' 		=> $old_sleader, 
+								'sender' 		=> $new_sleader, 
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
+					
+					$this->sendEmail($data);
 					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y',$sermon->date).'<h4>Neuer Predigtdienst</h4>';
-					$data = ['content'=> $post->content, 'receiver' => $old_sleader, 'sender' => $new_sleader, 'subject' => 'Änderung bei den Diensten'];
+					$data = [
+								'date'			=> date('d.m.Y',$sermon->date),
+								'title'			=> 'Neuer Predigtdienst',
+								'content'		=> 'Du wurdest für den '.date('d.m.Y',$sermon->date).'als Prediger eingetragen',
+								'email_receiver'=> $old_sleader->email,
+								'receiver' 		=> $old_sleader, 
+								'sender' 		=> $new_sleader, 
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
+
 					$this->sendEmail($data);
 				}
 				$post->visited=1;
@@ -377,12 +416,32 @@ class SundayController extends Controller {
 				$post->receiver_id = $old->id;
 				if($new->id != 0){
 					$post->content = date('d.m.Y', $date).'<h4>Kein '.$task.'dienst</h4>'.$new->username.' hat für dich übernommen.';
-					$data = ['content'=> $post->content, 'receiver' => $old, 'sender' => $old,'subject' => 'Änderung bei den Diensten'];
+				
+					
+					$data = [
+								'date'			=> date('d.m.Y',$date),
+								'title'			=> 'Kein '.$task.'dienst',
+								'content'		=> $new->username.' hat für dich übernommen.',
+								'email_receiver'=> $old->members->email,
+								'receiver' 		=> $old, 
+								'sender' 		=> $new, 
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
+
 					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y', $date).'<h4>Kein '.$task.'dienst</h4>, denn du wurdest ausgetragen.';
-					$data = ['content'=> $post->content, 'receiver' => $old,'sender' => $old, 'subject' => 'Änderung bei den Diensten'];
+					$data = [
+								'date'			=> date('d.m.Y',$date),
+								'title'			=> 'Kein '.$task.'dienst',
+								'content'		=> 'Dein '.$task.'dienst für den'.date('d.m.Y',$date).'entfällt.',
+								'email_receiver'=> $old->members->email,
+								'receiver' 		=> $old, 
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
+
+				
 					$this->sendEmail($data);
 				}
 				$post->visited=1;
@@ -394,11 +453,27 @@ class SundayController extends Controller {
 				if($old->id != 0){
 					$post->content = date('d.m.Y', $date).'<h4>Neuer '.$task.'dienst</h4>'.$old->username.' hat mit dir getauscht.';
 					$data = ['content'=> $post->content, 'receiver' => $new, 'sender' => $new,'subject' => 'Änderung bei den Diensten'];
+					$data = [
+								'date'			=> date('d.m.Y',$date),
+								'title'			=> 'Neuer '.$task.'dienst',
+								'content'		=> $old->onlinename.' hat mit dir getauscht.',
+								'email_receiver'=> $new->members->email,
+								'receiver' 		=> $new, 
+								'sender' 		=> $old, 
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
 					$this->sendEmail($data);
 				}
 				else{
 					$post->content = date('d.m.Y', $date).'<h4>Neuer '.$task.'dienst</h4>';
-					$data = ['content'=> $post->content, 'receiver' => $new, 'sender' => $new, 'subject' => 'Änderung bei den Diensten'];
+					$data = [
+								'date'			=> date('d.m.Y',$date),
+								'title'			=> 'Neuer '.$task.'dienst',
+								'content'		=> 'Du wurdest für den'.date('d.m.Y',$date).' für '.$task.' eingetragen.',
+								'email_receiver'=> $new->members->email,
+								'receiver' 		=> $new,  
+								'subject' 		=> 'Änderung bei den Diensten'
+							];
 					$this->sendEmail($data);
 				}
 
@@ -415,7 +490,9 @@ class SundayController extends Controller {
 	public function sendEmail($data){
 			Mail::send('messages.email',$data, function($message) use ($data)
 				{
-				    $message->to($data['receiver']->email, $data['receiver']->username)->subject($data['subject']);
+					if($data['email_receiver']){
+				    	$message->to($data['email_receiver'], $data['receiver']->username)->subject($data['subject']);
+				    }
 				});
 return redirect ( 'messages/email' )->with('data',$data);
 	}

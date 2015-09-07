@@ -23,7 +23,6 @@ class UserController extends Controller
 	{		
 		$user = Auth::user();
 		$birthdays = Member::all();		
-
 		$newMessages = $user->newMessages($user);
 		
 		$today = time();

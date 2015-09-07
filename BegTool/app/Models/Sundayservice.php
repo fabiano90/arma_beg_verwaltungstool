@@ -51,7 +51,7 @@ class Sundayservice extends Model
 
 
 
-	public function sundayservicesAfterDate($filter){
+	public static function sundayservicesFromDate($filter){
 		if($filter==1){
 			$datetime=time();	
 		}else{

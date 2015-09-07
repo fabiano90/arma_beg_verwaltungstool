@@ -1,8 +1,10 @@
 <html>
 <body>
-{{$content }}
+{!! $date !!}
+<h4>{!! $title !!}</h4>
+{!! $content !!}
 
 
 <hr>
-Diese <h4>Mail</h4> wurde automatisch erstellt und vom System versendet. Antworten ist darum zwecklos ;)
+Diese Mail wurde automatisch erstellt und vom System versendet. Antworten ist darum zwecklos ;)
 </body></html>
