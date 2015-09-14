@@ -19,7 +19,7 @@
 <section class="section content-shadow content-box">
 <h2>Lieder</h2>
 <div class="table-responsive">
-	<table class="table table-striped table-hover footable toggle-default" data-filter="#filter">
+	<table data-page-size="20" class="table table-striped table-hover footable toggle-default" data-filter="#filter">
 		<thead>
 			<tr>
 				<th>Nummer</th>
@@ -27,7 +27,7 @@
 				<th data-hide="phone">Bemerkung</th>				
 				<th data-hide="phone">Zuletzt gesungen</th>
 				<th data-hide="phone">Anzahl gesungen dieses Jahr</th>
-				<th data-hide="phone">Bearbeiten</th>
+				<th>Bearbeiten</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -63,7 +63,14 @@
 			</tr>
 			@endforeach
 		</tbody>
-	</table>
+	<tfoot class="hide-if-no-paging">
+		<tr>
+			<td colspan="5">
+				<div class="pagination pagination-centered"></div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
 </div>
 <br/>
 </section>

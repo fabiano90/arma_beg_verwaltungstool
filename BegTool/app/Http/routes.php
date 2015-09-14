@@ -18,15 +18,13 @@ Route::get('/', function () {
 Route::controller('users', 'UserController');
 Route::controller('members', 'MemberController');
 Route::controller('songs', 'SongController');
-Route::controller('posts', 'PostController');
 Route::controller('messages', 'MessageController');
 Route::controller('login', 'LoginController');
 Route::controller('kigos', 'KigoController');
 Route::controller('sermons', 'SermonController');
 Route::controller('sundayservices', 'SundayserviceController');
 Route::controller('sundays', 'SundayController');
-Route::resource('rest/users', 'UserRESTController');
-Route::resource('rest/posts', 'PostRESTController');
+
 
 Route::get('/emails', function(){
 	$data= ['user'=>'Fabian'];

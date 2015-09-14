@@ -51,16 +51,14 @@ class KigoController extends Controller {
 		}
 	}
 
-	public function getAddsong($kigo_id)
-	{
+	public function getAddsong($kigo_id){
 		$kigo = Kigo::find($kigo_id);
 		$songs = Song::all();
 		$kigo_songs = $kigo->songs;
 		return view('kigos.addsongtokigo')->with('songs', $songs)->with('kigo', $kigo)->with('kigo_songs', $kigo_songs);
 	}
 
-	public function postAddsongtokigo($kigo_id)
-	{
+	public function postAddsongtokigo($kigo_id){
 		$kigo = Kigo::find($kigo_id);
 
 		$songs = Song::all();
@@ -73,8 +71,7 @@ class KigoController extends Controller {
 		return redirect('kigos')->with('message', 'success|Kigo erfolgreich bearbeitet!');		
 	}	
 
-    public function getDeletekigo($id)
-    {
+    public function getDeletekigo($id){
     	$auth_user = Auth::user();
 		if($auth_user->permission <= 2){
 	        $kigo = Kigo::find($id);

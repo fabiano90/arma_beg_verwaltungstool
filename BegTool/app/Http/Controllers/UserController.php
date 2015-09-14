@@ -14,7 +14,6 @@ use View;
 use Request;
 use Hash;
 use Auth;
-use DB;
 
 class UserController extends Controller
 {
@@ -27,21 +26,28 @@ class UserController extends Controller
 		
 		$today = time();
 		
-		$predigten = Sermon::where('preacher_id','=', $user->member_id)->where('date','>=',$today)->get();
-		$lektors = Sundayservice::whereHas('sermons', function($q) use ($today)
+		$predigten = User::getSermonsByIdAndDate($user->member_id, $today);
+
+			/*** Fehler beim Auslagern ins Model ***/
+		$lektors = User::getSundayservicesByIdAndDate($user->user_id, $today);
+		$kigos = User::getKigosByIdAndDate($user->user_id, $today);
+
+
+		$lektors= Sundayservice::whereHas('sermons', function($q) use ($today)
 				{
 				    $q->where('date','>=',$today);
 
 				})->where('user_id','=',$user->id)->get();
 
-		$kigos = DB::table('kigos')
-			->select('date', 'kigos.id')
-			->join('sundayservices', 'kigos.id', '=', 'sundayservices.kigo_id')
-			->join('sermons', 'sermons.id', '=', 'sundayservices.sermon_id')
-			->where('date','>=',$today)
-			->where('kigos.user_id','=', $user->id)
-			->get();
+		$kigos = Kigo::whereHas('sundayservices', function($q) use ($today)
+				{
+				    $q->whereHas('sermons', function($q2) use ($today)
+				    	{
+				    		 $q2->where('date','>=',$today);
+				    	});
 
+				})->where('user_id','=',$user->id)->get();
+		
 
 		return view('users.index')->with('user', $user)->with('birthdays', $birthdays)->with('sermons', $predigten)->with('kigos', $kigos)->with('lektors', $lektors)->with('newMessages', $newMessages);
 	}

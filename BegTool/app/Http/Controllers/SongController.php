@@ -81,9 +81,6 @@ class SongController extends Controller
     public function getDeletesong($id)
     {
     	Song::destroy($id);
-        //$song = Song::find($id);
-       	//$song->deleteCascade();
-        //$song->delete();
         return redirect('songs/index')->with('message', 'success|Lied wurde erfolgreich gelöscht!');
     }    
 }

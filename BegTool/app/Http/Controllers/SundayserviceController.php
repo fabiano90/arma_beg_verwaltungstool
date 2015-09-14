@@ -34,6 +34,7 @@ class SundayserviceController extends Controller {
 		}
 		return redirect('sundayservices');
 	}
+	
 	public function getPdf($sundayservie_id){
 
 		$sundayservice=Sundayservice::find($sundayservie_id);
@@ -67,16 +68,16 @@ class SundayserviceController extends Controller {
 								</tr>
 								<tr> 
 									<td>Begrüßung</td>
-									<td>Lektor steht auf, geht hinter das Pult, begrüßt die Gemeinde und Gäste zum Gottesdienst =>  Eröffnung des Gottesdienstes: <br/>
+									 <td><!--Lektor steht auf, geht hinter das Pult, begrüßt die Gemeinde und Gäste zum Gottesdienst =>  Eröffnung des Gottesdienstes: <br/>
 										<ul>
 											<li><b>Aufforderung an die Gemeinde aufzustehen</b></li>
-											<li>„Wir feiern diesen Gottesdienst im Namen des dreieinigen Gottes, im Namen des Vaters, des Sohnes und des Heiligen Geistes.“</li>
+											<li>-->„Wir feiern diesen Gottesdienst im Namen des dreieinigen Gottes, im Namen des Vaters, des Sohnes und des Heiligen Geistes. Unsere Hilfe steht im Namen des HERRN, der Himmel und Erde gemacht hat.“<!--</li>
 											<li>Ankündigung des ersten Liedes (die Gemeinde setzt sich wieder).</li>
-										</ul>
+										</ul>-->
 									</td>  
 								</tr>
 								<tr>
-									<td><b>1. Lied</td>
+									<td>1. Lied</td>
 									<td><b>'.$songsOrder[1].'</b></td>
 								</tr> 
 								<tr>
@@ -90,7 +91,8 @@ class SundayserviceController extends Controller {
 								<tr>
 									<td>Schriftlesung<br/><b> Glaubensbekenntnis</b></td>
 									<td><b>'.$sundayservice->biblereading.'</b>
-									<br> Ich glaube an Gott, den Vater,den Allmächtigen, den Schöpfer des Himmels und der Erde. Und an Jesus Christus, seinen eingeborenen Sohn, unsern Herrn, empfangen durch den Heiligen Geist, geboren von der Jungfrau Maria, gelitten unter Pontius Pilatus, gekreuzigt, gestorben und begraben, hinabgestiegen in das Reich des Todes, am dritten Tage auferstanden von den Toten, aufgefahren in den Himmel; er sitzt zur Rechten Gottes, des allmächtigen Vaters; von dort wird er kommen, zu richten die Lebenden und die Toten. Ich glaube an den Heiligen Geist, die heilige christliche Kirche, Gemeinschaft der Heiligen, Vergebung der Sünden, Auferstehung der Totenund das ewige Leben. Amen. </td>
+									<br><!-- Ich glaube an Gott, den Vater,den Allmächtigen, den Schöpfer des Himmels und der Erde. Und an Jesus Christus, seinen eingeborenen Sohn, unsern Herrn, empfangen durch den Heiligen Geist, geboren von der Jungfrau Maria, gelitten unter Pontius Pilatus, gekreuzigt, gestorben und begraben, hinabgestiegen in das Reich des Todes, am dritten Tage auferstanden von den Toten, aufgefahren in den Himmel; er sitzt zur Rechten Gottes, des allmächtigen Vaters; von dort wird er kommen, zu richten die Lebenden und die Toten. Ich glaube an den Heiligen Geist, die heilige christliche Kirche, Gemeinschaft der Heiligen, Vergebung der Sünden, Auferstehung der Totenund das ewige Leben. Amen. </td>
+									-->Wir glauben an den einen Gott,den Vater,den Allmächtigen,der alles geschaffen hat,Himmel und Erde,die sichtbare und die unsichtbare Welt.Und an den einen Herrn Jesus Christus,Gottes eingeborenen Sohn,aus dem Vater geboren vor aller Zeit:Gott von Gott,Licht vom Licht,wahrer Gott vom wahren Gott,gezeugt, nicht geschaffen,eines Wesens mit dem Vater;durch ihn ist alles geschaffen.Für uns Menschen und zu unserm Heil ist er vom Himmel gekommen,hat Fleisch angenommen durch den Heiligen Geistvon der Jungfrau Maria und ist Mensch geworden.Er wurde für uns gekreuzigt unter Pontius Pilatus,hat gelitten und ist begraben worden,ist am dritten Tage auferstanden nach der Schriftund aufgefahren in den Himmel.Er sitzt zur Rechten des Vatersund wird wiederkommen in Herrlichkeit,zu richten die Lebenden und die Toten;seiner Herrschaft wird kein Ende sein.Wir glauben an den Heiligen Geist,der Herr ist und lebendig macht,der aus dem Vater und dem Sohn hervorgeht,der mit dem Vater und dem Sohn angebetet und verherrlicht wird,der gesprochen hat durch die Propheten,und die eine, heilige, christliche und apostolische Kirche.Wir bekennen die eine Taufe zur Vergebung der Sünden.Wir erwarten die Auferstehung der Totenund das Leben der kommenden Welt.
 								</tr>
 								<tr>
 									<td>3. Lied</td>
@@ -174,7 +176,7 @@ class SundayserviceController extends Controller {
 						$aktSong= $song->pivot->song_id;
 					}
 					$service->songs()->detach($aktSong);
-					$service->songs()->attach($song1,['order' => '1','songdate' => $service->sermons->date]);
+					$service->songs()->attach($song1,['order' => '1']);
 				}
 				if($song2){
 					$aktSong=0;
@@ -183,7 +185,7 @@ class SundayserviceController extends Controller {
 						$aktSong= $song->pivot->song_id;
 					}
 					$service->songs()->detach($aktSong);
-					$service->songs()->attach($song2,['order' => '2','songdate' => $service->sermons->date]);
+					$service->songs()->attach($song2,['order' => '2']);
 				}
 				if($song3){
 					$aktSong=0;
@@ -192,7 +194,7 @@ class SundayserviceController extends Controller {
 						$aktSong= $song->pivot->song_id;
 					}
 					$service->songs()->detach($aktSong);
-					$service->songs()->attach($song3,['order' => '3','songdate' => $service->sermons->date]);
+					$service->songs()->attach($song3,['order' => '3']);
 				}
 				if($song4){
 					$aktSong=0;
@@ -201,7 +203,7 @@ class SundayserviceController extends Controller {
 						$aktSong= $song->pivot->song_id;
 					}
 					$service->songs()->detach($aktSong);
-					$service->songs()->attach($song4,['order' => '4','songdate' => $service->sermons->date]);
+					$service->songs()->attach($song4,['order' => '4']);
 				}
 				if($song5){
 					$aktSong=0;
@@ -210,7 +212,7 @@ class SundayserviceController extends Controller {
 						$aktSong= $song->pivot->song_id;
 					}
 					$service->songs()->detach($aktSong);				
-					$service->songs()->attach($song5,['order' => '5','songdate' => $service->sermons->date]);
+					$service->songs()->attach($song5,['order' => '5']);
 				}
 				if($song6){
 					
@@ -220,29 +222,22 @@ class SundayserviceController extends Controller {
 						$aktSong= $song->pivot->song_id;
 					}
 					$service->songs()->detach($aktSong);
-					$service->songs()->attach($song6,['order' => '6','songdate' => $service->sermons->date]);
+					$service->songs()->attach($song6,['order' => '6']);
 				}
 
 				$service->save();
 			    return redirect('sundayservices')->with('message', 'success|Leitung wurde erfolgreich bearbeitet!');
-			/*} 
-			else
-		 	{
-		    	// validation has failed, display error messages   
-		    	return redirect('members/register')->with('message', 'danger|Die folgenden Fehler sind aufgetreten:')->withErrors($validator)->withInput();
-			}*/
+
 		}
 	}
 
-	public function getAddsong($service_id)
-	{
+	public function getAddsong($service_id){
 		$sunday = Sundayservice::find($service_id);
 		$songs = Song::all();
 		return view('sundayservices.addsongtosunday')->with('songs', $songs)->with('sunday', $sunday);
 	}
 
-	public function postAddsongtosunday($service_id)
-	{
+	public function postAddsongtosunday($service_id){
 		$service = Sundayservice::find($service_id);
 		$songs = Song::all();
 		foreach ($songs as $song) {
@@ -255,10 +250,8 @@ class SundayserviceController extends Controller {
 	public function getDeleteservice($service_id){
 		$auth_user = Auth::user();
 		if($auth_user->permission <= 1){
-			$service = Sundayservice::find($service_id);
-			//$service->user_id = 0;		
+			$service = Sundayservice::find($service_id);	
 			$service->songs()->detach();
-			//$service->vers_id = null;
 		    $service->psalm = null;
 		    $service->biblereading = null;
 		    $service->comments = null;

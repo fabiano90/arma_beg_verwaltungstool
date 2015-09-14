@@ -21,14 +21,11 @@ class SundayController extends Controller {
 	public function getIndex($filter=1) {
 		$user=Auth::user();
 		$newMessages = $user->newMessages($user);
-		
-		
 		$sundayservicesFromDate=Sundayservice::sundayservicesFromDate($filter);
 
 		return view ( 'sundays.index' )->with('newMessages', $newMessages)->with ( 'sundayservices', $sundayservicesFromDate)->with ( 'user', $user )->with ( 'filter', $filter );
 	}
 
-	
 	public function getEditsunday($sundayId) {
 		$user=Auth::user();
 		$newMessages = $user->newMessages($user);
@@ -123,7 +120,7 @@ class SundayController extends Controller {
 								'email_receiver'=> $old_sleader->email,
 								'receiver' 		=> $old_sleader, 
 								'sender' 		=> $new_sleader, 
-								'subject' 		=> 'Ã„nderung bei den Diensten'
+								'subject' 		=> 'Änderung bei den Diensten'
 							];
 					
 					$this->sendEmail($data);
@@ -138,7 +135,7 @@ class SundayController extends Controller {
 								'email_receiver'=> $old_sleader->email,
 								'receiver' 		=> $old_sleader, 
 								'sender' 		=> $new_sleader, 
-								'subject' 		=> 'Ã„nderung bei den Diensten'
+								'subject' 		=> 'Änderung bei den Diensten'
 							];
 
 					$this->sendEmail($data);
@@ -480,13 +477,8 @@ class SundayController extends Controller {
 
 				$post->visited=1;
 				$post->save();
-
-
-
-				
-				
-
 	}
+
 	public function sendEmail($data){
 			Mail::send('messages.email',$data, function($message) use ($data)
 				{

@@ -13,8 +13,7 @@ use Auth;
 class MemberController extends Controller
 {
 
-	public function getIndex()
-	{
+	public function getIndex(){
 		$auth_user = Auth::user();
 		$newMessages = $auth_user->newMessages($auth_user);
 		
@@ -25,6 +24,7 @@ class MemberController extends Controller
 
 	public function getRegister(){
 		$auth_user = Auth::user();
+
 		if($auth_user->permission != 0){	
 			return redirect('members')->with('message', 'danger|Sie sind nicht berechtig neue Mitglieder anzulegen!');			
 		}
@@ -76,8 +76,6 @@ class MemberController extends Controller
 
 	public function postEditmember($member_id){
         $rules = Member::$rules;
-        $rules['onlinename'] = 'required|unique:members,onlinename,'.$member_id;
-        $rules['email'] = 'required|email|unique:members,email,'.$member_id;
 		$validator = Validator::make(Request::all(), $rules);
 		if ($validator->passes()) 
 		{

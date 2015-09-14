@@ -22,7 +22,7 @@
 				<th data-hide="phone">Anlass</th>
 				<th data-hide="all">Infos an Lektor</th>		
 				<th data-hide="all">MP3-Link</th>	
-				<th data-hide="all">Bearbeiten</th>	
+				<th>Bearbeiten</th>	
 			</tr>
 		</thead>
 		<tbody>			

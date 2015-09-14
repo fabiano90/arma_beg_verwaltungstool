@@ -9,8 +9,7 @@ use App\Models\User;
 class MessageController extends Controller
 {
 
-	public function getIndex()
-	{
+	public function getIndex(){
 		$userLogin = Auth::user();
 		$user_id=$userLogin->id;
 		$user = User::find($user_id);
@@ -20,8 +19,7 @@ class MessageController extends Controller
 		return view('messages.index')->with('messages', $reversed)->with('user', $user)->with('users', $users);
 	}
 
-	public function getChat($partner_id=0)
-	{
+	public function getChat($partner_id=0){
 		
 		$userLogin = Auth::user();
 		$user_id=$userLogin->id;
@@ -40,10 +38,9 @@ class MessageController extends Controller
 	
 		return view('messages.index')->with('allmessages', $allmessages)->with('messages', $messages)->with('user', $user)->with('partner', $partner)->with('users', $users);
 	}
-public function postNew($partner_id)
-    {
-		
-    	{
+
+	public function postNew($partner_id){
+
     		$userLogin = Auth::user();
 			$user_id=$userLogin->id;
         	$post = new Message();
@@ -52,12 +49,8 @@ public function postNew($partner_id)
 			$post->content = Request::input('content');
 			$post->visited=1;
 			$post->save();
-		    
-		 
+		   
 		   return redirect('messages/chat/'.$partner_id);
-
-    	} 
-    	
-    }
+	}
 
 }

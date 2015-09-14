@@ -43,10 +43,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->hasMany('App\Models\Sundayservice', 'user_id');
 	}	
 
-	public function posts()
-	{
-	    return $this->hasMany('App\Models\Post');
-	}
+
 
 	public function messagesSent()
 	{
@@ -87,6 +84,29 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public static function getLectorslist(){
 		return User::where ( 'permission', '<=', 1 )->lists ( 'username', 'id' );
+	}
+
+	public static function getSermonsByIdAndDate($member_id,$date){
+		return Sermon::where('preacher_id','=', $member_id)->where('date','>=',$date)->get();
+	}
+
+	public static function getSundayservicesByIdAndDate($user_id,$today){
+		return Sundayservice::whereHas('sermons', function($q) use ($today)
+				{
+				    $q->where('date','>=',$today);
+
+				})->where('user_id','=',$user_id)->get();
+	}
+
+	public static function getKigosByIdAndDate($user_id,$today){
+		return Kigo::whereHas('sundayservices', function($q) use ($today)
+				{
+				    $q->whereHas('sermons', function($q2) use ($today)
+				    	{
+				    		 $q2->where('date','>=',$today);
+				    	});
+
+				})->where('user_id','=',$user_id)->get();
 	}
 
 

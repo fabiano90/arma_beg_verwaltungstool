@@ -36,7 +36,9 @@
 					@if($member->id != 0 && $member->deleted == null)
 						<tr>
 							<td>{!! $member->onlinename !!}</td>
-							<td data-type="numeric" data-value= '{!!$member->birthdate!!}'>{!! date('d.m.Y', $member->birthdate) !!}</td>
+							
+							<td data-type="numeric" data-value= '{!!$member->birthdate!!}'>@if($member->birthdate){!! date('d.m.Y', $member->birthdate) !!}@endif</td>
+							
 							<td>{!! $member->email !!}</td>
 							@if($auth_user->permission == 0)
 								{{-- HTML Kommentare nicht löschen!!! --}}

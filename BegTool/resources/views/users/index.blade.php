@@ -38,10 +38,10 @@
                             <tbody>
                                 @foreach($kigos as $kigo)
                                 <tr>
-                                    <td data-type="numeric" data-value='{!! $kigo->date !!}'>
+                                    <td data-type="numeric" data-value='{!! $kigo->sundayservices->sermons->date !!}'>
                                         <a class="pull-right" href="/kigos/editkigo/{!! $kigo->id !!}" class=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> 
                                         <a class="pull-right" href="/sundays/editsunday/{!! $kigo->id !!}" title="Dienste tauschen, Lektion hinzufügen"class="btn btn-default"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></a>
-                                        {!! date('d.m.Y', $kigo->date) !!}
+                                        {!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!}
                                         <h3>Kigo </h3>
                                     </td>
                                     
