@@ -93,7 +93,7 @@ class UserController extends Controller
         $rules['username'] = 'required|alpha|min:2|unique:users,username,'.$user_id;        
         $rules['password'] = '';
         $rules['password_confirmation'] = '';
-        $rules['email'] = 'required|email|unique:members,email,'.$user_id;
+        $rules['email'] = 'email|unique:members,email,'.$user_id;
         if(!($auth_user->permission == 0 && $auth_user->id != $user->id)){
         	$rules['permission'] = '';
         }        
