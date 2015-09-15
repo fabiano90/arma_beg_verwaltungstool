@@ -72,7 +72,7 @@ $(function() {
 function collapseOnInput(id){
     $('#tableSong'+id).collapse('show');
     $('#searchButton'+id).html('<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>');
-}
+};
 $(document).on('keyup', 'input#song1', function() {
     collapseOnInput(1);
 });

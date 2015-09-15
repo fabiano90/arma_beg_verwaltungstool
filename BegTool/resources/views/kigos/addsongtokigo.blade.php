@@ -3,8 +3,10 @@
 @section('content')
 <h2>Dem Kigo vom {!! date('d.m.Y', $kigo->sundayservices->sermons->date) !!} Lieder hinzufügen</h2>
 <h4>Bereits zum Kigo hinzugefügte Lieder:</h4>
-    @if($kigo->songs == '[]')
-        Bisher keine Lieder hinzugefügt.
+    @if(count($kigo->songs) > 0)
+        {!! Form::label('songs', 'Lieder') !!}
+    @else
+    	<br/>
     @endif
  	<ul>
 		@foreach($kigo_songs as $song)

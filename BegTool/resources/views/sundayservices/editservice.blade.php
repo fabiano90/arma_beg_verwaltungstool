@@ -1,10 +1,10 @@
 @extends('layouts.main') @section('content') {!!HTML::script('js/editservice.js')!!} {!! Form::model($sunday, array('url' => array('/sundayservices/editservice', $sunday->id))) !!}
 <section class="section content-shadow content-box">
-    <h2 class="form-signup-heading">{!! date('d.m.Y',$sunday->sermons->date)!!}</h2>
+    <h2 class="form-signup-heading">Leitung für den {!! date('d.m.Y',$sunday->sermons->date)!!}</h2>
 
-    {!! $sunday->sermons->members->onlinename !!}
+  
     
-    {!! $sunday->sermons->scripture !!}<br/>
+   Predigttext: {!! $sunday->sermons->scripture !!}<br/>
    Thema: {!! $sunday->sermons->topic !!}
     <ol>{!! $sunday->sermons->subitem !!}</ol>
 
@@ -27,7 +27,7 @@
                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                             </button>
                             </span>
-                            <input id="song1" class="form-control" type="text" placeholder="Suche">
+                            <input id="song1" class="search-form" type="text" placeholder="Suche">
                         </div>
 
                         <div id="tableSong1" class="collapse">
@@ -391,6 +391,7 @@
 
         </div>
     </div>
+</div>
 
 
     {!! Form::submit('Speichern', array('class'=>'btn btn-large btn-primary btn-block', 'id' => 'submitButton'))!!}

@@ -59,7 +59,7 @@
                                 @foreach($sermons as $sermon)
                                 <tr>
                                     <td data-type="numeric" data-value='{!! $sermon->date !!}'>
-                                        {!! date('d.m.Y', $sermon->date) !!} <a class="pull-right" href="/sermons/editsermon/{!! $sermon->preacher_id !!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> 
+                                        {!! date('d.m.Y', $sermon->date) !!} <a class="pull-right" href="/sermons/editsermon/{!! $sermon->id !!}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a> 
                                         <a class="pull-right" href="/sundays/editsunday/{!! $sermon->id !!}" title="Dienste tauschen, Lektion hinzufügen"class="btn btn-default"><span class="glyphicon glyphicon-random" aria-hidden="true"></span></a>
                                         <h3>Predigt</h3>
                                   </td>

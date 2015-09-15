@@ -14,14 +14,19 @@
 	{!! Form::label('crafting', 'Basteln') !!}
 	{!! Form::textarea('crafting', null, array('class'=>'form-control', 'row'=>'2', 'placeholder'=>'Material')) !!}
 
-    @if($kigo->songs != '[]')
+
+    @if(count($kigo->songs) > 0)
         {!! Form::label('songs', 'Lieder') !!}
+    @else
+    	<br/>
     @endif
+
     <ul>
         @foreach($kigo->songs as $song)
             <li>{!! $song->name !!}</li>
         @endforeach
     </ul>
+
 	{!! Form::submit('Weiter', array('class'=>'btn btn-large btn-primary btn-block'))!!}
 	{!! Form::close() !!}
 

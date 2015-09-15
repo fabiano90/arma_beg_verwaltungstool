@@ -42,7 +42,7 @@ class KigoController extends Controller {
 		    $kigo->material = Request::input('material');
 		    $kigo->crafting = Request::input('crafting');
 			$kigo->save();
-		    return redirect('kigos/addsong/'.$kigo_id)->with('message', 'success|Student erfolgreich angelegt!');
+		    return redirect('kigos/addsong/'.$kigo_id)->with('message', 'success|Kigoinfos erfolgreich gespeichert!');
 		} 
 		else
 	 	{
